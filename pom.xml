@@ -14,7 +14,11 @@
               <configuration>
                 <target>
                   <copy file="${project.build.directory}/${project.build.finalName}.jar"
-                        todir="/Users/edusanchez/Desktop/sv/plugins" />
+                        todir="D:\edu\MC\TestSv-1.8.8\plugins" />
+                  <copy file="${project.build.directory}/${project.build.finalName}.jar"
+                        todir="D:\edu\MC\TestSv-1.13.2\plugins" />
+                  <copy file="${project.build.directory}/${project.build.finalName}.jar"
+                        todir="D:\edu\MC\TestSv-1.14\plugins" />
                 </target>
               </configuration>
               <goals>
@@ -30,6 +34,10 @@
          <id>spigot-repo</id>
          <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
        </repository>
+           <repository>
+        <id>everything</id>
+        <url>http://repo.citizensnpcs.co/</url>
+    </repository>
    </repositories>
    <dependencies>
        <dependency>
@@ -39,5 +47,12 @@
            <type>jar</type>
            <scope>provided</scope>
        </dependency>
+           <dependency>
+        <groupId>net.citizensnpcs</groupId>
+        <artifactId>citizens</artifactId>
+        <version>2.0.24-SNAPSHOT</version>
+        <type>jar</type>
+        <scope>provided</scope>
+    </dependency>
    </dependencies>
 </project>
