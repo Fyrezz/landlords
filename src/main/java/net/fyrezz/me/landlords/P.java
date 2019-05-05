@@ -1,9 +1,14 @@
 package net.fyrezz.me.landlords;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.fyrezz.me.landlords.utils.MessageManager;
@@ -32,6 +37,8 @@ public class P extends JavaPlugin {
 	}
 	
 	public void onDisable() {
+		
+		db.save();
 		
 	}
 	
@@ -65,6 +72,17 @@ public class P extends JavaPlugin {
 	
 	public FileConfiguration getLang() {
 		return lang;
+	}
+	
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if (command.equals("l")) {
+			Player p = (Player) sender;
+			List<Player> members = new ArrayList<Player>();
+			members.add(p);
+			Lordship l = new Lordship (p, 1, p.getLocation(), members);
+			p.sendMessage("CREAO");
+		}
+		return false;
 	}
 	
 }
