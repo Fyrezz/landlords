@@ -1,18 +1,12 @@
 package net.fyrezz.me.landlords;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.fyrezz.me.landlords.utils.LazyLocation;
+import net.fyrezz.me.landlords.cmds.CmdLordshipCreate;
 import net.fyrezz.me.landlords.utils.MessageManager;
 
 public class P extends JavaPlugin {
@@ -20,7 +14,9 @@ public class P extends JavaPlugin {
 	public static P p;
 	
 	private Database db;
+	
 	private MessageManager mm;
+	
 	private FileConfiguration config;
 	private FileConfiguration lang;
 	
@@ -33,6 +29,8 @@ public class P extends JavaPlugin {
 		loadConfigs();
 		
 		loadManagers();
+		
+		loadCommands();
 		
 		db = new Database();
 		db.load();
@@ -59,6 +57,10 @@ public class P extends JavaPlugin {
 	
 	private void loadManagers() {
 		mm = new MessageManager();
+	}
+	
+	public void loadCommands() {
+		getCommand("l").setExecutor(new CmdLordshipCreate());
 	}
 	
 	public MessageManager getMm() {

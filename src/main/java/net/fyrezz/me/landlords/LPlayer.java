@@ -12,7 +12,7 @@ public class LPlayer {
 	public LPlayer(String storeduuid) {
 		this.nick = null;
 		this.storeduuid = storeduuid;
-		this.LPlayerData = new File(P.p.getDataFolder() + File.separator + "LPlayers" + File.pathSeparator
+		this.LPlayerData = new File(P.p.getDataFolder() + File.separator + "LPlayers" + File.separator
 				+ storeduuid.toString() + ".dat");
 		init();
 	}

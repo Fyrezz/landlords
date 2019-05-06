@@ -22,11 +22,6 @@ public class Lordship {
 		checkLordship();
 	}
 	
-	public Lordship(String id, int level, LazyLocation homeblock, LPlayer lord) {
-		Map<LPlayer, Byte> members = new HashMap<LPlayer, Byte>();
-		members.put(lord, (byte)0);
-	}
-
 	public LazyLocation getHomeblock() {
 		return homeblock;
 	}

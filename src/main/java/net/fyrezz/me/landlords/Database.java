@@ -46,7 +46,7 @@ public class Database {
 				 * Byte> members
 				 */
 
-				if (split.length != 5) { // Change this number if arguments of Lordship() change
+				if (split.length != 4) { // Change this number if arguments of Lordship() change
 					P.p.getMm().error("FATAL DB ERROR --> Line " + linenum
 							+ " <-- String isn't correctly split (Perhaps wrong module separators?");
 					P.p.getServer().shutdown();
@@ -64,7 +64,7 @@ public class Database {
 						Double.parseDouble(locsplit[2]), Double.parseDouble(locsplit[3]));
 
 				// 4 Map<LPlayer, Byte> Members
-				String[] membersplit = split[4].split(itemseparator);
+				String[] membersplit = split[3].split(itemseparator);
 				Map<LPlayer, Byte> members = new HashMap<LPlayer, Byte>();
 
 				for (int i = 0; i <= membersplit.length - 1; i++) {
