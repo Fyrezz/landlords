@@ -77,20 +77,4 @@ public class P extends JavaPlugin {
 		return lang;
 	}
 	
-	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (command.getName().equalsIgnoreCase("l")) {
-			Player p = (Player) sender;
-			LPlayer lplayer = new LPlayer(p.getUniqueId());	
-			List<LPlayer> members = new ArrayList<LPlayer>();
-			members.add(lplayer);
-			Lordship l = new Lordship (lplayer, 1, new LazyLocation(p.getLocation()), members);
-			db.addLordship(l);
-			p.sendMessage("CREAO");
-			
-			return true;
-		}
-		return false;
-	}
-	
 }

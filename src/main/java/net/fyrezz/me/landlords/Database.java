@@ -12,9 +12,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-
 import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Database {
@@ -45,8 +42,8 @@ public class Database {
 				/*
 				 * Database line modules
 				 * 
-				 * 1 LPlayer lord % 2 LUUID id % 3 Integer level % 4 LazyLocation homeblock % 5
-				 * List<Player> members
+				 * 1 String ID % 2 Integer level % 3 LazyLocation Homeblock % 4 Map<LPlayer,
+				 * Byte> members
 				 */
 
 				if (split.length != 5) { // Change this number if arguments of Lordship() change
@@ -55,31 +52,33 @@ public class Database {
 					P.p.getServer().shutdown();
 				}
 
-				// 1 Player lord
+				// 1 String ID
+				String id = split[0];
 
-				LPlayer lord = new LPlayer(UUID.fromString(split[0]));
+				// 2 Integer level
+				int level = Integer.parseInt(split[1]);
 
-				// 3 Integer level
-
-				int level = Integer.parseInt(split[2]);
-
-				// 4 Location homeblock
-
-				String[] locsplit = split[3].split(itemseparator);
+				// 3 LazyLocation homeblock
+				String[] locsplit = split[2].split(itemseparator);
 				LazyLocation homeblock = new LazyLocation(locsplit[0], Double.parseDouble(locsplit[1]),
 						Double.parseDouble(locsplit[2]), Double.parseDouble(locsplit[3]));
 
-				// 5 List<Player> Members
-
+				// 4 Map<LPlayer, Byte> Members
 				String[] membersplit = split[4].split(itemseparator);
-				List<UUID> members = new ArrayList<UUID>();
+				Map<LPlayer, Byte> members = new HashMap<LPlayer, Byte>();
 
 				for (int i = 0; i <= membersplit.length - 1; i++) {
-					members.add(UUID.fromString(membersplit[i]));
-				}
+					// Members are saved: "RANK_BYTE=UUID"
+					Byte rank = Byte.parseByte(membersplit[i].substring(0, 1));
+					LPlayer lplayer = new LPlayer(membersplit[i].substring(2));
 
-				Lordship lrdshp = new Lordship(lord, level, homeblock, members);
-				lordships.put(lrdshp.getLUUID().getString(), lrdshp);
+					members.put(lplayer, rank);
+				}
+				// Create the lordship
+				Lordship lordship = new Lordship(id, level, homeblock, members);
+
+				// Add it to the loaded lordship's map
+				lordships.put(lordship.getID(), lordship);
 
 			}
 			scan.close();
@@ -90,32 +89,54 @@ public class Database {
 
 	public void save() {
 		try {
-			//First clear file
+			// First clear file
 			dbfile.delete();
 			
-			//Then, save each loaded Lordship
-			PrintWriter pw = new PrintWriter(new FileWriter(dbfile.getAbsolutePath(), false));
-			for (String luuid : lordships.keySet()) {
-				Lordship lordship = lordships.get(luuid);
-				
-				//Serialize members
-				List<UUID> members = new ArrayList<UUID>();
-				for (LPlayer lplayer : lordship.getMembers()) {
-					members.add(lplayer.getStoredUuid());
-				}
-				
-				//Save all the info in a new line
-				String newline = lordship.getLord().getStoredUuid() + moduleseparator + lordship.getLUUID().getString()
-						+ moduleseparator + lordship.getLevel() + moduleseparator
-						+ lordship.getHomeblock().getLocation().getWorld().getName() + itemseparator
-						+ lordship.getHomeblock().getLocation().getX() + itemseparator
-						+ lordship.getHomeblock().getLocation().getY() + itemseparator
-						+ lordship.getHomeblock().getLocation().getZ() + moduleseparator
-						+ new String().join(itemseparator, members.toString().replace("[", "").replace("]", ""));
-
-				pw.println(newline);
+			// Don't do anything if there is anything to do
+			if (lordships.isEmpty() | lordships.size() < 1 | lordships == null) {
+				P.p.getMm().error("No lordships loaded! Saving no thing...");
+				return;
 			}
 
+			// If there's work, print each loaded lordship in a new line
+			PrintWriter pw = new PrintWriter(new FileWriter(dbfile.getAbsolutePath(), false));
+			
+			/*
+			 * Database line modules
+			 * 
+			 * 1 String ID % 2 Integer level % 3 LazyLocation Homeblock % 4 Map<LPlayer,
+			 * Byte> members
+			 */
+
+			for (String ID : lordships.keySet()) {
+				Lordship lordship = lordships.get(ID);
+				List<String> modules = new ArrayList<String>();
+
+				// 1 String ID
+				modules.add(lordship.getID());
+				
+				// 2 Integer Level
+				modules.add(String.valueOf(lordship.getLevel()));
+				
+				// 3 LazyLocation Homeblock
+				List<String> locationarray = new ArrayList<String>();
+				locationarray.add(lordship.getHomeblock().getLocation().getWorld().getName());
+				locationarray.add(String.valueOf(lordship.getHomeblock().getLocation().getX()));
+				locationarray.add(String.valueOf(lordship.getHomeblock().getLocation().getY()));
+				locationarray.add(String.valueOf(lordship.getHomeblock().getLocation().getZ()));
+				modules.add(new String().join(itemseparator,  locationarray).replace("[", "").replace("]", ""));
+				
+				// 4 Map<LPlayer, Byte> members
+				List<String> memberarray = new ArrayList<String>();
+				for (LPlayer lplayer : lordship.getMembers().keySet()) {
+					memberarray.add(lordship.getMembers().get(lplayer) + "=" + lplayer.getStoredUuid());
+				}
+				modules.add(new String().join(itemseparator, memberarray).replace("[", "").replace("]", ""));
+
+				// Save all the info in a new line
+				String newline = new String().join(moduleseparator, modules).replace("[", "").replace("]", "");
+				pw.println(newline);
+			}
 			pw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -158,8 +179,7 @@ public class Database {
 		if (lordships.containsKey(lordship.getLUUID())) {
 			lordships.remove(lordship.getLUUID());
 		} else {
-			P.p.getMm().error(
-					"Error trying to remove " + lordship.getLUUID() + "'s Lordship from loaded lordships");
+			P.p.getMm().error("Error trying to remove " + lordship.getLUUID() + "'s Lordship from loaded lordships");
 		}
 	}
 

@@ -1,10 +1,8 @@
 package net.fyrezz.me.landlords;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import net.fyrezz.me.landlords.utils.LUUID;
 import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordship {
@@ -20,7 +18,7 @@ public class Lordship {
 		this.level = level;
 		this.homeblock = homeblock;
 		this.members = members;
-		
+
 		checkLordship();
 	}
 
@@ -39,21 +37,33 @@ public class Lordship {
 	public int getLevel() {
 		return level;
 	}
-	
+
 	private void checkLordship() {
-		// 0: Lord, 1: Access to everything, 2: Not access to lvl 1, 3: Not access to lvl 1 + lvl 2
-		if (members.isEmpty() | members.size() < 1 | members == null ) {
-			P.p.getMm().error("Error loading Lordship " + id + " members: It's empty!" );
-		} else {
-			if (!(members.containsValue(0))) {
-				P.p.getMm().error("Error loading Lordship " + id + " members: No Lord inside members!");
-			} else {
-				int count = 0;
-				for (LPlayer lplayer : members.keySet()) {
-					
-				}
+		// 0: Lord, 1: Access to everything, 2: Not access to lvl 1, 3: Not access to
+		// lvl 1 + lvl 2
+		if (members.isEmpty() | members.size() < 1 | members == null) {
+			P.p.getMm().error("Error loading Lordship " + id + " members: It's empty!");
+			return;
+		}
+		
+		int count = 0;
+		for (LPlayer lplayer : members.keySet()) {
+			if (members.get(lplayer) == 0) {
+				count++;
 			}
 		}
+		
+		if (count != 1) {
+			P.p.getMm().error("Error loading Lordship " + id + " members: Incorrect Lord!");
+		}
+	}
+
+	public void addMember(LPlayer lplayer, Byte rank) {
+		if (members.containsKey(lplayer)) {
+			P.p.getMm().error("Error adding member to Lordship " + id + ": Already a member!");
+			return;
+		}		
+		members.put(lplayer, rank);
 	}
 
 }

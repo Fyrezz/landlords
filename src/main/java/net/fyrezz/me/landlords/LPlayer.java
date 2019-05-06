@@ -6,10 +6,10 @@ import java.util.UUID;
 public class LPlayer {
 
 	private String nick;
-	private UUID storeduuid;
+	private String storeduuid;
 	private File LPlayerData;
 
-	public LPlayer(UUID storeduuid) {
+	public LPlayer(String storeduuid) {
 		this.nick = null;
 		this.storeduuid = storeduuid;
 		this.LPlayerData = new File(P.p.getDataFolder() + File.separator + "LPlayers" + File.pathSeparator
@@ -27,7 +27,7 @@ public class LPlayer {
 		}
 	}
 	
-	public UUID getStoredUuid() {
+	public String getStoredUuid() {
 		return storeduuid;
 	}
 
