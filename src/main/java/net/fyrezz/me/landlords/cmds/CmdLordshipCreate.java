@@ -15,7 +15,7 @@ public class CmdLordshipCreate implements CommandExecutor {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			LPlayer lplayer = new LPlayer(player.getUniqueId().toString());
-			P.p.getDb().addLordship(new Lordship());
+			P.p.getDb().addLordship(new Lordship(lplayer, lplayer.get));
 		}
 		return false;
 	}
