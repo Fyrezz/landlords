@@ -90,15 +90,28 @@ public class Database {
 
 	public void save() {
 		try {
+			//First clear file
 			dbfile.delete();
+			
+			//Then, save each loaded Lordship
 			PrintWriter pw = new PrintWriter(new FileWriter(dbfile.getAbsolutePath(), false));
 			for (String luuid : lordships.keySet()) {
 				Lordship lordship = lordships.get(luuid);
-				String newline = lordship.getLord().getStoredUuid() + moduleseparator
-						+ lordship.getLUUID().getString() + moduleseparator + lordship.getLevel() + moduleseparator + lordship.getHomeblock().getLocation().getWorld().getName() + itemseparator + 
-						lordship.getHomeblock().getLocation().getX() + itemseparator + lordship.getHomeblock().getLocation().getY()
-						+ itemseparator + lordship.getHomeblock().getLocation().getZ() + moduleseparator + new String().join(
-								itemseparator, lordship.getMembers().toString().replace("[", "").replace("]", ""));
+				
+				//Serialize members
+				List<UUID> members = new ArrayList<UUID>();
+				for (LPlayer lplayer : lordship.getMembers()) {
+					members.add(lplayer.getStoredUuid());
+				}
+				
+				//Save all the info in a new line
+				String newline = lordship.getLord().getStoredUuid() + moduleseparator + lordship.getLUUID().getString()
+						+ moduleseparator + lordship.getLevel() + moduleseparator
+						+ lordship.getHomeblock().getLocation().getWorld().getName() + itemseparator
+						+ lordship.getHomeblock().getLocation().getX() + itemseparator
+						+ lordship.getHomeblock().getLocation().getY() + itemseparator
+						+ lordship.getHomeblock().getLocation().getZ() + moduleseparator
+						+ new String().join(itemseparator, members.toString().replace("[", "").replace("]", ""));
 
 				pw.println(newline);
 			}
@@ -137,7 +150,7 @@ public class Database {
 		if (!(lordships.containsKey(lordship.getLUUID()))) {
 			lordships.put(lordship.getLUUID().getString(), lordship);
 		} else {
-			P.p.getMm().error("Error trying to load " + lordship.getLord().getName() + "'s Lordship")
+			P.p.getMm().error("Error trying to load " + lordship.getLUUID() + " Lordship");
 		}
 	}
 
@@ -146,7 +159,7 @@ public class Database {
 			lordships.remove(lordship.getLUUID());
 		} else {
 			P.p.getMm().error(
-					"Error trying to remove " + lordship.getLord().getName() + "'s Lordship from loaded lordships");
+					"Error trying to remove " + lordship.getLUUID() + "'s Lordship from loaded lordships");
 		}
 	}
 

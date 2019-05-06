@@ -1,53 +1,59 @@
 package net.fyrezz.me.landlords;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import org.bukkit.Location;
+import java.util.Map;
 
 import net.fyrezz.me.landlords.utils.LUUID;
 import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordship {
 
-	private LPlayer lord;
-	private LUUID id;
+	private String id;
 	private int level;
 	private LazyLocation homeblock;
-	private List<LPlayer> members = new ArrayList<LPlayer>();
+	private Map<LPlayer, Byte> members = new HashMap<LPlayer, Byte>();
 
-	public Lordship(LPlayer lord, int level, LazyLocation homeblock, List<LPlayer> members) {
-		this.lord = lord;
-		this.id = new LUUID(lord);
+	public Lordship(String id, int level, LazyLocation homeblock, Map<LPlayer, Byte> members) {
+		// The Lordship's ID is always the Lord's UUID
+		this.id = id;
 		this.level = level;
 		this.homeblock = homeblock;
 		this.members = members;
-	}
-
-	public LPlayer getLord() {
-		return lord;
+		
+		checkLordship();
 	}
 
 	public LazyLocation getHomeblock() {
 		return homeblock;
 	}
 
-	public List<LPlayer> getMembers() {
+	public Map<LPlayer, Byte> getMembers() {
 		return members;
 	}
 
-	public List<String> getMembersStringUuids() {
-		if (members.size() < 1 | members.isEmpty() | members == null) {
-			P.p.getMm().error("Error loading members in " + lord.getNick(););
-		}
-	}
-
-	public LUUID getLUUID() {
+	public String getID() {
 		return id;
 	}
 
 	public int getLevel() {
 		return level;
+	}
+	
+	private void checkLordship() {
+		// 0: Lord, 1: Access to everything, 2: Not access to lvl 1, 3: Not access to lvl 1 + lvl 2
+		if (members.isEmpty() | members.size() < 1 | members == null ) {
+			P.p.getMm().error("Error loading Lordship " + id + " members: It's empty!" );
+		} else {
+			if (!(members.containsValue(0))) {
+				P.p.getMm().error("Error loading Lordship " + id + " members: No Lord inside members!");
+			} else {
+				int count = 0;
+				for (LPlayer lplayer : members.keySet()) {
+					
+				}
+			}
+		}
 	}
 
 }
