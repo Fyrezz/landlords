@@ -168,18 +168,18 @@ public class Database {
 	}
 
 	public void addLordship(Lordship lordship) {
-		if (!(lordships.containsKey(lordship.getLUUID()))) {
-			lordships.put(lordship.getLUUID().getString(), lordship);
+		if (!(lordships.containsKey(lordship.getID()))) {
+			lordships.put(lordship.getID(), lordship);
 		} else {
-			P.p.getMm().error("Error trying to load " + lordship.getLUUID() + " Lordship");
+			P.p.getMm().error("Error trying to load " + lordship.getID() + " Lordship");
 		}
 	}
 
 	public void removeLordship(Lordship lordship) {
-		if (lordships.containsKey(lordship.getLUUID())) {
-			lordships.remove(lordship.getLUUID());
+		if (lordships.containsKey(lordship.getID())) {
+			lordships.remove(lordship.getID());
 		} else {
-			P.p.getMm().error("Error trying to remove " + lordship.getLUUID() + "'s Lordship from loaded lordships");
+			P.p.getMm().error("Error trying to remove " + lordship.getID() + "'s Lordship from loaded lordships");
 		}
 	}
 
