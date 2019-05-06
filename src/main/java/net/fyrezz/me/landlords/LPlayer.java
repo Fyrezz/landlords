@@ -1,17 +1,34 @@
 package net.fyrezz.me.landlords;
 
+import java.io.File;
 import java.util.UUID;
 
-import org.bukkit.entity.Player;
-
 public class LPlayer {
+
+	private String nick;
+	private UUID storeduuid;
+	private File LPlayerData;
+
+	public LPlayer(UUID storeduuid) {
+		this.nick = null;
+		this.storeduuid = storeduuid;
+		this.LPlayerData = new File(P.p.getDataFolder() + File.separator + "LPlayers" + File.pathSeparator
+				+ storeduuid.toString() + ".dat");
+		init();
+	}
+
+	private void init() {
+		if (!(LPlayerData.exists())) {
+			try {
+				LPlayerData.createNewFile();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
-	private UUID uuid;
-//	private boolean islord;
-	
-	public LPlayer(Player player, boolean islord) {
-		this.uuid = player.getUniqueId();
-//		this.islord = islord;
+	public UUID getStoredUuid() {
+		return storeduuid;
 	}
 
 }

@@ -4,18 +4,18 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
+import net.fyrezz.me.landlords.LPlayer;
+
 public class LUUID {
 	
-	private Player player;
 	private String luuid;
 	
-	public LUUID(Player player) {
-		this.player = player;
-		this.luuid = "L" + player.getUniqueId().toString();
+	public LUUID(LPlayer lplayer) {
+		this.luuid = "L" + lplayer.getStoredUuid().toString();
 	}
 	
-	public Player getPlayer() {
-		return player;
+	public String getString() {
+		return luuid;
 	}
 
 }

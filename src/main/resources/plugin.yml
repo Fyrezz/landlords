@@ -1,2 +1,13 @@
-main: net.fyrezz.me.landlords.P
+name: Landlords
+description: Lordship management plugin
 author: Fyrezz
+website: https://github.com/Fyrezz/landlords
+
+main: net.fyrezz.me.landlords.P
+version: 1.0.0
+api-version: 1.14
+
+commands:
+  l:
+    description: Main command
+    aliases: [ll, landlord, landlords]

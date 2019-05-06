@@ -4,42 +4,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 import net.fyrezz.me.landlords.utils.LUUID;
+import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordship {
-	
-	private Player lord;
+
+	private LPlayer lord;
 	private LUUID id;
 	private int level;
-	private Location homeblock;
-	private List<Player> members = new ArrayList<Player>();
-	
-	public Lordship(Player lord, int level, Location homeblock, List<Player> members) {
+	private LazyLocation homeblock;
+	private List<LPlayer> members = new ArrayList<LPlayer>();
+
+	public Lordship(LPlayer lord, int level, LazyLocation homeblock, List<LPlayer> members) {
 		this.lord = lord;
 		this.id = new LUUID(lord);
 		this.level = level;
 		this.homeblock = homeblock;
 		this.members = members;
 	}
-	
-	public Player getLord() {
-		return id.getPlayer();
+
+	public LPlayer getLord() {
+		return lord;
 	}
-	
-	public Location getHomeblock() {
+
+	public LazyLocation getHomeblock() {
 		return homeblock;
 	}
-	
-	public List<Player> getMembers(){
+
+	public List<LPlayer> getMembers() {
 		return members;
 	}
-	
+
+	public List<String> getMembersStringUuids() {
+		if (members.size() < 1 | members.isEmpty() | members == null) {
+			P.p.getMm().error("Error loading members in " + lord.getNick(););
+		}
+	}
+
 	public LUUID getLUUID() {
 		return id;
 	}
-	
+
 	public int getLevel() {
 		return level;
 	}
