@@ -18,7 +18,13 @@ public class CommandContent {
 	private Lordship lordship;
 	
 	public CommandContent(CommandSender sender, List<String> args) {
+		this.sender = sender;
+		this.args = args;
 		
+		if (sender instanceof Player) {
+			this.player = (Player) sender;
+			this.lplayer = 
+		}
 	}
 
 }

@@ -1,5 +1,9 @@
 package net.fyrezz.me.landlords.cmds;
 
-public class LCommand {
+public abstract class LCommand {
+	
+	public void perform(CommandContent content) {
+		
+	}
 
 }
