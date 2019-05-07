@@ -89,7 +89,7 @@ public class DatabaseManager {
 			// First clear file
 			lordshipsDBFile.delete();
 			
-			List<Lordship> loadedLordships = Lordships.getLoadedLordships();
+			List<Lordship> loadedLordships = P.p.getLordships().getLoadedLordships();
 
 			// Don't do anything if there is anything to do
 			if (loadedLordships.isEmpty() | loadedLordships.size() < 1 | loadedLordships == null) {
@@ -139,6 +139,10 @@ public class DatabaseManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<LPlayer> getSavedLPlayers(){
+		return new ArrayList<LPlayer>();
 	}
 
 	public void init() {

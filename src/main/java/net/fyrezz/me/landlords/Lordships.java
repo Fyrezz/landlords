@@ -6,19 +6,13 @@ import java.util.logging.Level;
 
 public class Lordships {
 	
-	private static Lordships instance;
-	
-	private static List<Lordship> loadedLordships = new ArrayList<Lordship>();
+	private List<Lordship> loadedLordships;
 	
 	public Lordships() {
-		instance = this;
+		this.loadedLordships = new ArrayList<Lordship>();
 	}
 	
-	public static Lordships getInstance() {
-		return instance;
-	}
-	
-	public static void load() {
+	public void load() {
 		Integer count = 0;
 		for (Lordship lordship : P.p.getDB().getSavedLordships()) {
 			loadedLordships.add(lordship);
@@ -27,11 +21,11 @@ public class Lordships {
 		P.p.getLogger().log(Level.INFO, "Loaded " + count + " Lordships into memory.");
 	}
 	
-	public static void clearMemory() {
+	public void clearMemory() {
 		loadedLordships.clear();
 	}
 	
-	public static void loadLordship(Lordship lordship) {
+	public void loadLordship(Lordship lordship) {
 		if (loadedLordships.contains(lordship)) {
 			P.p.getLogger().log(Level.WARNING, "Cannot load Lordship " + lordship.getID() + ": It's already loaded!");
 			return;
@@ -39,7 +33,7 @@ public class Lordships {
 		loadedLordships.add(lordship);
 	}
 	
-	public static void unloadLordship(Lordship lordship) {
+	public void unloadLordship(Lordship lordship) {
 		if (!loadedLordships.contains(lordship)) {
 			P.p.getLogger().log(Level.WARNING, "Cannot unload Lordship " + lordship.getID() + ": It's not loaded!");
 			return;
@@ -47,7 +41,7 @@ public class Lordships {
 		loadedLordships.add(lordship);
 	}
 	
-	public static List<Lordship> getLoadedLordships(){
+	public List<Lordship> getLoadedLordships(){
 		return loadedLordships;
 	}
 	

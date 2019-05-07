@@ -16,6 +16,9 @@ public class P extends JavaPlugin {
 	private DatabaseManager databaseManager;
 	private MessageManager messageManager;
 	
+	private Lordships lordships;
+	private LPlayers lPlayers;
+	
 	private FileConfiguration config;
 	private FileConfiguration lang;
 	
@@ -40,11 +43,13 @@ public class P extends JavaPlugin {
 		messageManager = new MessageManager();
 		
 		// Load LPlayers and Lordships
-		LPlayers.clearMemory();
-		LPlayers.load();
+		lPlayers = new LPlayers();
+		lPlayers.clearMemory();
+		lPlayers.load();
 		
-		Lordships.clearMemory();
-		Lordships.load();
+		lordships = new Lordships();
+		lordships.clearMemory();
+		lordships.load();
 		
 		// Register commands
 		getCommand("l").setExecutor(new LordshipCommands());
@@ -56,6 +61,14 @@ public class P extends JavaPlugin {
 	public void onDisable() {
 		// Save loaded Lordships
 		databaseManager.saveLoadedLordships();
+	}
+	
+	public Lordships getLordships() {
+		return lordships;
+	}
+	
+	public LPlayers getLPlayers() {
+		return lPlayers;
 	}
 	
 	public MessageManager getMM() {
