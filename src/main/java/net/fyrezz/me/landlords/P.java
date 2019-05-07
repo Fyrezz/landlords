@@ -6,7 +6,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.fyrezz.me.landlords.cmds.CmdLordshipCreate;
+import net.fyrezz.me.landlords.cmds.LordshipCommands;
 import net.fyrezz.me.landlords.utils.MessageManager;
 
 public class P extends JavaPlugin {
@@ -14,9 +14,8 @@ public class P extends JavaPlugin {
 	public static P p;
 	
 	private Database db;
-	
 	private MessageManager mm;
-	
+	private LordshipCommands lc;
 	private FileConfiguration config;
 	private FileConfiguration lang;
 	
@@ -25,33 +24,26 @@ public class P extends JavaPlugin {
 	}
 	
 	public void onEnable() {
-		
 		loadConfigs();
-		
 		loadManagers();
-		
-		loadCommands();
-		
-		db = new Database();
-		db.load();
-		
+		loadDatabase();
+		registerCommands();
 	}
 	
 	public void onDisable() {
-		
 		db.save();
-		
 	}
 	
 	private void loadConfigs() {
 		saveResource("config.yml", false);
-		saveResource("lang.yml", false);
-		
 		config = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
+		
+		saveResource("lang.yml", false);
 		lang = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang.yml"));
 	}
 	
-	private void loadData() {
+	private void loadDatabase() {
+		db = new Database();
 		db.load();
 	}
 	
@@ -59,8 +51,9 @@ public class P extends JavaPlugin {
 		mm = new MessageManager();
 	}
 	
-	public void loadCommands() {
-		getCommand("l").setExecutor(new CmdLordshipCreate());
+	public void registerCommands() {
+		lc = new LordshipCommands();
+		getCommand("l").setExecutor(lc);
 	}
 	
 	public MessageManager getMm() {
