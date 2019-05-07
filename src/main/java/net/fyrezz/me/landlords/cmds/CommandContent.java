@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
+import net.fyrezz.me.landlords.P;
 
 public class CommandContent {
 	
@@ -16,6 +17,7 @@ public class CommandContent {
 	private Player player;
 	private LPlayer lplayer;
 	private Lordship lordship;
+	private Byte rank;
 	
 	public CommandContent(CommandSender sender, List<String> args) {
 		this.sender = sender;
@@ -23,7 +25,8 @@ public class CommandContent {
 		
 		if (sender instanceof Player) {
 			this.player = (Player) sender;
-			this.lplayer = 
+			this.lplayer = LPlayers.getInstance().getByUUID(player.getUniqueId());
+			this.lordship = Lordships.getInstance().getBy
 		}
 	}
 

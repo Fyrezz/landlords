@@ -1,5 +1,7 @@
 package net.fyrezz.me.landlords.utils;
 
+import java.util.logging.Level;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -46,7 +48,7 @@ public class LazyLocation {
 		
 		World world = Bukkit.getWorld(worldName);
 		if (world == null) {
-			P.p.getMm().error("Error loading location's world.");
+			P.p.getLogger().log(Level.WARNING, "Error loading location's world.");
 			return;
 		}
 		

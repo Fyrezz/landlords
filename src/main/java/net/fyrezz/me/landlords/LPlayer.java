@@ -6,29 +6,29 @@ import java.util.UUID;
 public class LPlayer {
 
 	private String nick;
-	private String storeduuid;
-	private File LPlayerData;
+	private String storedUUID;
+	private File lPlayerData;
 
-	public LPlayer(String storeduuid) {
+	public LPlayer(String storedUUID) {
 		this.nick = null;
-		this.storeduuid = storeduuid;
-		this.LPlayerData = new File(P.p.getDataFolder() + File.separator + "LPlayers" + File.separator
-				+ storeduuid.toString() + ".dat");
+		this.storedUUID = storedUUID;
+		this.lPlayerData = new File(P.p.getDataFolder() + File.separator + "LPlayers" + File.separator
+				+ storedUUID.toString() + ".dat");
 		init();
 	}
 
 	private void init() {
-		if (!(LPlayerData.exists())) {
+		if (!(lPlayerData.exists())) {
 			try {
-				LPlayerData.createNewFile();
+				lPlayerData.createNewFile();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
 	
-	public String getStoredUuid() {
-		return storeduuid;
+	public String getStoredUUID() {
+		return storedUUID;
 	}
 
 }

@@ -13,9 +13,9 @@ public class P extends JavaPlugin {
 	
 	public static P p;
 	
-	private Database db;
-	private MessageManager mm;
-	private LordshipCommands lc;
+	private DatabaseManager databaseManager;
+	private MessageManager messageManager;
+	
 	private FileConfiguration config;
 	private FileConfiguration lang;
 	
@@ -23,45 +23,47 @@ public class P extends JavaPlugin {
 		p = this;
 	}
 	
+	@Override
 	public void onEnable() {
-		loadConfigs();
-		loadManagers();
-		loadDatabase();
-		registerCommands();
-	}
-	
-	public void onDisable() {
-		db.save();
-	}
-	
-	private void loadConfigs() {
+		// Make sure config files exist, and load them
 		saveResource("config.yml", false);
-		config = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
-		
 		saveResource("lang.yml", false);
+		
+		config = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
 		lang = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang.yml"));
+		
+		// Load Database Manager
+		databaseManager = new DatabaseManager();
+		databaseManager.init();
+		
+		// Load Message Manager
+		messageManager = new MessageManager();
+		
+		// Load LPlayers and Lordships
+		LPlayers.clearMemory();
+		LPlayers.load();
+		
+		Lordships.clearMemory();
+		Lordships.load();
+		
+		// Register commands
+		getCommand("l").setExecutor(new LordshipCommands());
+		
+		// Finally, register event listeners
 	}
 	
-	private void loadDatabase() {
-		db = new Database();
-		db.load();
+	@Override
+	public void onDisable() {
+		// Save loaded Lordships
+		databaseManager.saveLoadedLordships();
 	}
 	
-	private void loadManagers() {
-		mm = new MessageManager();
+	public MessageManager getMM() {
+		return messageManager;
 	}
 	
-	public void registerCommands() {
-		lc = new LordshipCommands();
-		getCommand("l").setExecutor(lc);
-	}
-	
-	public MessageManager getMm() {
-		return mm;
-	}
-	
-	public Database getDb() {
-		return db;
+	public DatabaseManager getDB() {
+		return databaseManager;
 	}
 	
 	public FileConfiguration getConfig() {
