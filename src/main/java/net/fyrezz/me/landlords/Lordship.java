@@ -37,6 +37,10 @@ public class Lordship {
 		homeblock = location;
 	}
 
+	/*
+	 * Getting info
+	 */
+
 	public Map<LPlayer, Byte> getRankedMembers() {
 		return members;
 	}
@@ -63,6 +67,14 @@ public class Lordship {
 		return null;
 	}
 
+	public Byte getRank(LPlayer lPlayer) {
+		return members.get(lPlayer);
+	}
+
+	/*
+	 * Security checks
+	 */
+
 	private void checkLordship() {
 		// 0: Lord, 1: Access to everything, 2: Not access to lvl 1, 3: Not access to
 		// lvl 1 + lvl 2
@@ -83,13 +95,25 @@ public class Lordship {
 		}
 	}
 
+	public boolean containsMember(LPlayer lPlayer) {
+		return (members.containsKey(lPlayer));
+	}
+
+	public boolean isFull() {
+		return (members.size() >= P.p.getConfig().getInt("maxmembers"));
+	}
+
+	/*
+	 * Adding and removing members
+	 */
+
 	public void addMember(LPlayer lPlayer, Byte rank) {
-		if (members.containsKey(lPlayer)) {
+		if (containsMember(lPlayer)) {
 			P.p.getLogger().log(Level.WARNING, "Error adding member to Lordship " + id + ": Already a member!");
 			return;
 		}
-		
-		if (members.size() >= P.p.getConfig().getInt("maxmembers")) {
+
+		if (isFull()) {
 			P.p.getLogger().log(Level.WARNING, "Error adding member to Lordship " + id + ": Max members reached!");
 			return;
 		}
@@ -97,7 +121,7 @@ public class Lordship {
 	}
 
 	public void removeMember(LPlayer lPlayer, Byte rank) {
-		if (!members.containsKey(lPlayer)) {
+		if (!containsMember(lPlayer)) {
 			P.p.getLogger().log(Level.WARNING, "Error removing member from Lordship " + id + ": Not a member!");
 			return;
 		}
@@ -111,6 +135,22 @@ public class Lordship {
 					"Error removing member from Lordship " + id + ": Lord is already the only member!");
 		}
 		members.remove(lPlayer);
+	}
+
+	/*
+	 * Setting ranks
+	 */
+
+	public void setRank(LPlayer lPlayer, Byte rank) {
+		if (!containsMember(lPlayer)) {
+			P.p.getLogger().log(Level.WARNING, "Error setting rank in Lordship " + id + ": LPlayer not a member!");
+			return;
+		}
+		if (rank < 1 | rank > 3) { // Cannot set Lord | Min rank is 3
+			P.p.getLogger().log(Level.WARNING, "Error setting rank in Lordship " + id + ": Invalid rank!");
+			return;
+		}
+		members.put(lPlayer, rank);
 	}
 
 }

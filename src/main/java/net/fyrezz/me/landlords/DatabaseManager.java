@@ -17,17 +17,18 @@ import net.fyrezz.me.landlords.utils.LazyLocation;
 public class DatabaseManager {
 
 	private File lordshipsDBFile;
-	private File lPlayer;
+	private File lPlayersDBFolder;
 	private String moduleSeparator = "%";
 	private String itemSeparator = ",";
 
 	public DatabaseManager() {
 		this.lordshipsDBFile = new File(P.p.getDataFolder() + File.separator + "database.json");
+		this.lPlayersDBFolder = new File(P.p.getDataFolder() + File.separator + "LPlayers");
 
 		init();
 	}
 
-	public List<Lordship> getSavedLordships() {
+	public List<Lordship> loadSavedLordships() {
 		List<Lordship> lordships = new ArrayList<Lordship>();
 		int lineNum = 0;
 		Scanner scan;
@@ -65,11 +66,13 @@ public class DatabaseManager {
 				Map<LPlayer, Byte> members = new HashMap<LPlayer, Byte>();
 
 				for (int i = 0; i <= memberSplit.length - 1; i++) {
-					// Members are saved: "RANK_BYTE=UUID"
-					Byte rank = Byte.parseByte(memberSplit[i].substring(0, 1));
-					LPlayer lPlayer = new LPlayer(memberSplit[i].substring(2));
+					// Members are saved: "RANK_BYTE=UUID=NAME"
+					String[] memberSplitSplit = memberSplit[i].split("=");
+					String UUID = memberSplitSplit[1];
+					String name = memberSplitSplit[2];
+					Byte rank = Byte.parseByte(memberSplitSplit[0]);
 
-					members.put(lPlayer, rank);
+					members.put(new LPlayer(UUID, name), rank);
 				}
 				// Create the lordship
 				Lordship lordship = new Lordship(id, level, homeblock, members);
@@ -88,7 +91,7 @@ public class DatabaseManager {
 		try {
 			// First clear file
 			lordshipsDBFile.delete();
-			
+
 			List<Lordship> loadedLordships = P.p.getLordships().getLoadedLordships();
 
 			// Don't do anything if there is anything to do
@@ -127,7 +130,8 @@ public class DatabaseManager {
 				// 4 Map<LPlayer, Byte> members
 				List<String> memberArray = new ArrayList<String>();
 				for (LPlayer lPlayer : lordship.getRankedMembers().keySet()) {
-					memberArray.add(lordship.getRankedMembers().get(lPlayer) + "=" + lPlayer.getStoredUUID());
+					memberArray.add(lordship.getRankedMembers().get(lPlayer) + "=" + lPlayer.getUUID() + "="
+							+ lPlayer.getName());
 				}
 				modules.add(new String().join(itemSeparator, memberArray).replace("[", "").replace("]", ""));
 
@@ -140,12 +144,26 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public List<LPlayer> getSavedLPlayers(){
-		return new ArrayList<LPlayer>();
+
+	public List<LPlayer> loadSavedLPlayers() {
+		List<LPlayer> lPlayers = new ArrayList<LPlayer>();
+		int count = 0;
+		for (File lPlayerFile : lPlayersDBFolder.listFiles()) {
+			String[] UUID = lPlayerFile.getName().split(".");
+			LPlayer lPlayer = new LPlayer(UUID[0]);
+			lPlayers.add(lPlayer);
+			count++;
+		}
+		if (lPlayers.size() != count) {
+			P.p.getLogger().log(Level.WARNING,
+					"Possible error when loading saved LPlayers to memory: List size doesn't match LPlayers");
+		}
+		P.p.getLogger().log(Level.INFO, "Loaded " + count + "LPlayers to memory.");
+		return lPlayers;
 	}
 
 	public void init() {
+		// Create Lordships Database file
 		if (!lordshipsDBFile.exists()) {
 			try {
 				lordshipsDBFile.createNewFile();
@@ -153,7 +171,14 @@ public class DatabaseManager {
 				e.printStackTrace();
 			}
 		}
-
+		// Create LPlayers Folder
+		if (!lPlayersDBFolder.exists()) {
+			try {
+				lPlayersDBFolder.mkdir();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public boolean isNumeric(String str) {

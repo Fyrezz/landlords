@@ -25,7 +25,7 @@ public class CommandContent {
 		
 		if (sender instanceof Player) {
 			this.player = (Player) sender;
-			this.lplayer = LPlayers.getInstance().getByUUID(player.getUniqueId());
+			this.lplayer = P.p.getLordships().getByPlayer(lPlayer)
 			this.lordship = Lordships.getInstance().getBy
 		}
 	}
