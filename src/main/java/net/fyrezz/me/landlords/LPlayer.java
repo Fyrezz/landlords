@@ -10,10 +10,6 @@ public class LPlayer {
 	private String StoredUUID;
 	private String name;
 
-	public LPlayer(String UUID) {
-		this.StoredUUID = UUID;
-	}
-
 	public LPlayer(String UUID, String name) {
 		this.StoredUUID = UUID;
 		this.name = name;

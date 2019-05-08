@@ -145,23 +145,6 @@ public class DatabaseManager {
 		}
 	}
 
-	public List<LPlayer> loadSavedLPlayers() {
-		List<LPlayer> lPlayers = new ArrayList<LPlayer>();
-		int count = 0;
-		for (File lPlayerFile : lPlayersDBFolder.listFiles()) {
-			String[] UUID = lPlayerFile.getName().split(".");
-			LPlayer lPlayer = new LPlayer(UUID[0]);
-			lPlayers.add(lPlayer);
-			count++;
-		}
-		if (lPlayers.size() != count) {
-			P.p.getLogger().log(Level.WARNING,
-					"Possible error when loading saved LPlayers to memory: List size doesn't match LPlayers");
-		}
-		P.p.getLogger().log(Level.INFO, "Loaded " + count + "LPlayers to memory.");
-		return lPlayers;
-	}
-
 	public void init() {
 		// Create Lordships Database file
 		if (!lordshipsDBFile.exists()) {

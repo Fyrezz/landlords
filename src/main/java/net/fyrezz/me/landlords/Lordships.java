@@ -20,12 +20,15 @@ public class Lordships {
 		loadedLordships.clear();
 	}
 
-	public void loadLordship(Lordship lordship) {
-		if (loadedLordships.contains(lordship)) {
-			P.p.getLogger().log(Level.WARNING, "Cannot load Lordship " + lordship.getID() + ": It's already loaded!");
-			return;
+	public void loadLordship(Lordship newLordship) {
+		for (Lordship lordship : loadedLordships) {
+			if (lordship.getID() == newLordship.getID()) {
+				P.p.getLogger().log(Level.WARNING,
+						"Cannot load Lordship " + lordship.getID() + ": It's already loaded!");
+				return;
+			}
 		}
-		loadedLordships.add(lordship);
+		loadedLordships.add(newLordship);
 	}
 
 	public void unloadLordship(Lordship lordship) {
@@ -53,7 +56,7 @@ public class Lordships {
 		return finalLordship;
 	}
 
-	public Lordship getByPlayer(LPlayer lPlayer) {
+	public Lordship getByLPlayer(LPlayer lPlayer) {
 		Lordship finalLordship = null;
 		for (Lordship lordship : loadedLordships) {
 			if (lordship.getMembers().contains(lPlayer)) {
@@ -62,6 +65,18 @@ public class Lordships {
 		}
 		if (finalLordship == null) {
 			P.p.getLogger().log(Level.WARNING, "Error getting Lordship of LPlayer " + lPlayer.getUUID());
+		}
+		return finalLordship;
+	}
+
+	public Lordship getByPlayerName(String name) {
+		Lordship finalLordship = null;
+		for (Lordship lordship : loadedLordships) {
+			for (LPlayer lPlayer : lordship.getMembers()) {
+				if (lPlayer.getName() == name) {
+					finalLordship = lordship;
+				}
+			}
 		}
 		return finalLordship;
 	}

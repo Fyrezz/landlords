@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.fyrezz.me.landlords.cmds.LordshipCommands;
+import net.fyrezz.me.landlords.listener.EventPlayerJoin;
 import net.fyrezz.me.landlords.utils.MessageManager;
 
 public class P extends JavaPlugin {
@@ -50,6 +51,7 @@ public class P extends JavaPlugin {
 		getCommand("l").setExecutor(new LordshipCommands());
 
 		// Finally, register event listeners
+		getServer().getPluginManager().registerEvents(new EventPlayerJoin(), this);
 	}
 
 	@Override

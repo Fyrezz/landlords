@@ -1,5 +1,6 @@
 package net.fyrezz.me.landlords;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,11 @@ public class Lordship {
 	}
 
 	public List<LPlayer> getMembers() {
-		return (List) members.keySet();
+		List<LPlayer> listmembers = new ArrayList<LPlayer>();
+		for (LPlayer lPlayer : members.keySet()) {
+			listmembers.add(lPlayer);
+		}
+		return listmembers;
 	}
 
 	public String getID() {
@@ -69,6 +74,26 @@ public class Lordship {
 
 	public Byte getRank(LPlayer lPlayer) {
 		return members.get(lPlayer);
+	}
+	
+	public LPlayer getLPlayerFromUUID(String UUID) {
+		for (LPlayer lPlayer : members.keySet()) {
+			if (lPlayer.getUUID() == UUID) {
+				return lPlayer;
+			}
+		}
+		checkLordship();
+		return null;
+	}
+	
+	public LPlayer getLPlayerFromName(String Name) {
+		for (LPlayer lPlayer : members.keySet()) {
+			if (lPlayer.getName() == Name) {
+				return lPlayer;
+			}
+		}
+		checkLordship();
+		return null;
 	}
 
 	/*
