@@ -14,7 +14,6 @@ public class Lordship {
 	private int level;
 	private LazyLocation homeblock;
 	private Map<LPlayer, Byte> members = new HashMap<LPlayer, Byte>();
-
 	public Lordship(String id, int level, LazyLocation homeblock, Map<LPlayer, Byte> members) {
 		// The Lordship's ID is always the Lord's UUID
 		this.id = id;
@@ -82,7 +81,6 @@ public class Lordship {
 				return lPlayer;
 			}
 		}
-		checkLordship();
 		return null;
 	}
 	
@@ -92,7 +90,6 @@ public class Lordship {
 				return lPlayer;
 			}
 		}
-		checkLordship();
 		return null;
 	}
 
@@ -103,6 +100,10 @@ public class Lordship {
 	private void checkLordship() {
 		// 0: Lord, 1: Access to everything, 2: Not access to lvl 1, 3: Not access to
 		// lvl 1 + lvl 2
+		if (this.getID() == "DEFAULT") {
+			return;
+		}
+		
 		if (members.isEmpty() | members.size() < 1 | members == null) {
 			P.p.getLogger().log(Level.WARNING, "Error with Lordship " + id + " members: It's empty!");
 			return;
@@ -143,6 +144,7 @@ public class Lordship {
 			return;
 		}
 		members.put(lPlayer, rank);
+		lPlayer.setLordship(this);
 	}
 
 	public void removeMember(LPlayer lPlayer, Byte rank) {
@@ -160,6 +162,7 @@ public class Lordship {
 					"Error removing member from Lordship " + id + ": Lord is already the only member!");
 		}
 		members.remove(lPlayer);
+		lPlayer.setLordship(P.p.getLordships().getDefault());
 	}
 
 	/*
@@ -171,6 +174,7 @@ public class Lordship {
 			P.p.getLogger().log(Level.WARNING, "Error setting rank in Lordship " + id + ": LPlayer not a member!");
 			return;
 		}
+		
 		if (rank < 1 | rank > 3) { // Cannot set Lord | Min rank is 3
 			P.p.getLogger().log(Level.WARNING, "Error setting rank in Lordship " + id + ": Invalid rank!");
 			return;

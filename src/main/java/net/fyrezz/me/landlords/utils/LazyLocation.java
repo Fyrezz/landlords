@@ -17,10 +17,6 @@ public class LazyLocation {
 	private float yaw;
 	private float pitch;
 	private transient Location location = null;
-	
-	public LazyLocation(Location loc) {
-		this(loc.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-	}
 
 	public LazyLocation(final String worldName, final double x, final double y, final double z, final float yaw,
 			final float pitch) {
@@ -34,6 +30,14 @@ public class LazyLocation {
 	
 	public LazyLocation(final String worldName, final double x, final double y, final double z) {
 		this(worldName, x, y, z, 0, 0);
+	}
+	
+	public LazyLocation(Location loc) {
+		this(loc.getWorld().getName(), loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+	}
+	
+	public LazyLocation() {
+		this("world", 0, 0, 0);
 	}
 	
 	public Location getLocation() {

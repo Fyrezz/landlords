@@ -23,7 +23,7 @@ public class LordshipCommands implements CommandExecutor {
 			return true;
 		}
 		if (commandContent.getArg(0).equalsIgnoreCase("create")) {
-			if (commandContent.getLordship() != null) {
+			if (commandContent.getLPlayer().getLordship() != null && commandContent.getLPlayer().getLordship().getID() != "DEFAULT") {
 				commandContent.getPlayer().sendMessage("Ya tienes!");
 				return true;
 			} else {

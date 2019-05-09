@@ -12,14 +12,24 @@ public class LPlayers {
 	public LPlayers() {
 		this.loadedLPlayers = new HashMap<String, LPlayer>();
 	}
-	
+
+	/*
+	 * All Lordship members have a LPlayer, doesn't matter if they're not online.
+	 * 
+	 * All online players have a LPlayer. Offline players without Lordship might
+	 * have a LPlayer.
+	 */
+
 	public void load() {
-		loadedLPlayers = P.p.getDB().getSavedLPlayers();
+		// LPlayers are loaded from Lordships. No Database needed.
+		for (String ID : P.p.getLordships().getLoadedLordships().keySet()) {
+			Lordship lordship = P.p.getLordships().getByID(ID);
+			for (LPlayer lPlayer : lordship.getMembers()) {
+				loadedLPlayers.put(lPlayer.getUUID(), lPlayer);
+				lPlayer.setLordship(lordship); // Set the Lordship of the loaded LPlayer
+			}
+		}
 		P.p.getLogger().log(Level.INFO, "Loaded " + loadedLPlayers.size() + " LPlayers to memory.");
-	}
-	
-	public void save() {
-		P.p.getDB().saveLPlayers(loadedLPlayers);
 	}
 
 	public void clearMemory() {
@@ -28,6 +38,11 @@ public class LPlayers {
 
 	public LPlayer getByUUID(String UUID) {
 		return loadedLPlayers.get(UUID);
+	}
+	
+	public void loadLPlayer(LPlayer lPlayer) {
+		loadedLPlayers.put(lPlayer.getUUID(), lPlayer);
+		P.p.getServer().broadcastMessage("Loaded LPlayer " + lPlayer.getName() + " [" + lPlayer.getUUID() + "]");
 	}
 
 	public Map<String, LPlayer> getLoadedLPlayers() {

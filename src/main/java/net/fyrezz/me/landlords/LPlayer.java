@@ -11,12 +11,16 @@ public class LPlayer {
 
 	private String StoredUUID;
 	private String name;
-	private LazyLocation lastLocation;
+	private Lordship lordship;
 
-	public LPlayer(String UUID, String name, LazyLocation lastLocation) {
+	public LPlayer(String UUID, String name) {
 		this.StoredUUID = UUID;
 		this.name = name;
-		this.lastLocation = lastLocation;
+		this.lordship = P.p.getLordships().getByID("DEFAULT");
+	}
+	
+	public Lordship getLordship() {
+		return lordship;
 	}
 
 	public String getUUID() {
@@ -31,10 +35,6 @@ public class LPlayer {
 		return Bukkit.getPlayer(UUID.fromString(StoredUUID));
 	}
 	
-	public LazyLocation getLastLocation() {
-		return lastLocation;
-	}
-	
 	public boolean isOnline() {
 		if (P.p.getServer().getPlayer(UUID.fromString(StoredUUID)) != null) {
 			return true;
@@ -46,7 +46,7 @@ public class LPlayer {
 		name = newName;
 	}
 	
-	public void setLastLocation(LazyLocation location) {
-		lastLocation = location;
+	public void setLordship(Lordship newLordship) {
+		this.lordship = newLordship;
 	}
 }

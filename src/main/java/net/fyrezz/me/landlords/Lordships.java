@@ -1,20 +1,27 @@
 package net.fyrezz.me.landlords;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
+
+import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordships {
 
-	private List<Lordship> loadedLordships;
+	private Map<String, Lordship> loadedLordships;
 
 	public Lordships() {
-		this.loadedLordships = new ArrayList<Lordship>();
+		this.loadedLordships = new HashMap<String, Lordship>();
 	}
 
 	public void load() {
 		loadedLordships = P.p.getDB().getSavedLordships();
 		P.p.getLogger().log(Level.INFO, "Loaded " + loadedLordships.size() + " Lordships to memory.");
+		
+		// Add the DEFAULT Lordship, which will be the Lordship of all non-lordship players
+		Lordship lordship = new Lordship("DEFAULT", 0, new LazyLocation(), new HashMap<LPlayer, Byte>());
+		loadedLordships.put(lordship.getID(), lordship);
 	}
 
 	public void clearMemory() {
@@ -22,22 +29,11 @@ public class Lordships {
 	}
 
 	public void loadLordship(Lordship newLordship) {
-		for (Lordship lordship : loadedLordships) {
-			if (lordship.getID() == newLordship.getID()) {
-				P.p.getLogger().log(Level.WARNING,
-						"Cannot load Lordship " + lordship.getID() + ": It's already loaded!");
-				return;
-			}
-		}
-		loadedLordships.add(newLordship);
+		loadedLordships.put(newLordship.getID(), newLordship);
 	}
 
 	public void unloadLordship(Lordship lordship) {
-		if (!loadedLordships.contains(lordship)) {
-			P.p.getLogger().log(Level.WARNING, "Cannot unload Lordship " + lordship.getID() + ": It's not loaded!");
-			return;
-		}
-		loadedLordships.add(lordship);
+		loadedLordships.remove(lordship.getID());
 	}
 
 	/*
@@ -45,49 +41,35 @@ public class Lordships {
 	 */
 
 	public Lordship getByID(String ID) {
-		Lordship finalLordship = null;
-		for (Lordship lordship : loadedLordships) {
-			if (lordship.getID() == ID) {
-				finalLordship = lordship;
-			}
-		}
-		if (finalLordship == null) {
-			P.p.getLogger().log(Level.WARNING, "Error getting Lordship " + ID);
-		}
-		return finalLordship;
+		return loadedLordships.get(ID);
 	}
-
-	public Lordship getByLPlayer(LPlayer lPlayer) {
-		Lordship finalLordship = null;
-		for (Lordship lordship : loadedLordships) {
-			if (lordship.getMembers().contains(lPlayer)) {
-				finalLordship = lordship;
-			}
-		}
-		if (finalLordship == null) {
-			P.p.getLogger().log(Level.WARNING, "Error getting Lordship of LPlayer " + lPlayer.getUUID());
-		}
-		return finalLordship;
-	}
-
-	public Lordship getByPlayerName(String name) {
-		Lordship finalLordship = null;
-		for (Lordship lordship : loadedLordships) {
-			for (LPlayer lPlayer : lordship.getMembers()) {
-				if (lPlayer.getName() == name) {
-					finalLordship = lordship;
-				}
-			}
-		}
-		return finalLordship;
+	
+	public Lordship getDefault() {
+		return loadedLordships.get("DEFAULT");
 	}
 
 	/*
 	 * Get all Lordships
 	 */
 
-	public List<Lordship> getLoadedLordships() {
+	public Map<String, Lordship> getLoadedLordships() {
 		return loadedLordships;
+	}
+	
+	/*
+	 * Utilities
+	 */
+	
+	public void createLordship(LPlayer lPlayer) {
+		if (lPlayer.getLordship().getID() != "DEFAULT") {
+			return;
+		}
+		// Create the Lordship
+		Map<LPlayer, Byte> newMembers = new HashMap<LPlayer, Byte>();
+		newMembers.put(lPlayer, (byte) 0);
+		Lordship lordship = new Lordship(lPlayer.getUUID(), 1, new LazyLocation(lPlayer.getPlayer().getLocation()), newMembers);
+		// Load it
+		loadLordship(lordship);
 	}
 
 }

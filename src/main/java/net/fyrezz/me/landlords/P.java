@@ -45,16 +45,16 @@ public class P extends JavaPlugin {
 
 		// Load Message Manager
 		messageManager = new MessageManager();
-
-		// Load LPlayers
-		lPlayers = new LPlayers();
-		lPlayers.clearMemory();
-		lPlayers.load();
 		
-		// Then, Lordships
+		// Load Lordships
 		lordships = new Lordships();
 		lordships.clearMemory();
 		lordships.load();
+
+		// Then, load LPlayers
+		lPlayers = new LPlayers();
+		lPlayers.clearMemory();
+		lPlayers.load();
 
 		// Register commands
 		getCommand("l").setExecutor(new LordshipCommands());
@@ -71,6 +71,10 @@ public class P extends JavaPlugin {
 
 	public Lordships getLordships() {
 		return lordships;
+	}
+	
+	public LPlayers getLPlayers() {
+		return lPlayers;
 	}
 
 	public MessageManager getMM() {
