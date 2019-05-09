@@ -1,6 +1,7 @@
 package net.fyrezz.me.landlords;
 
 import java.io.File;
+import java.util.logging.Level;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,6 +19,7 @@ public class P extends JavaPlugin {
 	private MessageManager messageManager;
 
 	private Lordships lordships;
+	private LPlayers lPlayers;
 
 	private FileConfiguration config;
 	private FileConfiguration lang;
@@ -34,6 +36,8 @@ public class P extends JavaPlugin {
 
 		config = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
 		lang = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang.yml"));
+		
+		getLogger().setLevel(Level.ALL);
 
 		// Load Database Manager
 		databaseManager = new DatabaseManager();
@@ -42,7 +46,12 @@ public class P extends JavaPlugin {
 		// Load Message Manager
 		messageManager = new MessageManager();
 
-		// Load Lordships
+		// Load LPlayers
+		lPlayers = new LPlayers();
+		lPlayers.clearMemory();
+		lPlayers.load();
+		
+		// Then, Lordships
 		lordships = new Lordships();
 		lordships.clearMemory();
 		lordships.load();

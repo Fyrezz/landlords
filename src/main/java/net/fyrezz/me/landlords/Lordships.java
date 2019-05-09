@@ -13,7 +13,8 @@ public class Lordships {
 	}
 
 	public void load() {
-		loadedLordships = P.p.getDB().loadSavedLordships();
+		loadedLordships = P.p.getDB().getSavedLordships();
+		P.p.getLogger().log(Level.INFO, "Loaded " + loadedLordships.size() + " Lordships to memory.");
 	}
 
 	public void clearMemory() {
