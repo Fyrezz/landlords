@@ -1,7 +1,6 @@
 package net.fyrezz.me.landlords;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
@@ -42,11 +41,19 @@ public class LPlayers {
 	
 	public void loadLPlayer(LPlayer lPlayer) {
 		loadedLPlayers.put(lPlayer.getUUID(), lPlayer);
-		P.p.getServer().broadcastMessage("Loaded LPlayer " + lPlayer.getName() + " [" + lPlayer.getUUID() + "]");
+		P.p.getLogger().log(Level.FINE, "Loaded LPlayer " + lPlayer.getName() + " [" + lPlayer.getUUID() + "]");
 	}
 
 	public Map<String, LPlayer> getLoadedLPlayers() {
 		return loadedLPlayers;
+	}
+	
+	public boolean isLoaded(LPlayer lPlayer) {
+		return (loadedLPlayers.containsKey(lPlayer.getUUID()));
+	}
+	
+	public boolean isLoaded(String UUID) {
+		return (loadedLPlayers.containsKey(UUID));
 	}
 
 }

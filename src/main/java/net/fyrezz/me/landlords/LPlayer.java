@@ -19,6 +19,10 @@ public class LPlayer {
 		this.lordship = P.p.getLordships().getByID("DEFAULT");
 	}
 	
+	/*
+	 * Get & Set
+	 */
+	
 	public Lordship getLordship() {
 		return lordship;
 	}
@@ -34,13 +38,6 @@ public class LPlayer {
 	public Player getPlayer() {
 		return Bukkit.getPlayer(UUID.fromString(StoredUUID));
 	}
-	
-	public boolean isOnline() {
-		if (P.p.getServer().getPlayer(UUID.fromString(StoredUUID)) != null) {
-			return true;
-		}
-		return false;
-	}
 
 	public void setName(String newName) {
 		name = newName;
@@ -48,5 +45,17 @@ public class LPlayer {
 	
 	public void setLordship(Lordship newLordship) {
 		this.lordship = newLordship;
+	}
+	
+	/*
+	 * Utils
+	 */
+	
+	public boolean isOnline() {
+		return (P.p.getServer().getPlayer(UUID.fromString(StoredUUID)).isOnline());
+	}
+	
+	public boolean hasLordship() {
+		return !(lordship.getID() == P.p.getLordships().getDefault().getID());
 	}
 }

@@ -38,7 +38,7 @@ public class Lordship {
 	}
 
 	/*
-	 * Getting info
+	 * Get & Set
 	 */
 
 	public Map<LPlayer, Byte> getRankedMembers() {
@@ -61,19 +61,13 @@ public class Lordship {
 		return level;
 	}
 
-	public LPlayer getLord() {
-		for (LPlayer lPlayer : members.keySet()) {
-			if (members.get(lPlayer) == 0) {
-				return lPlayer;
-			}
-		}
-		checkLordship();
-		return null;
-	}
-
 	public Byte getRank(LPlayer lPlayer) {
 		return members.get(lPlayer);
 	}
+	
+	/*
+	 * Utils
+	 */
 	
 	public LPlayer getLPlayerFromUUID(String UUID) {
 		for (LPlayer lPlayer : members.keySet()) {
@@ -81,6 +75,16 @@ public class Lordship {
 				return lPlayer;
 			}
 		}
+		return null;
+	}
+
+	public LPlayer getLord() {
+		for (LPlayer lPlayer : members.keySet()) {
+			if (members.get(lPlayer) == 0) {
+				return lPlayer;
+			}
+		}
+		checkLordship();
 		return null;
 	}
 	
@@ -92,10 +96,6 @@ public class Lordship {
 		}
 		return null;
 	}
-
-	/*
-	 * Security checks
-	 */
 
 	private void checkLordship() {
 		// 0: Lord, 1: Access to everything, 2: Not access to lvl 1, 3: Not access to
@@ -111,6 +111,7 @@ public class Lordship {
 
 		int count = 0;
 		for (LPlayer lPlayer : members.keySet()) {
+			lPlayer.setLordship(this);
 			if (members.get(lPlayer) == 0) {
 				count++;
 			}

@@ -15,6 +15,18 @@ public class Lordships {
 		this.loadedLordships = new HashMap<String, Lordship>();
 	}
 
+	/*
+	 * Get & Set
+	 */
+
+	public Map<String, Lordship> getLoadedLordships() {
+		return loadedLordships;
+	}
+
+	/*
+	 * Utils
+	 */
+
 	public void load() {
 		loadedLordships = P.p.getDB().getSavedLordships();
 		P.p.getLogger().log(Level.INFO, "Loaded " + loadedLordships.size() + " Lordships to memory.");
@@ -36,10 +48,6 @@ public class Lordships {
 		loadedLordships.remove(lordship.getID());
 	}
 
-	/*
-	 * Getting a specific Lordship
-	 */
-
 	public Lordship getByID(String ID) {
 		return loadedLordships.get(ID);
 	}
@@ -47,18 +55,6 @@ public class Lordships {
 	public Lordship getDefault() {
 		return loadedLordships.get("DEFAULT");
 	}
-
-	/*
-	 * Get all Lordships
-	 */
-
-	public Map<String, Lordship> getLoadedLordships() {
-		return loadedLordships;
-	}
-	
-	/*
-	 * Utilities
-	 */
 	
 	public void createLordship(LPlayer lPlayer) {
 		if (lPlayer.getLordship().getID() != "DEFAULT") {

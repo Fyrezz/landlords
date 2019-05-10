@@ -6,7 +6,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.fyrezz.me.landlords.LPlayer;
-import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
 
 public class CommandContent {
@@ -26,14 +25,11 @@ public class CommandContent {
 			this.lPlayer = P.p.getLPlayers().getByUUID(player.getUniqueId().toString());
 		}
 	}
-
-	public boolean isPlayer() {
-		if (player == null) {
-			return false;
-		}
-		return true;
-	}
 	
+	/*
+	 * Get & Set
+	 */
+
 	public CommandSender getSender() {
 		return sender;
 	}
@@ -48,6 +44,18 @@ public class CommandContent {
 
 	public String getArg(Integer index) {
 		return args.get(index);
+	}
+
+	public boolean isPlayer() {
+		return (!(player == null));
+	}
+	
+	/*
+	 * Utils
+	 */
+	
+	public String getSubCommand() {
+		return args.get(0);
 	}
 
 }
