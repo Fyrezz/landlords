@@ -33,7 +33,7 @@ public class Lordships {
 		
 		// Add the DEFAULT Lordship, which will be the Lordship of all non-lordship players
 		Lordship lordship = new Lordship("DEFAULT", 0, new LazyLocation(), new HashMap<LPlayer, Byte>());
-		loadedLordships.put(lordship.getID(), lordship);
+		loadLordship(lordship);
 	}
 
 	public void clearMemory() {
