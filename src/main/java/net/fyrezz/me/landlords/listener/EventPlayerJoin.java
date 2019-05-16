@@ -16,18 +16,19 @@ public class EventPlayerJoin implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		
+
 		// All online players must have a LPlayer loaded
 		if (P.p.getLPlayers().isLoaded(player.getUniqueId().toString())) {
 			P.p.getLPlayers().loadLPlayer(new LPlayer(player.getUniqueId().toString(), player.getName()));
 		}
-		
+
 		LPlayer lPlayer = P.p.getLPlayers().getByUUID(player.getUniqueId().toString());
-		
+
 		if (lPlayer == null) {
-			P.p.getLogger().log(Level.WARNING, "Couldn't load LPlayer " + player.getName() + " [" + player.getUniqueId() + "]");
+			P.p.getLogger().log(Level.WARNING,
+					"Couldn't load LPlayer " + player.getName() + " [" + player.getUniqueId() + "]");
 		}
-		
+
 		// Update player's name
 		lPlayer.setName(player.getName());
 	}

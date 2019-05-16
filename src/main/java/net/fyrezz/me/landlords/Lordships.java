@@ -1,6 +1,5 @@
 package net.fyrezz.me.landlords;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -30,8 +29,9 @@ public class Lordships {
 	public void load() {
 		loadedLordships = P.p.getDB().getSavedLordships();
 		P.p.getLogger().log(Level.INFO, "Loaded " + loadedLordships.size() + " Lordships to memory.");
-		
-		// Add the DEFAULT Lordship, which will be the Lordship of all non-lordship players
+
+		// Add the DEFAULT Lordship, which will be the Lordship of all non-lordship
+		// players
 		Lordship lordship = new Lordship("DEFAULT", 0, new LazyLocation(), new HashMap<LPlayer, Byte>());
 		loadLordship(lordship);
 	}
@@ -51,11 +51,11 @@ public class Lordships {
 	public Lordship getByID(String ID) {
 		return loadedLordships.get(ID);
 	}
-	
+
 	public Lordship getDefault() {
 		return loadedLordships.get("DEFAULT");
 	}
-	
+
 	public void createLordship(LPlayer lPlayer) {
 		if (lPlayer.getLordship().getID() != "DEFAULT") {
 			return;
@@ -63,7 +63,8 @@ public class Lordships {
 		// Create the Lordship
 		Map<LPlayer, Byte> newMembers = new HashMap<LPlayer, Byte>();
 		newMembers.put(lPlayer, (byte) 0);
-		Lordship lordship = new Lordship(lPlayer.getUUID(), 1, new LazyLocation(lPlayer.getPlayer().getLocation()), newMembers);
+		Lordship lordship = new Lordship(lPlayer.getUUID(), 1, new LazyLocation(lPlayer.getPlayer().getLocation()),
+				newMembers);
 		// Load it
 		loadLordship(lordship);
 	}
