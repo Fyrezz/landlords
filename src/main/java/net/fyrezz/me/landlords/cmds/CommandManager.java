@@ -13,26 +13,29 @@ import net.fyrezz.me.landlords.P;
 
 public class CommandManager implements CommandExecutor {
 	
-	private Map<String, LordshipCommand> lordshipCommands;
+	private Map<String, LordshipCommand> lordshipCommands = new HashMap<String, LordshipCommand>();
 	
+	// All command classes
+	private LordshipCommand cmdHelp;
 	private LordshipCommand cmdCreateLordship;
 	
 	public CommandManager() {
-		lordshipCommands = new HashMap<String, LordshipCommand>();
-		cmdCreateLordship = new CmdCreateLordship();
-		lordshipCommands.put(cmdCreateLordship.getCommand(), cmdCreateLordship);
+		lordshipCommands.put(cmdCreateLordship.getCommand(), new CmdCreateLordship());
+		lordshipCommands.put(cmdCreateLordship.getCommand(), new CmdCreateLordship());
 	}
+	
+	/*
+	 * Command listener
+	 */
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		CommandContent commandContent = new CommandContent(sender, new ArrayList<String>(Arrays.asList(args)));
-		LordshipCommand lordshipCommand = lordshipCommands.get(commandContent.getSubCommand());
+		LordshipCommand lordshipCommand = lordshipCommands.get(commandContent.getCommand());
 		
 		if (lordshipCommand != null) {
-			if (lordshipCommand.check(commandContent)) {
-				lordshipCommand.perform(commandContent);
-			}
+			lordshipCommand.execute(commandContent);
 		} else {
-			sender.sendMessage("NO EXISTE");
+			
 		}
 		return true;
 	}

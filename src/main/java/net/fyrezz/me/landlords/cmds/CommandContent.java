@@ -19,7 +19,6 @@ public class CommandContent {
 	public CommandContent(CommandSender sender, List<String> args) {
 		this.sender = sender;
 		this.args = args;
-
 		if (sender instanceof Player) {
 			this.player = (Player) sender;
 			this.lPlayer = P.p.getLPlayers().getByUUID(player.getUniqueId().toString());
@@ -54,7 +53,8 @@ public class CommandContent {
 	 * Utils
 	 */
 	
-	public String getSubCommand() {
+	// Returns the subcommand, treated as commands "/l <command>"
+	public String getCommand() {
 		return args.get(0);
 	}
 

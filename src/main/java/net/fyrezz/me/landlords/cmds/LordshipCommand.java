@@ -5,45 +5,37 @@ import java.util.List;
 
 public abstract class LordshipCommand {
 	
-	public String command;
-	public List<String> aliases;
-	public boolean playerOnly;
-	public boolean requireLordship;
-	public boolean requireNoLordship;
+	public List<String> aliases = new ArrayList<String>();
+	public CommandRequirements commandRequirements = new CommandRequirements();
 	public String permission;
 	
 	public LordshipCommand() {
-		this.aliases = new ArrayList<String>();
-		this.playerOnly = false;
+		addAliases();
+		setRequirements();
 	}
+	
+	/*
+	 * Methods for commands
+	 */
+	
+	public abstract void addAliases();
+	
+	public abstract void setRequirements();
+	
+	public abstract void setPermission();
 	
 	public abstract void perform(CommandContent commandContent);
 	
-	public boolean check(CommandContent commandContent) {
-		if (playerOnly && !commandContent.isPlayer()) {
-			commandContent.getSender().sendMessage("Player command only!");
-			return false;
-		}
+	public void check() {
 		
-		if (requireLordship && !commandContent.getLPlayer().hasLordship()) {
-			commandContent.getSender().sendMessage("You need a Lordship to perform this command!");
-			return false;
-		}
-		
-		if (requireNoLordship && commandContent.getLPlayer().hasLordship()) {
-			commandContent.getSender().sendMessage("You can't perform this command because you're in a Lordship!");
-			return false;
-		}
-		
-		/*
-		 * TODO: Permission check
-		 */
-		
-		return true;
 	}
 	
-	public String getCommand() {
-		return command;
+	/*
+	 * Get & Set
+	 */
+	
+	public List<String> getAliases(){
+		return aliases;
 	}
 
 }

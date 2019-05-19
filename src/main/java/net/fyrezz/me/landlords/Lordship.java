@@ -14,6 +14,7 @@ public class Lordship {
 	private int level;
 	private LazyLocation homeblock;
 	private Map<LPlayer, Byte> members = new HashMap<LPlayer, Byte>();
+	
 	public Lordship(String id, int level, LazyLocation homeblock, Map<LPlayer, Byte> members) {
 		// The Lordship's ID is always the Lord's UUID
 		this.id = id;
@@ -23,23 +24,24 @@ public class Lordship {
 
 		checkLordship();
 	}
-
-	public LazyLocation getHomeblock() {
-		return homeblock;
-	}
-
-	public void setHomeblock(LazyLocation location) {
-		// Security check
-		if (location.getLocation() == null) {
-			P.p.getLogger().log(Level.WARNING, "Error setting Homeblock of Lordship " + id + ": NULL Location");
-			return;
-		}
-		homeblock = location;
+	
+	// For new Lordships
+	public Lordship(LPlayer lord) {
+		this.id = lord.getUUID();
+		this.level = 1;
+		this.homeblock = new LazyLocation(lord.getPlayer().getLocation());
+		this.members.put(lord, (byte) 0);
+		
+		checkLordship();
 	}
 
 	/*
 	 * Get & Set
-	 */
+	 */	
+	
+	public LazyLocation getHomeblock() {
+			return homeblock;
+		}
 
 	public Map<LPlayer, Byte> getRankedMembers() {
 		return members;
@@ -63,6 +65,15 @@ public class Lordship {
 
 	public Byte getRank(LPlayer lPlayer) {
 		return members.get(lPlayer);
+	}
+	
+	public void setHomeblock(LazyLocation location) {
+		// Security check
+		if (location.getLocation() == null) {
+			P.p.getLogger().log(Level.WARNING, "Error setting Homeblock of Lordship " + id + ": NULL Location");
+			return;
+		}
+		homeblock = location;
 	}
 	
 	/*
