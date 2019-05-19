@@ -13,14 +13,10 @@ import net.fyrezz.me.landlords.P;
 
 public class CommandListener implements CommandExecutor {
 	
-	private Map<String, LordshipCommand> lordshipCommands = new HashMap<String, LordshipCommand>();
+	public static Map<String, LordshipCommand> lordshipCommands = new HashMap<String, LordshipCommand>();
 	
-	// All command classes
-	private LordshipCommand cmdCreateLordship;
-	
-	public CommandListener() {
-		lordshipCommands.put(cmdCreateLordship.getCommand(), new CmdCreateLordship());
-	}
+	private LordshipCommand cmdCreateLordship = new CmdCreateLordship();
+	private LordshipCommand cmdHelp = new CmdHelp();
 	
 	/*
 	 * Command listener
@@ -28,13 +24,20 @@ public class CommandListener implements CommandExecutor {
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		CommandContent commandContent = new CommandContent(sender, new ArrayList<String>(Arrays.asList(args)));
+		
+		if (args.length == 0) {
+			cmdHelp.perform(commandContent);
+			return true;
+		}
+		
 		LordshipCommand lordshipCommand = lordshipCommands.get(commandContent.getCommand());
 		
 		if (lordshipCommand != null) {
 			lordshipCommand.execute(commandContent);
 		} else {
-			
+			P.p.getMM().msg(sender, "unknowncommand");
 		}
+		
 		return true;
 	}
 

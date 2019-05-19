@@ -1,1 +1,7 @@
-prefix: &eLandlords
+prefix: "&3Landlords"
+unknowncommand: "&cUnknown command. Type &7/l &cfor Landlords help."
+consolecommandonly: "&cConsole command only!"
+playercommandonly: "&cPlayer command only!"
+alreadyinalordship: "&cYou're already in a Lordship!"
+notinalordship: "&cYou're not in a Lordship!"
+notenoughrank: "&cYour rank isn't high enough to perform this command."

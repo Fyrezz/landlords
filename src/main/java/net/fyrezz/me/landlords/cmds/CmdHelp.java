@@ -1,30 +1,29 @@
 package net.fyrezz.me.landlords.cmds;
 
-import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
-public class CmdCreateLordship extends LordshipCommand {
+public class CmdHelp extends LordshipCommand {
 
 	@Override
 	public void addAliases() {
-		this.aliases.add("create");
+		this.aliases.add("help");
+		this.aliases.add("h");
 	}
-	
+
 	@Override
 	public void setRequirements() {
 		this.commandRequirements.isPlayer = RequirementState.REQUIRED;
-		this.commandRequirements.hasLordship = RequirementState.EXCLUDED;
 	}
 
 	@Override
 	public void setPermission() {
 		this.permission = "landlords.player";
 	}
-	
+
 	@Override
 	public void perform(CommandContent commandContent) {
-		P.p.getLordships().createLordship(commandContent.getLPlayer());
-		P.p.getMM().undefinedMsg(commandContent.getLPlayer(), "Lordship creado!");
+		// TODO Auto-generated method stub
+		
 	}
 
 }
