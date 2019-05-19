@@ -55,6 +55,11 @@ public class P extends JavaPlugin {
 		lPlayers = new LPlayers();
 		lPlayers.clearMemory();
 		lPlayers.load();
+		
+		// Check Lordships, just for security
+		for (String ID : lordships.getLoadedLordships().keySet()) {
+			lordships.getByID(ID).check();
+		}
 
 		// Register commands
 		getCommand("l").setExecutor(new CommandListener());

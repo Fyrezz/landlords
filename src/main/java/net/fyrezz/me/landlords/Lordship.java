@@ -83,7 +83,7 @@ public class Lordship {
 				return lPlayer;
 			}
 		}
-		checkLordship();
+		check();
 		return null;
 	}
 	
@@ -96,7 +96,7 @@ public class Lordship {
 		return null;
 	}
 
-	private void checkLordship() {
+	public void check() {
 		// 0: Lord, 1: Access to everything, 2: Not access to lvl 1, 3: Not access to
 		// lvl 1 + lvl 2
 		if (this.getID() == "DEFAULT") {
