@@ -14,7 +14,7 @@ public class Lordship {
 	private int level;
 	private LazyLocation homeblock;
 	private Map<LPlayer, Byte> members = new HashMap<LPlayer, Byte>();
-	
+
 	public Lordship(String id, int level, LazyLocation homeblock, Map<LPlayer, Byte> members) {
 		// The Lordship's ID is always the Lord's UUID
 		this.id = id;
@@ -25,17 +25,17 @@ public class Lordship {
 
 	/*
 	 * Get & Set
-	 */	
-	
-	public LazyLocation getHomeblock() {
-			return homeblock;
-		}
+	 */
 
-	public Map<LPlayer, Byte> getRankedMembers() {
+	public LazyLocation getHomeblock() {
+		return homeblock;
+	}
+
+	public Map<LPlayer, Byte> getMembers() {
 		return members;
 	}
 
-	public List<LPlayer> getMembers() {
+	public List<LPlayer> getMemberList() {
 		List<LPlayer> listmembers = new ArrayList<LPlayer>();
 		for (LPlayer lPlayer : members.keySet()) {
 			listmembers.add(lPlayer);
@@ -54,7 +54,7 @@ public class Lordship {
 	public Byte getRank(LPlayer lPlayer) {
 		return members.get(lPlayer);
 	}
-	
+
 	public void setHomeblock(LazyLocation location) {
 		// Security check
 		if (location.getLocation() == null) {
@@ -63,11 +63,11 @@ public class Lordship {
 		}
 		homeblock = location;
 	}
-	
+
 	/*
 	 * Utils
 	 */
-	
+
 	public LPlayer getLPlayerFromUUID(String UUID) {
 		for (LPlayer lPlayer : members.keySet()) {
 			if (lPlayer.getUUID() == UUID) {
@@ -86,7 +86,7 @@ public class Lordship {
 		check();
 		return null;
 	}
-	
+
 	public LPlayer getLPlayerFromName(String Name) {
 		for (LPlayer lPlayer : members.keySet()) {
 			if (lPlayer.getName() == Name) {
@@ -102,7 +102,7 @@ public class Lordship {
 		if (this.getID() == "DEFAULT") {
 			return;
 		}
-		
+
 		if (members.isEmpty() | members.size() < 1 | members == null) {
 			P.p.getLogger().log(Level.WARNING, "Error with Lordship " + id + " members: It's empty!");
 			return;
@@ -174,7 +174,7 @@ public class Lordship {
 			P.p.getLogger().log(Level.WARNING, "Error setting rank in Lordship " + id + ": LPlayer not a member!");
 			return;
 		}
-		
+
 		if (rank < 1 | rank > 3) { // Cannot set Lord | Min rank is 3
 			P.p.getLogger().log(Level.WARNING, "Error setting rank in Lordship " + id + ": Invalid rank!");
 			return;

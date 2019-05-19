@@ -24,7 +24,7 @@ public class Lordships {
 	/*
 	 * Lordship memory management
 	 */
-	
+
 	public void load() {
 		loadedLordships = P.p.getDB().getSavedLordships();
 		P.p.getLogger().log(Level.INFO, "Loaded " + loadedLordships.size() + " Lordships to memory.");
@@ -56,13 +56,13 @@ public class Lordships {
 			P.p.getLogger().log(Level.WARNING, "Tried to create a Lordship for a player with Lordship!");
 			return;
 		}
-		
+
 		// Create the Lordship
 		Map<LPlayer, Byte> newMembers = new HashMap<LPlayer, Byte>();
 		newMembers.put(lPlayer, (byte) 0);
 		Lordship lordship = new Lordship(lPlayer.getUUID(), 1, new LazyLocation(lPlayer.getPlayer().getLocation()),
 				newMembers);
-		
+
 		// Load it
 		loadLordship(lordship);
 	}

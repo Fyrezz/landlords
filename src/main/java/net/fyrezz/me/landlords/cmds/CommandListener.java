@@ -37,7 +37,6 @@ public class CommandListener implements CommandExecutor {
 		} else {
 			P.p.getMM().msg(sender, "unknowncommand");
 		}
-		
 		return true;
 	}
 

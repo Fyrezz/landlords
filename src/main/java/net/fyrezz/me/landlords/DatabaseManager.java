@@ -15,13 +15,11 @@ import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class DatabaseManager {
 
-	private File lordshipsDBFile;
+	private File lordshipsDBFile = new File(P.p.getDataFolder() + File.separator + "database.json");;
 	private String moduleSeparator = "%";
 	private String itemSeparator = ",";
 
 	public DatabaseManager() {
-		this.lordshipsDBFile = new File(P.p.getDataFolder() + File.separator + "database.json");
-
 		init();
 	}
 
@@ -35,10 +33,6 @@ public class DatabaseManager {
 			}
 		}
 	}
-
-	/*
-	 * Load and Save Lordships
-	 */
 
 	public Map<String, Lordship> getSavedLordships() {
 		Map<String, Lordship> lordships = new HashMap<String, Lordship>();
@@ -144,9 +138,9 @@ public class DatabaseManager {
 
 					// 4 Map<LPlayer, Byte> members
 					List<String> memberArray = new ArrayList<String>();
-					for (LPlayer lPlayer : lordship.getRankedMembers().keySet()) {
-						memberArray.add(lordship.getRankedMembers().get(lPlayer) + "=" + lPlayer.getUUID() + "="
-								+ lPlayer.getName());
+					for (LPlayer lPlayer : lordship.getMembers().keySet()) {
+						memberArray.add(
+								lordship.getMembers().get(lPlayer) + "=" + lPlayer.getUUID() + "=" + lPlayer.getName());
 					}
 					modules.add(new String().join(itemSeparator, memberArray).replace("[", "").replace("]", ""));
 

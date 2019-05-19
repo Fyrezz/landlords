@@ -13,6 +13,7 @@ import net.fyrezz.me.landlords.utils.MessageManager;
 
 public class P extends JavaPlugin {
 
+	// Static plugin instance
 	public static P p;
 
 	private DatabaseManager databaseManager;
@@ -28,56 +29,14 @@ public class P extends JavaPlugin {
 		p = this;
 	}
 
-	@Override
-	public void onEnable() {
-		// Make sure config files exist, and load them
-		saveResource("config.yml", false);
-		saveResource("lang.yml", false);
-
-		config = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
-		lang = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang.yml"));
-		
-		getLogger().setLevel(Level.ALL);
-
-		// Load Database Manager
-		databaseManager = new DatabaseManager();
-		databaseManager.init();
-
-		// Load Message Manager
-		messageManager = new MessageManager();
-		
-		// Load Lordships
-		lordships = new Lordships();
-		lordships.clearMemory();
-		lordships.load();
-
-		// Then, load LPlayers
-		lPlayers = new LPlayers();
-		lPlayers.clearMemory();
-		lPlayers.load();
-		
-		// Check Lordships, just for security
-		for (String ID : lordships.getLoadedLordships().keySet()) {
-			lordships.getByID(ID).check();
-		}
-
-		// Register commands
-		getCommand("l").setExecutor(new CommandListener());
-
-		// Finally, register event listeners
-		getServer().getPluginManager().registerEvents(new EventPlayerJoin(), this);
-	}
-
-	@Override
-	public void onDisable() {
-		// Save loaded Lordships
-		databaseManager.saveLoadedLordships();
-	}
+	/*
+	 * Get & Set
+	 */
 
 	public Lordships getLordships() {
 		return lordships;
 	}
-	
+
 	public LPlayers getLPlayers() {
 		return lPlayers;
 	}
@@ -98,4 +57,53 @@ public class P extends JavaPlugin {
 		return lang;
 	}
 
+	/*
+	 * Enable & Disable Events
+	 */
+
+	@Override
+	public void onEnable() {
+		// Make sure config files exist, and load them
+		saveResource("config.yml", false);
+		saveResource("lang.yml", false);
+
+		config = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
+		lang = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang.yml"));
+
+		getLogger().setLevel(Level.ALL);
+
+		// Load Database Manager
+		databaseManager = new DatabaseManager();
+		databaseManager.init();
+
+		// Load Message Manager
+		messageManager = new MessageManager();
+
+		// Load Lordships
+		lordships = new Lordships();
+		lordships.clearMemory();
+		lordships.load();
+
+		// Then, load LPlayers
+		lPlayers = new LPlayers();
+		lPlayers.clearMemory();
+		lPlayers.load();
+
+		// Check Lordships, just for security
+		for (String ID : lordships.getLoadedLordships().keySet()) {
+			lordships.getByID(ID).check();
+		}
+
+		// Register commands
+		getCommand("l").setExecutor(new CommandListener());
+
+		// Finally, register event listeners
+		getServer().getPluginManager().registerEvents(new EventPlayerJoin(), this);
+	}
+
+	@Override
+	public void onDisable() {
+		// Save loaded Lordships
+		databaseManager.saveLoadedLordships();
+	}
 }

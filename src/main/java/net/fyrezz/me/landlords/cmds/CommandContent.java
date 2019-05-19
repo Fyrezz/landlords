@@ -22,7 +22,6 @@ public class CommandContent {
 		if (sender instanceof Player) {
 			this.player = (Player) sender;
 			this.lPlayer = P.p.getLPlayers().getByUUID(player.getUniqueId().toString());
-			
 		}
 	}
 	

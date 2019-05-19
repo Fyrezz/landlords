@@ -9,7 +9,7 @@ public class CmdCreateLordship extends LordshipCommand {
 	public void addAliases() {
 		this.aliases.add("create");
 	}
-	
+
 	@Override
 	public void setRequirements() {
 		this.commandRequirements.isPlayer = RequirementState.REQUIRED;
@@ -20,11 +20,11 @@ public class CmdCreateLordship extends LordshipCommand {
 	public void setPermission() {
 		this.permission = "landlords.player";
 	}
-	
+
 	@Override
 	public void perform(CommandContent commandContent) {
 		P.p.getLordships().createLordship(commandContent.getLPlayer());
-		P.p.getMM().undefinedMsg(commandContent.getLPlayer(), "Lordship creado!");
+		P.p.getMM().msg(commandContent.getLPlayer(), "lordshipcreated");
 	}
 
 }
