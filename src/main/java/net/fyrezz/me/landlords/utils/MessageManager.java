@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.P;
 
 public class MessageManager {
@@ -38,9 +39,9 @@ public class MessageManager {
 	 * For non configurable messages
 	 */
 	
-	public void undefinedMsg(CommandSender sender, String path) {
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix")) + ChatColor.RESET
-				+ " " + ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString(path)));
+	public void undefinedMsg(LPlayer lPlayer, String message) {
+		lPlayer.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix")) + ChatColor.RESET
+				+ " " + ChatColor.translateAlternateColorCodes('&', message));
 	}
 
 }

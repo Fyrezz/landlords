@@ -1,13 +1,15 @@
 package net.fyrezz.me.landlords.cmds;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import net.fyrezz.me.landlords.utils.RequirementState;
+
 public class CommandRequirements {
 	
-	// Default true
-	public boolean allowPlayer = true;
-	public boolean allowConsole = true;
-	
-	// Default false
-	public boolean requireLordship = false;
-	public boolean requireNoLordship = false;
+	public RequirementState isPlayer = RequirementState.ALLOWED;
+	public RequirementState hasLordship = RequirementState.ALLOWED;
+	public List<Byte> allowedRanks = new ArrayList<Byte>(Arrays.asList((byte) 0,(byte) 1,(byte) 2,(byte) 3));
 	
 }

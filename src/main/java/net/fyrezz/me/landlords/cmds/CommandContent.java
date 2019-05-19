@@ -22,6 +22,7 @@ public class CommandContent {
 		if (sender instanceof Player) {
 			this.player = (Player) sender;
 			this.lPlayer = P.p.getLPlayers().getByUUID(player.getUniqueId().toString());
+			
 		}
 	}
 	
@@ -41,10 +42,6 @@ public class CommandContent {
 		return lPlayer;
 	}
 
-	public String getArg(Integer index) {
-		return args.get(index);
-	}
-
 	public boolean isPlayer() {
 		return (!(player == null));
 	}
@@ -56,6 +53,10 @@ public class CommandContent {
 	// Returns the subcommand, treated as commands "/l <command>"
 	public String getCommand() {
 		return args.get(0);
+	}
+
+	public String getArg(Integer index) {
+		return args.get(index);
 	}
 
 }

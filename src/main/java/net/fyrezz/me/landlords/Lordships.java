@@ -8,10 +8,9 @@ import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordships {
 
-	private Map<String, Lordship> loadedLordships;
+	private Map<String, Lordship> loadedLordships = new HashMap<String, Lordship>();
 
 	public Lordships() {
-		this.loadedLordships = new HashMap<String, Lordship>();
 	}
 
 	/*
@@ -23,9 +22,9 @@ public class Lordships {
 	}
 
 	/*
-	 * Utils
+	 * Lordship memory management
 	 */
-
+	
 	public void load() {
 		loadedLordships = P.p.getDB().getSavedLordships();
 		P.p.getLogger().log(Level.INFO, "Loaded " + loadedLordships.size() + " Lordships to memory.");
@@ -48,25 +47,32 @@ public class Lordships {
 		loadedLordships.remove(lordship.getID());
 	}
 
-	public Lordship getByID(String ID) {
-		return loadedLordships.get(ID);
+	/*
+	 * Utils
+	 */
+
+	public void createLordship(LPlayer lPlayer) {
+		if (lPlayer.getLordship().getID() != "DEFAULT") {
+			P.p.getLogger().log(Level.WARNING, "Tried to create a Lordship for a player with Lordship!");
+			return;
+		}
+		
+		// Create the Lordship
+		Map<LPlayer, Byte> newMembers = new HashMap<LPlayer, Byte>();
+		newMembers.put(lPlayer, (byte) 0);
+		Lordship lordship = new Lordship(lPlayer.getUUID(), 1, new LazyLocation(lPlayer.getPlayer().getLocation()),
+				newMembers);
+		
+		// Load it
+		loadLordship(lordship);
 	}
 
 	public Lordship getDefault() {
 		return loadedLordships.get("DEFAULT");
 	}
 
-	public void createLordship(LPlayer lPlayer) {
-		if (lPlayer.getLordship().getID() != "DEFAULT") {
-			return;
-		}
-		// Create the Lordship
-		Map<LPlayer, Byte> newMembers = new HashMap<LPlayer, Byte>();
-		newMembers.put(lPlayer, (byte) 0);
-		Lordship lordship = new Lordship(lPlayer.getUUID(), 1, new LazyLocation(lPlayer.getPlayer().getLocation()),
-				newMembers);
-		// Load it
-		loadLordship(lordship);
+	public Lordship getByID(String ID) {
+		return loadedLordships.get(ID);
 	}
 
 }

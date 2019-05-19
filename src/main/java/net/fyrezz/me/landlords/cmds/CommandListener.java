@@ -11,16 +11,14 @@ import org.bukkit.command.CommandSender;
 
 import net.fyrezz.me.landlords.P;
 
-public class CommandManager implements CommandExecutor {
+public class CommandListener implements CommandExecutor {
 	
 	private Map<String, LordshipCommand> lordshipCommands = new HashMap<String, LordshipCommand>();
 	
 	// All command classes
-	private LordshipCommand cmdHelp;
 	private LordshipCommand cmdCreateLordship;
 	
-	public CommandManager() {
-		lordshipCommands.put(cmdCreateLordship.getCommand(), new CmdCreateLordship());
+	public CommandListener() {
 		lordshipCommands.put(cmdCreateLordship.getCommand(), new CmdCreateLordship());
 	}
 	

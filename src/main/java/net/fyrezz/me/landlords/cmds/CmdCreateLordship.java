@@ -1,7 +1,7 @@
 package net.fyrezz.me.landlords.cmds;
 
-import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
+import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdCreateLordship extends LordshipCommand {
 
@@ -12,8 +12,8 @@ public class CmdCreateLordship extends LordshipCommand {
 	
 	@Override
 	public void setRequirements() {
-		commandRequirements.allowConsole = false;
-		commandRequirements.requireNoLordship = true;
+		commandRequirements.isPlayer = RequirementState.REQUIRED;
+		commandRequirements.hasLordship = RequirementState.EXCLUDED;
 	}
 
 	@Override
@@ -23,9 +23,8 @@ public class CmdCreateLordship extends LordshipCommand {
 	
 	@Override
 	public void perform(CommandContent commandContent) {
-		Lordship lordship = new Lordship(commandContent.getLPlayer());
-		P.p.getLordships().loadLordship(lordship);
-		P.p.getMM().msg(commandContent.getPlayer(), "");
+		P.p.getLordships().createLordship(commandContent.getLPlayer());
+		P.p.getMM().undefinedMsg(commandContent.getLPlayer(), "Lordship creado!");
 	}
 
 }

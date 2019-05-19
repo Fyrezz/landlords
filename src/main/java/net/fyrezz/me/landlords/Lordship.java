@@ -21,18 +21,6 @@ public class Lordship {
 		this.level = level;
 		this.homeblock = homeblock;
 		this.members = members;
-
-		checkLordship();
-	}
-	
-	// For new Lordships
-	public Lordship(LPlayer lord) {
-		this.id = lord.getUUID();
-		this.level = 1;
-		this.homeblock = new LazyLocation(lord.getPlayer().getLocation());
-		this.members.put(lord, (byte) 0);
-		
-		checkLordship();
 	}
 
 	/*
