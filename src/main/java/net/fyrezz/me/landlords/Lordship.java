@@ -164,6 +164,18 @@ public class Lordship {
 		members.remove(lPlayer);
 		lPlayer.setLordship(P.p.getLordships().getDefault());
 	}
+	
+	public void message(String path) {
+		for (LPlayer lPlayer : members.keySet()) {
+			P.p.getMM().msg(lPlayer, path);
+		}
+	}
+	
+	public void message(String path, c) {
+		for (LPlayer lPlayer : members.keySet()) {
+			P.p.getMM().msg(lPlayer, path);
+		}
+	}
 
 	/*
 	 * Setting ranks
