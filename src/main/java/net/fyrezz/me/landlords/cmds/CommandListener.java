@@ -23,6 +23,7 @@ public class CommandListener implements CommandExecutor {
 	 */
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		
 		CommandContent commandContent = new CommandContent(sender, new ArrayList<String>(Arrays.asList(args)));
 		
 		if (args.length == 0) {

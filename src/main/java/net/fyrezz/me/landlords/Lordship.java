@@ -171,7 +171,7 @@ public class Lordship {
 		}
 	}
 	
-	public void message(String path, c) {
+	public void message(String path, List<String> args) {
 		for (LPlayer lPlayer : members.keySet()) {
 			P.p.getMM().msg(lPlayer, path);
 		}
