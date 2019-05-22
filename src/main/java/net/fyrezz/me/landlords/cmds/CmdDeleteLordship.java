@@ -1,5 +1,6 @@
 package net.fyrezz.me.landlords.cmds;
 
+import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdDeleteLordship extends LordshipCommand {
@@ -25,8 +26,9 @@ public class CmdDeleteLordship extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		// TODO Auto-generated method stub
-		
+		P.p.getLordships().unloadLordship(commandContent.getLPlayer().getLordship());
+		commandContent.getLPlayer().setLordship(P.p.getLordships().getDefault());
+		P.p.getMM().msg(commandContent.getLPlayer(), "lordshipdeleted");
 	}
 
 }

@@ -13,7 +13,7 @@ public class MessageManager {
 	public void msg(LPlayer lPlayer, String path, Map<String, String> vars) {
 		String base = P.p.getLang().getString(path);
 		for (String var : vars.keySet()) {
-			base.replace(var, vars.get(var));
+			base = base.replace("%"+var+"%", vars.get(var));
 		}
 		lPlayer.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
 				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', base));
@@ -22,7 +22,7 @@ public class MessageManager {
 	public void msg(CommandSender sender, String path, Map<String, String> vars) {
 		String base = P.p.getLang().getString(path);
 		for (String var : vars.keySet()) {
-			base.replace(var, vars.get(var));
+			base.replace("%"+var+"%", vars.get(var));
 		}
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
 				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', base));

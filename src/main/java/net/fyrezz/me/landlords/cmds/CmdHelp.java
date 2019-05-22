@@ -1,5 +1,8 @@
 package net.fyrezz.me.landlords.cmds;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
@@ -23,7 +26,10 @@ public class CmdHelp extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		P.p.getMM().msg(commandContent.getLPlayer(), "help");
+		Map<String, String> helpVars = new HashMap<String, String>();
+		helpVars.put("version", P.p.getDescription().getVersion());
+		helpVars.put("authors", P.p.getDescription().getAuthors().toString());
+		P.p.getMM().msg(commandContent.getLPlayer(), "help", helpVars);
 	}
 
 }

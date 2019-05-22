@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
+import org.bukkit.entity.Player;
+
 public class LPlayers {
 
 	private Map<String, LPlayer> loadedLPlayers = new HashMap<String, LPlayer>();
@@ -35,6 +37,12 @@ public class LPlayers {
 			for (LPlayer lPlayer : lordship.getMemberList()) {
 				loadedLPlayers.put(lPlayer.getUUID(), lPlayer);
 				lPlayer.setLordship(lordship); // Set the Lordship of the loaded LPlayer
+			}
+		}
+		// Also, make sure each online player has a LPlayer instance
+		for (Player player : P.p.getServer().getOnlinePlayers()) {
+			if (!loadedLPlayers.containsKey(player.getUniqueId().toString())) {
+				loadLPlayer(new LPlayer(player.getUniqueId().toString(), player.getName()));
 			}
 		}
 		P.p.getLogger().log(Level.INFO, "Loaded " + loadedLPlayers.size() + " LPlayers to memory.");

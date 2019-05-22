@@ -1,7 +1,14 @@
-prefix: "&3Landlords"
+#
+# Use \n for new lines
+#
+
+prefix: ""
 unknowncommand: "&cUnknown command. Type &7/l &cfor Landlords help."
 consolecommandonly: "&cConsole command only!"
 playercommandonly: "&cPlayer command only!"
 alreadyinalordship: "&cYou're already in a Lordship!"
 notinalordship: "&cYou're not in a Lordship!"
 notenoughrank: "&cYour rank isn't high enough to perform this command."
+help: "&7v.%version%, by %authors%\n&b/l create &eCreate your own Lordship."
+lordshipcreated: "&aYou have just created your Lordship!"
+lordshipdeleted: "&cYou have just deleted your Lordship!"

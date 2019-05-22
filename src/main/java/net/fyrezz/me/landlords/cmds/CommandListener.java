@@ -26,7 +26,7 @@ public class CommandListener implements CommandExecutor {
 		CommandContent commandContent = new CommandContent(sender, new ArrayList<String>(Arrays.asList(args)));
 		
 		if (args.length == 0) {
-			cmdHelp.perform(commandContent);
+			cmdHelp.execute(commandContent);
 			return true;
 		}
 		

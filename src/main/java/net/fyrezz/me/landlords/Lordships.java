@@ -62,7 +62,7 @@ public class Lordships {
 		newMembers.put(lPlayer, (byte) 0);
 		Lordship lordship = new Lordship(lPlayer.getUUID(), 1, new LazyLocation(lPlayer.getPlayer().getLocation()),
 				newMembers);
-
+		lPlayer.setLordship(lordship);
 		// Load it
 		loadLordship(lordship);
 	}

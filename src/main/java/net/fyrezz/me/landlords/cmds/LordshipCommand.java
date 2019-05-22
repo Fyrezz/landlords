@@ -49,7 +49,7 @@ public abstract class LordshipCommand {
 			return;
 		}
 		if (!commandContent.isPlayer() && (commandRequirements.isPlayer == RequirementState.REQUIRED)) {
-			P.p.getMM().msg(commandContent.getLPlayer(), "playercommandonly");
+			P.p.getMM().msg(commandContent.getSender(), "playercommandonly");
 			return;
 		}
 
@@ -64,7 +64,7 @@ public abstract class LordshipCommand {
 			return;
 		}
 
-		if (!commandRequirements.allowedRanks
+		if (commandContent.getLPlayer().hasLordship() && !commandRequirements.allowedRanks
 				.contains(commandContent.getLPlayer().getLordship().getRank(commandContent.getLPlayer()))) {
 			P.p.getMM().msg(commandContent.getLPlayer(), "notenoughrank");
 			return;
