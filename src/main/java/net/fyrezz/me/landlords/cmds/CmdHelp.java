@@ -7,7 +7,11 @@ import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdHelp extends LordshipCommand {
-
+	
+	public CmdHelp() {
+		super();
+	}
+	
 	@Override
 	public void addAliases() {
 		this.aliases.add("help");

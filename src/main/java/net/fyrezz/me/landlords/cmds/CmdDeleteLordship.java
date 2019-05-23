@@ -4,6 +4,10 @@ import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdDeleteLordship extends LordshipCommand {
+	
+	public CmdDeleteLordship() {
+		super();
+	}
 
 	@Override
 	public void addAliases() {

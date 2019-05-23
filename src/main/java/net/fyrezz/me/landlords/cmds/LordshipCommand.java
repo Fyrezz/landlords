@@ -8,9 +8,9 @@ import net.fyrezz.me.landlords.utils.RequirementState;
 
 public abstract class LordshipCommand {
 
-	public List<String> aliases = new ArrayList<String>();
-	public CommandRequirements commandRequirements = new CommandRequirements();
-	public String permission;
+	protected List<String> aliases = new ArrayList<String>();
+	protected CommandRequirements commandRequirements = new CommandRequirements();
+	protected String permission;
 
 	public LordshipCommand() {
 		addAliases();
