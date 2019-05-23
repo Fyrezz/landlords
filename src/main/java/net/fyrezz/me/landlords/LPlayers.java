@@ -62,11 +62,11 @@ public class LPlayers {
 	}
 
 	public boolean isLoaded(LPlayer lPlayer) {
-		return (loadedLPlayers.containsKey(lPlayer.getUUID()));
+		return loadedLPlayers.containsKey(lPlayer.getUUID());
 	}
 
 	public boolean isLoaded(String UUID) {
-		return (loadedLPlayers.containsKey(UUID));
+		return loadedLPlayers.containsKey(UUID);
 	}
 
 }

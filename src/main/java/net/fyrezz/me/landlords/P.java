@@ -1,3 +1,12 @@
+/*
+ * @P.java
+ * 
+ * Copyright (c) 2019 Fyrezz
+ * All rights reserved.
+ * 
+ * Feel free to use it! :)
+ */
+
 package net.fyrezz.me.landlords;
 
 import java.io.File;
@@ -11,27 +20,27 @@ import net.fyrezz.me.landlords.cmds.CommandListener;
 import net.fyrezz.me.landlords.listener.EventPlayerJoin;
 import net.fyrezz.me.landlords.utils.MessageManager;
 
+/**
+ * Plugin's main class.
+ * 
+ * @version 1.0.0
+ * @author Fyrezz
+ */
 public class P extends JavaPlugin {
-
-	// Static plugin instance
 	public static P p;
-
-	private DatabaseManager databaseManager;
-	private MessageManager messageManager;
-
+	private DatabaseManager databaseManager = new DatabaseManager();;
+	private MessageManager messageManager = new MessageManager();;
 	private Lordships lordships;
 	private LPlayers lPlayers;
-
 	private FileConfiguration config;
 	private FileConfiguration lang;
 
+	/**
+	 * Single plugin instance
+	 */
 	public P() {
 		p = this;
 	}
-
-	/*
-	 * Get & Set
-	 */
 
 	public Lordships getLordships() {
 		return lordships;
@@ -67,17 +76,13 @@ public class P extends JavaPlugin {
 		saveResource("config.yml", false);
 		saveResource("lang.yml", false);
 
-		config = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
-		lang = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang.yml"));
+		this.config = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "config.yml"));
+		this.lang = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "lang.yml"));
 
 		getLogger().setLevel(Level.ALL);
 
 		// Load Database Manager
-		databaseManager = new DatabaseManager();
 		databaseManager.init();
-
-		// Load Message Manager
-		messageManager = new MessageManager();
 
 		// Load Lordships
 		lordships = new Lordships();

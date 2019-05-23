@@ -50,10 +50,14 @@ public class LPlayer {
 	 */
 
 	public boolean isOnline() {
-		return (P.p.getServer().getPlayer(UUID.fromString(StoredUUID)).isOnline());
+		return P.p.getServer().getPlayer(UUID.fromString(StoredUUID)).isOnline();
 	}
 
 	public boolean hasLordship() {
 		return !(lordship.getID() == P.p.getLordships().getDefault().getID());
+	}
+	
+	public void clearLordship() {
+		this.lordship = P.p.getLordships().getDefault();
 	}
 }

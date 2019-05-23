@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordships {
-
 	private Map<String, Lordship> loadedLordships = new HashMap<String, Lordship>();
 
 	public Lordships() {

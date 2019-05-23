@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordship {
-
 	private String id;
 	private int level;
 	private LazyLocation homeblock;
