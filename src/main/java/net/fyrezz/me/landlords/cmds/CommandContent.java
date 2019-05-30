@@ -28,10 +28,6 @@ public class CommandContent {
 		}
 	}
 	
-	/*
-	 * Get & Set
-	 */
-
 	public CommandSender getSender() {
 		return sender;
 	}
@@ -52,11 +48,7 @@ public class CommandContent {
 		return lordship;
 	}
 	
-	/*
-	 * Utils
-	 */
-	
-	// Returns the subcommand, treated as commands "/l <command>"
+	/* Returns the subcommand, treated as commands "/l <command>" */
 	public String getCommand() {
 		return args.get(0);
 	}

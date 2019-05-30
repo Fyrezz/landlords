@@ -2,6 +2,7 @@ package net.fyrezz.me.landlords.cmds;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
@@ -17,19 +18,15 @@ public abstract class LordshipCommand {
 		setRequirements();
 		setPermission();
 		registerCommand();
-	}
 
-	/*
-	 * Get & Set
-	 */
+		if (this.aliases.isEmpty() | this.permission == null) {
+			P.p.getLogger().log(Level.WARNING, "Couldn't register command " + this.getClass().toString());
+		}
+	}
 
 	public List<String> getAliases() {
 		return aliases;
 	}
-
-	/*
-	 * Methods for commands
-	 */
 
 	public abstract void addAliases();
 
@@ -38,10 +35,6 @@ public abstract class LordshipCommand {
 	public abstract void setPermission();
 
 	public abstract void perform(CommandContent commandContent);
-
-	/*
-	 * Class methods
-	 */
 
 	public void execute(CommandContent commandContent) {
 		if (commandContent.isPlayer() && (commandRequirements.isPlayer == RequirementState.EXCLUDED)) {
