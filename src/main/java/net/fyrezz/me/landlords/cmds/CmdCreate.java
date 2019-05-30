@@ -28,8 +28,10 @@ public class CmdCreate extends LordshipCommand {
 	@Override
 	public void perform(CommandContent commandContent) {
 		P.p.getLordships().createLordship(commandContent.getLPlayer());
+		
 		P.p.getMM().msg(commandContent.getLPlayer(), "lordshipcreated");
-		vars.put("lordship", commandContent.getLordship().getLord().getName());
+		
+		this.vars.put("lordship", commandContent.getLordship().getLord().getName());
 		P.p.getMM().msg(commandContent.getLPlayer(), "lordshipcreatedbroadcast");
 	}
 

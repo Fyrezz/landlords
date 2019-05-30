@@ -34,9 +34,10 @@ public class CmdSetHome extends LordshipCommand {
 	public void perform(CommandContent commandContent) {
 		LazyLocation lazyLocation = new LazyLocation(commandContent.getPlayer().getLocation());
 		commandContent.getLordship().setHomeblock(lazyLocation);
-		vars.put("x", Double.toString(lazyLocation.getLocation().getX()));
-		vars.put("y", Double.toString(lazyLocation.getLocation().getY()));
-		vars.put("z", Double.toString(lazyLocation.getLocation().getX()));
+		
+		this.vars.put("x", Double.toString(lazyLocation.getLocation().getX()));
+		this.vars.put("y", Double.toString(lazyLocation.getLocation().getY()));
+		this.vars.put("z", Double.toString(lazyLocation.getLocation().getX()));
 		P.p.getMM().lordshipMsg(commandContent.getLordship(), "homeset", vars);
 	}
 

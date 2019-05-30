@@ -51,8 +51,8 @@ public class CmdDeposit extends LordshipCommand {
 			invAmount =- argAmount;
 			commandContent.getPlayer().getInventory().addItem(new ItemStack(Material.GOLD_INGOT, invAmount));
 			
-			vars.put("amount", Integer.toString(argAmount));
-			vars.put("member", commandContent.getPlayer().getName());
+			this.vars.put("amount", Integer.toString(argAmount));
+			this.vars.put("member", commandContent.getPlayer().getName());
 			P.p.getMM().lordshipMsg(commandContent.getLordship(), "golddeposit", vars);
 		} else {
 			P.p.getMM().msg(commandContent.getLPlayer(), "notenoughgold");

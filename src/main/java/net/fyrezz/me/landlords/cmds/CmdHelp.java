@@ -30,9 +30,8 @@ public class CmdHelp extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		vars.put("version", P.p.getDescription().getVersion());
-		vars.put("authors", P.p.getDescription().getAuthors().toString());
-		
+		this.vars.put("version", P.p.getDescription().getVersion());
+		this.vars.put("authors", P.p.getDescription().getAuthors().toString());
 		P.p.getMM().msg(commandContent.getLPlayer(), "help", vars);
 	}
 

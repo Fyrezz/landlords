@@ -17,6 +17,7 @@ public class CommandListener implements CommandExecutor {
 	
 	private LordshipCommand cmdCreate = new CmdCreate();
 	private LordshipCommand cmdDelete = new CmdDelete();
+	private LordshipCommand cmdDeposit = new CmdDeposit();
 	private LordshipCommand cmdHome = new CmdHelp();
 	private LordshipCommand cmdSetHome = new CmdSetHome();
 	private LordshipCommand cmdHelp = new CmdHelp();

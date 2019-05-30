@@ -2,11 +2,11 @@
 # Use \n for new lines
 #
 
-# # # #
-#
-# General messages
-#
-# # # #
+# # # # # # # # # # #
+#                   #
+# General messages  #
+#                   #
+# # # # # # # # # # #
 
 # Prefix for all commands
 prefix: ""
@@ -21,11 +21,11 @@ playercommandonly: "&cPlayer command only!"
 # %authors% return plugin's authors
 help: "&7v.%version%, by %authors%\n&b/l create &eCreate your own Lordship."
 
-# # # #
-#
-# Lordship messages
-#
-# # # #
+# # # # # # # # # # #
+#                   #
+# Lordship messages #
+#                   #
+# # # # # # # # # # #
 
 # Player is already in a Lordship
 alreadyinalordship: "&cYou're already in a Lordship!"
@@ -55,4 +55,13 @@ homeset: "&2Your Lordship's home has been set to &7%x%, %y%, %z%"
 # Successfully teleported to Lordship home
 teleportedhome: "&aYou have been teleported to your Lordship's home."
 # Successfully deposited gold
+# %member% returns member
+# %amount% returns deposited amount
 golddeposit: "&2%member% has deposited %amount% Gold in Lordship's Vault"
+# Successfully withdrawn gold
+# %member% returns member
+# %amount% returns withdrawn amount
+goldwithdraw: "&2%member% has withdrawn %amount% Gold from Lordship's Vault"
+# /l vault message
+# %amount% return amount
+vault: "&aYour Lordship's Vault contains &7%amount% Gold"
