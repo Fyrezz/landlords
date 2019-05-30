@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.P;
@@ -39,11 +40,7 @@ public class MessageManager {
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
 				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', base));
 	}
-
-	/*
-	 * For non configurable messages
-	 */
-
+	
 	public void undefinedMsg(LPlayer lPlayer, String message) {
 		lPlayer.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
 				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', message));
@@ -52,6 +49,33 @@ public class MessageManager {
 	public void undefinedMsg(CommandSender sender, String message) {
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
 				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', message));
+	}
+
+	public void broadcast(String path, Map<String, String> vars) {
+		String base = P.p.getLang().getString(path);
+		
+		for (String var : vars.keySet()) {
+			base = base.replace("%"+var+"%", vars.get(var));
+		}
+		
+		for (Player player : P.p.getServer().getOnlinePlayers()) {
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
+				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', base));
+		}
+	}
+	
+	public void broadcast(String path) {
+		for (Player player : P.p.getServer().getOnlinePlayers()) {
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
+				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString(path)));
+		}
+	}
+
+	public void broadcastUndefined(String message) {
+		for (Player player : P.p.getServer().getOnlinePlayers()) {
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
+				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', message));
+		}
 	}
 
 }

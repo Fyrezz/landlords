@@ -3,9 +3,9 @@ package net.fyrezz.me.landlords.cmds;
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
-public class CmdCreateLordship extends LordshipCommand {
+public class CmdCreate extends LordshipCommand {
 	
-	public CmdCreateLordship() {
+	public CmdCreate() {
 		super();
 	}
 	

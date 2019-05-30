@@ -62,6 +62,8 @@ public abstract class LordshipCommand {
 			P.p.getMM().msg(commandContent.getLPlayer(), "notenoughrank");
 			return;
 		}
+		
+		if (commandContent.getLPlayer().)
 		perform(commandContent);
 	}
 

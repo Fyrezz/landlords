@@ -4,9 +4,9 @@ import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
-public class CmdDeleteLordship extends LordshipCommand {
+public class CmdDelete extends LordshipCommand {
 	
-	public CmdDeleteLordship() {
+	public CmdDelete() {
 		super();
 	}
 
@@ -37,6 +37,7 @@ public class CmdDeleteLordship extends LordshipCommand {
 			P.p.getMM().msg(member, "lordshipdeleted");
 		}
 		P.p.getLordships().unloadLordship(commandContent.getLPlayer().getLordship());
+		P.p.getMM().broadcast("lordshipdeletedbroadcast");
 	}
 
 }

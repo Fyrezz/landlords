@@ -15,8 +15,8 @@ public class CommandListener implements CommandExecutor {
 	
 	public static Map<String, LordshipCommand> lordshipCommands = new HashMap<String, LordshipCommand>();
 	
-	private CmdCreateLordship cmdCreateLordship = new CmdCreateLordship();
-	private CmdDeleteLordship cmdDeleteLordship = new CmdDeleteLordship();
+	private CmdCreate cmdCreateLordship = new CmdCreate();
+	private CmdDelete cmdDeleteLordship = new CmdDelete();
 	private CmdHelp cmdHelp = new CmdHelp();
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
