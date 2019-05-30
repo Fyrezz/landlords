@@ -1,5 +1,7 @@
 package net.fyrezz.me.landlords.cmds;
 
+import net.fyrezz.me.landlords.P;
+import net.fyrezz.me.landlords.utils.LazyLocation;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdSetHome extends LordshipCommand {
@@ -30,8 +32,12 @@ public class CmdSetHome extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		// TODO Auto-generated method stub
-		
+		LazyLocation lazyLocation = new LazyLocation(commandContent.getPlayer().getLocation());
+		commandContent.getLordship().setHomeblock(lazyLocation);
+		vars.put("x", Double.toString(lazyLocation.getLocation().getX()));
+		vars.put("y", Double.toString(lazyLocation.getLocation().getY()));
+		vars.put("z", Double.toString(lazyLocation.getLocation().getX()));
+		P.p.getMM().lordshipMsg(commandContent.getLordship(), "homeset", vars);
 	}
 
 }

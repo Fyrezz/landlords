@@ -10,6 +10,9 @@
 package net.fyrezz.me.landlords;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -65,11 +68,7 @@ public class P extends JavaPlugin {
 	public FileConfiguration getLang() {
 		return lang;
 	}
-
-	/*
-	 * Enable & Disable Events
-	 */
-
+	
 	@Override
 	public void onEnable() {
 		// Make sure config files exist, and load them

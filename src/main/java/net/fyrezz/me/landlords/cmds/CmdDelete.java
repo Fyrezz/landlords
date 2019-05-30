@@ -32,12 +32,10 @@ public class CmdDelete extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		for (LPlayer member : commandContent.getLordship().getMemberList()) {
-			member.clearLordship();
-			P.p.getMM().msg(member, "lordshipdeleted");
-		}
 		P.p.getLordships().unloadLordship(commandContent.getLPlayer().getLordship());
-		P.p.getMM().broadcast("lordshipdeletedbroadcast");
+		P.p.getMM().lordshipMsg(commandContent.getLordship(), "lordshipdeleted");
+		vars.put("lordship", commandContent.getLordship().getLord().getName());
+		P.p.getMM().broadcast("lordshipdeletedbroadcast", vars);
 	}
 
 }

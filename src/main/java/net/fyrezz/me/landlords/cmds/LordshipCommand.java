@@ -1,7 +1,9 @@
 package net.fyrezz.me.landlords.cmds;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 import net.fyrezz.me.landlords.P;
@@ -12,6 +14,7 @@ public abstract class LordshipCommand {
 	protected List<String> aliases = new ArrayList<String>();
 	protected CommandRequirements commandRequirements = new CommandRequirements();
 	protected String permission;
+	protected Map<String, String> vars = new HashMap<String, String>();
 
 	public LordshipCommand() {
 		addAliases();
@@ -63,8 +66,10 @@ public abstract class LordshipCommand {
 			return;
 		}
 		
-		if (commandContent.getLPlayer().)
-		perform(commandContent);
+		/* TODO
+		 * Check isInOwnLand
+		 */
+		
 	}
 
 	public void registerCommand() {

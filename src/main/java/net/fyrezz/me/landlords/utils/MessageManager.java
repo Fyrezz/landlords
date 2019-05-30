@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.fyrezz.me.landlords.LPlayer;
+import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
 
 public class MessageManager {
@@ -39,6 +40,18 @@ public class MessageManager {
 		String base = P.p.getLang().getString(path);
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
 				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', base));
+	}
+	
+	public void lordshipMsg(Lordship lordship, String path, Map<String, String> vars) {
+		for (LPlayer lPlayer : lordship.getMemberList()) {
+			msg(lPlayer, path, vars);
+		}
+	}
+	
+	public void lordshipMsg(Lordship lordship, String path) {
+		for (LPlayer lPlayer : lordship.getMemberList()) {
+			msg(lPlayer, path);
+		}
 	}
 	
 	public void undefinedMsg(LPlayer lPlayer, String message) {

@@ -2,13 +2,53 @@
 # Use \n for new lines
 #
 
+# # # #
+#
+# General messages
+#
+# # # #
+
+# Prefix for all commands
 prefix: ""
+# Unknown command
 unknowncommand: "&cUnknown command. Type &7/l &cfor Landlords help."
+# Console command error
 consolecommandonly: "&cConsole command only!"
+# Player command error
 playercommandonly: "&cPlayer command only!"
-alreadyinalordship: "&cYou're already in a Lordship!"
-notinalordship: "&cYou're not in a Lordship!"
-notenoughrank: "&cYour rank isn't high enough to perform this command."
+# Help message
+# %version% return server version
+# %authors% return plugin's authors
 help: "&7v.%version%, by %authors%\n&b/l create &eCreate your own Lordship."
+
+# # # #
+#
+# Lordship messages
+#
+# # # #
+
+# Player is already in a Lordship
+alreadyinalordship: "&cYou're already in a Lordship!"
+# Player is not in a Lordship
+notinalordship: "&cYou're not in a Lordship!"
+# Player's rank isnt high enough to perform the command.
+# Ranks are 0 -> Lord
+#           1 -> 2nd highest
+#           2 -> 3rd highest
+#           3 -> 4th highest
+notenoughrank: "&cYour rank isn't high enough to perform this command."
+# Message sent to new Lord
 lordshipcreated: "&aYou have just created your Lordship!"
-lordshipdeleted: "&cYou have just deleted your Lordship!"
+# Broadcast message after new Lordship creation
+# %lordship% returns Lord's name (which is always the Lordship's name)
+lordshipcreatedbroadcast: "&6%lordship% has created his Lordship."
+# Message sent to Lordship members when Lordship is deleted
+lordshipdeleted: "&cYour Lordship has been deleted!"
+# Broadcast message after Lordship delete
+# %lordship% returns Lord's name
+lordshipdeletedbroadcast: "&6%lordship%'s Lordship has been deleted."
+# Message sent to Lordship members when home is set
+# %x% %y% %z% return coords
+homeset: "&2Your Lordship's home has been set to &7%x%, %y%, %z%"
+# Successfully teleported to Lordship home
+teleportedhome: "&aYou have been teleported to your Lordship's home."
