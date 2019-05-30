@@ -15,9 +15,11 @@ public class CommandListener implements CommandExecutor {
 	
 	public static Map<String, LordshipCommand> lordshipCommands = new HashMap<String, LordshipCommand>();
 	
-	private CmdCreate cmdCreateLordship = new CmdCreate();
-	private CmdDelete cmdDeleteLordship = new CmdDelete();
-	private CmdHelp cmdHelp = new CmdHelp();
+	private LordshipCommand cmdCreate = new CmdCreate();
+	private LordshipCommand cmdDelete = new CmdDelete();
+	private LordshipCommand cmdHome = new CmdHelp();
+	private LordshipCommand cmdSetHome = new CmdSetHome();
+	private LordshipCommand cmdHelp = new CmdHelp();
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
@@ -35,6 +37,7 @@ public class CommandListener implements CommandExecutor {
 		} else {
 			P.p.getMM().msg(sender, "unknowncommand");
 		}
+		
 		return true;
 	}
 

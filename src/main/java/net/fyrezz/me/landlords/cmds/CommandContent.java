@@ -54,7 +54,8 @@ public class CommandContent {
 	}
 
 	public String getArg(Integer index) {
-		return args.get(index);
+		/* The first arg (index 0) is after the subcommand */
+		return args.get(index + 1);
 	}
 
 }

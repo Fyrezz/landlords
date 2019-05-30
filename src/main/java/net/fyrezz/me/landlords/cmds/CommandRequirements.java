@@ -12,4 +12,5 @@ public class CommandRequirements {
 	public RequirementState hasLordship = RequirementState.ALLOWED;
 	public List<Byte> allowedRanks = new ArrayList<Byte>(Arrays.asList((byte) 0,(byte) 1,(byte) 2,(byte) 3));
 	public RequirementState isInOwnLand = RequirementState.ALLOWED;
+
 }

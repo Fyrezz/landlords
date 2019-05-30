@@ -44,6 +44,7 @@ public abstract class LordshipCommand {
 			P.p.getMM().msg(commandContent.getLPlayer(), "consolecommandonly");
 			return;
 		}
+		
 		if (!commandContent.isPlayer() && (commandRequirements.isPlayer == RequirementState.REQUIRED)) {
 			P.p.getMM().msg(commandContent.getSender(), "playercommandonly");
 			return;
@@ -54,6 +55,7 @@ public abstract class LordshipCommand {
 			P.p.getMM().msg(commandContent.getLPlayer(), "alreadyinalordship");
 			return;
 		}
+		
 		if (!commandContent.getLPlayer().hasLordship()
 				&& (commandRequirements.hasLordship == RequirementState.REQUIRED)) {
 			P.p.getMM().msg(commandContent.getLPlayer(), "notinalordship");
@@ -65,11 +67,11 @@ public abstract class LordshipCommand {
 			P.p.getMM().msg(commandContent.getLPlayer(), "notenoughrank");
 			return;
 		}
-		
-		/* TODO
+		/* 
+		 * TODO
 		 * Check isInOwnLand
 		 */
-		
+		perform(commandContent);
 	}
 
 	public void registerCommand() {

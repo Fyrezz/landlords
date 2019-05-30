@@ -37,6 +37,8 @@ notinalordship: "&cYou're not in a Lordship!"
 #           2 -> 3rd highest
 #           3 -> 4th highest
 notenoughrank: "&cYour rank isn't high enough to perform this command."
+# Not enough gold to perform command
+notenoughgold: "&cThere is not enough Gold in your inventory."
 # Message sent to new Lord
 lordshipcreated: "&aYou have just created your Lordship!"
 # Broadcast message after new Lordship creation
@@ -52,3 +54,5 @@ lordshipdeletedbroadcast: "&6%lordship%'s Lordship has been deleted."
 homeset: "&2Your Lordship's home has been set to &7%x%, %y%, %z%"
 # Successfully teleported to Lordship home
 teleportedhome: "&aYou have been teleported to your Lordship's home."
+# Successfully deposited gold
+golddeposit: "&2%member% has deposited %amount% Gold in Lordship's Vault"

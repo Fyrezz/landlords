@@ -12,19 +12,20 @@ public class Lordship {
 	private String id;
 	private int level;
 	private LazyLocation homeblock;
+	private int gold;
 	private Map<LPlayer, Byte> members = new HashMap<LPlayer, Byte>();
 
 	public Lordship(String id, int level, LazyLocation homeblock, Map<LPlayer, Byte> members) {
-		// The Lordship's ID is always the Lord's UUID
+		/* The Lordship's ID is always the Lord's UUID */
 		this.id = id;
 		this.level = level;
 		this.homeblock = homeblock;
 		this.members = members;
 	}
-
-	/*
-	 * Get & Set
-	 */
+	
+	public Integer getGold() {
+		return gold;
+	}
 
 	public LazyLocation getHomeblock() {
 		return homeblock;
@@ -62,11 +63,15 @@ public class Lordship {
 		}
 		homeblock = location;
 	}
-
-	/*
-	 * Utils
-	 */
-
+	
+	public void setGold(int amount) {
+		gold = amount;
+	}
+	
+	public void addGold(int amount) {
+		gold =+ amount;
+	}
+	
 	public LPlayer getLPlayerFromUUID(String UUID) {
 		for (LPlayer lPlayer : members.keySet()) {
 			if (lPlayer.getUUID() == UUID) {
