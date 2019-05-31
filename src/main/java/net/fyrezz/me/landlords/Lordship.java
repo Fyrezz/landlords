@@ -10,21 +10,16 @@ import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordship {
 	private String id;
-	private int level;
-	private LazyLocation homeblock;
 	private int gold;
+	private LazyLocation homeblock;
 	private Map<LPlayer, Byte> members = new HashMap<LPlayer, Byte>();
 
-	public Lordship(String id, int level, LazyLocation homeblock, Map<LPlayer, Byte> members) {
+	public Lordship(String id, int gold, LazyLocation homeblock, Map<LPlayer, Byte> members) {
 		/* The Lordship's ID is always the Lord's UUID */
 		this.id = id;
-		this.level = level;
+		this.gold = gold;
 		this.homeblock = homeblock;
 		this.members = members;
-	}
-	
-	public Integer getGold() {
-		return gold;
 	}
 
 	public LazyLocation getHomeblock() {
@@ -36,19 +31,15 @@ public class Lordship {
 	}
 
 	public List<LPlayer> getMemberList() {
-		List<LPlayer> listmembers = new ArrayList<LPlayer>();
-		for (LPlayer lPlayer : members.keySet()) {
-			listmembers.add(lPlayer);
-		}
-		return listmembers;
+		return new ArrayList<LPlayer>(members.keySet());
 	}
 
 	public String getID() {
 		return id;
 	}
 
-	public int getLevel() {
-		return level;
+	public int getGold() {
+		return gold;
 	}
 
 	public Byte getRank(LPlayer lPlayer) {
@@ -141,36 +132,12 @@ public class Lordship {
 	 * Adding and removing members
 	 */
 
-	public void addMember(LPlayer lPlayer, Byte rank) {
-		if (containsMember(lPlayer)) {
-			P.p.getLogger().log(Level.WARNING, "Error adding member to Lordship " + id + ": Already a member!");
-			return;
-		}
-
-		if (isFull()) {
-			P.p.getLogger().log(Level.WARNING, "Error adding member to Lordship " + id + ": Max members reached!");
-			return;
-		}
-		members.put(lPlayer, rank);
-		lPlayer.setLordship(this);
+	public void addMember(LPlayer lPlayer) {
+		members.put(lPlayer, (byte) 3);
 	}
 
-	public void removeMember(LPlayer lPlayer, Byte rank) {
-		if (!containsMember(lPlayer)) {
-			P.p.getLogger().log(Level.WARNING, "Error removing member from Lordship " + id + ": Not a member!");
-			return;
-		}
-
-		if (lPlayer == getLord()) {
-			P.p.getLogger().log(Level.WARNING, "Error removing member from Lordship " + id + ": He is the Lord!");
-		}
-
-		if (members.size() < 2) {
-			P.p.getLogger().log(Level.WARNING,
-					"Error removing member from Lordship " + id + ": Lord is already the only member!");
-		}
+	public void removeMember(LPlayer lPlayer) {
 		members.remove(lPlayer);
-		lPlayer.setLordship(P.p.getLordships().getDefault());
 	}
 	
 	public void message(String path) {
@@ -185,20 +152,7 @@ public class Lordship {
 		}
 	}
 
-	/*
-	 * Setting ranks
-	 */
-
 	public void setRank(LPlayer lPlayer, Byte rank) {
-		if (!containsMember(lPlayer)) {
-			P.p.getLogger().log(Level.WARNING, "Error setting rank in Lordship " + id + ": LPlayer not a member!");
-			return;
-		}
-
-		if (rank < 1 | rank > 3) { // Cannot set Lord | Min rank is 3
-			P.p.getLogger().log(Level.WARNING, "Error setting rank in Lordship " + id + ": Invalid rank!");
-			return;
-		}
 		members.put(lPlayer, rank);
 	}
 

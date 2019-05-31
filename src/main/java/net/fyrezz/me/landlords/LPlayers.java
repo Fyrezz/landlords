@@ -12,34 +12,29 @@ public class LPlayers {
 
 	public LPlayers() {
 	}
-
-	/*
-	 * Get & Set
-	 */
-
+	
 	public Map<String, LPlayer> getLoadedLPlayers() {
 		return loadedLPlayers;
 	}
 
 	/*
-	 * Utils
-	 * 
 	 * All Lordship members have a LPlayer, doesn't matter if they're not online.
 	 * 
 	 * All online players have a LPlayer. Offline players without Lordship might
 	 * have a LPlayer.
 	 */
-
 	public void load() {
-		// LPlayers are loaded from Lordships. No Database needed.
 		for (String ID : P.p.getLordships().getLoadedLordships().keySet()) {
 			Lordship lordship = P.p.getLordships().getByID(ID);
+			
 			for (LPlayer lPlayer : lordship.getMemberList()) {
 				loadedLPlayers.put(lPlayer.getUUID(), lPlayer);
-				lPlayer.setLordship(lordship); // Set the Lordship of the loaded LPlayer
+				
+				lPlayer.setLordship(lordship);
 			}
 		}
-		// Also, make sure each online player has a LPlayer instance
+		
+		/* Make sure each online player has a LPlayer instance */
 		for (Player player : P.p.getServer().getOnlinePlayers()) {
 			if (!loadedLPlayers.containsKey(player.getUniqueId().toString())) {
 				loadLPlayer(new LPlayer(player.getUniqueId().toString(), player.getName()));

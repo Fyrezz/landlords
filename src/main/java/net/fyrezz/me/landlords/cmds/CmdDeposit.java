@@ -32,18 +32,24 @@ public class CmdDeposit extends LordshipCommand {
 
 		try {
 			argAmount = Integer.parseInt(commandContent.getArg(0));
-		} catch (NumberFormatException exception) {
+		} catch (Exception exception) {
 			P.p.getMM().undefinedMsg(commandContent.getLPlayer(), "&c/l deposit <amount>");
 			return;
 		}
 
-		for (ItemStack item : commandContent.getPlayer().getInventory().getContents()) {
-			if (item.getType().equals(Material.GOLD_INGOT)) {
-				invAmount++;
+		ItemStack[] inventory = commandContent.getPlayer().getInventory().getContents();
+		ItemStack item;
+
+		for (int i = 0; i <= 40; i++) {
+			item = inventory[i];
+			if (item != null && item.getType() != Material.AIR) {
+				if (item.getType() == (Material.GOLD_INGOT)) {
+					invAmount += item.getAmount();
+				}
 			}
 		}
 
-		if (invAmount >= argAmount) {
+		if (invAmount < argAmount) {
 			P.p.getMM().msg(commandContent.getLPlayer(), "notenoughgold");
 			return;
 		}

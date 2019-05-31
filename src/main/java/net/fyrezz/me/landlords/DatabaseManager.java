@@ -46,7 +46,7 @@ public class DatabaseManager {
 				/*
 				 * Database line modules
 				 * 
-				 * 1 String ID % 2 Integer level % 3 LazyLocation Homeblock % 4 Map<LPlayer,
+				 * 1 String ID % 2 Integer gold % 3 LazyLocation Homeblock % 4 Map<LPlayer,
 				 * Byte> members
 				 */
 
@@ -58,8 +58,8 @@ public class DatabaseManager {
 				// 1 String ID
 				String id = split[0];
 
-				// 2 Integer level
-				int level = Integer.parseInt(split[1]);
+				// 2 Integer gold
+				int gold = Integer.parseInt(split[1]);
 
 				// 3 LazyLocation homeblock
 				String[] locSplit = split[2].split(itemSeparator);
@@ -81,7 +81,7 @@ public class DatabaseManager {
 					members.put(lPlayer, rank);
 				}
 				// Create the lordship
-				Lordship lordship = new Lordship(id, level, homeblock, members);
+				Lordship lordship = new Lordship(id, gold, homeblock, members);
 
 				// Add it to the lordships list
 				lordships.put(id, lordship);
@@ -104,6 +104,7 @@ public class DatabaseManager {
 			// Don't do anything if there is anything to do
 			if (loadedLordships.isEmpty() | loadedLordships.size() < 2 | loadedLordships == null) {
 				P.p.getLogger().log(Level.INFO, "No lordships loaded! Saving no thing...");
+				init();
 				return;
 			}
 
@@ -113,7 +114,7 @@ public class DatabaseManager {
 			/*
 			 * Database line modules
 			 * 
-			 * 1 String ID % 2 Integer level % 3 LazyLocation Homeblock % 4 Map<LPlayer,
+			 * 1 String ID % 2 Integer gold % 3 LazyLocation Homeblock % 4 Map<LPlayer,
 			 * Byte> members
 			 */
 
@@ -125,8 +126,8 @@ public class DatabaseManager {
 					// 1 String ID
 					modules.add(lordship.getID());
 
-					// 2 Integer Level
-					modules.add(String.valueOf(lordship.getLevel()));
+					// 2 Integer Gold
+					modules.add(String.valueOf(lordship.getGold()));
 
 					// 3 LazyLocation Homeblock
 					List<String> locationArray = new ArrayList<String>();
@@ -152,6 +153,7 @@ public class DatabaseManager {
 			}
 			P.p.getLogger().log(Level.INFO, "Saved " + count + " Lordships to Database");
 			pw.close();
+			init();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

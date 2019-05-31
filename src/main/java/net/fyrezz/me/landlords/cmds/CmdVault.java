@@ -26,7 +26,7 @@ public class CmdVault extends LordshipCommand {
 	public void perform(CommandContent commandContent) {
 		int gold = commandContent.getLordship().getGold();
 		this.vars.put("amount", Integer.toString(gold));
-		P.p.getMM().msg(commandContent.getLPlayer(), "vault", vars);
+		P.p.getMM().msg(commandContent.getLPlayer(), "vault", this.vars);
 	}
 
 }

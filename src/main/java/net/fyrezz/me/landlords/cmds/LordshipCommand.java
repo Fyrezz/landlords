@@ -40,36 +40,31 @@ public abstract class LordshipCommand {
 	public abstract void perform(CommandContent commandContent);
 
 	public void execute(CommandContent commandContent) {
-		if (commandContent.isPlayer() && (commandRequirements.isPlayer == RequirementState.EXCLUDED)) {
-			P.p.getMM().msg(commandContent.getLPlayer(), "consolecommandonly");
-			return;
-		}
-		
-		if (!commandContent.isPlayer() && (commandRequirements.isPlayer == RequirementState.REQUIRED)) {
+		if (commandContent.isPlayer()) {
+			if (commandRequirements.isPlayer == RequirementState.EXCLUDED) {
+				P.p.getMM().msg(commandContent.getLPlayer(), "consolecommandonly");
+				return;
+			}
+			if (commandContent.getLPlayer().hasLordship()) {
+				if (commandRequirements.hasLordship == RequirementState.EXCLUDED) {
+					P.p.getMM().msg(commandContent.getLPlayer(), "alreadyinalordship");
+					return;
+				}
+				if (!commandRequirements.allowedRanks
+						.contains(commandContent.getLPlayer().getLordship().getRank(commandContent.getLPlayer()))) {
+					P.p.getMM().msg(commandContent.getLPlayer(), "notenoughrank");
+					return;
+				}
+			} else if (commandRequirements.hasLordship == RequirementState.REQUIRED) {
+				P.p.getMM().msg(commandContent.getLPlayer(), "notinalordship");
+				return;
+			}
+		} else if (commandRequirements.isPlayer == RequirementState.REQUIRED) {
 			P.p.getMM().msg(commandContent.getSender(), "playercommandonly");
 			return;
 		}
-
-		if (commandContent.getLPlayer().hasLordship()
-				&& (commandRequirements.hasLordship == RequirementState.EXCLUDED)) {
-			P.p.getMM().msg(commandContent.getLPlayer(), "alreadyinalordship");
-			return;
-		}
-		
-		if (!commandContent.getLPlayer().hasLordship()
-				&& (commandRequirements.hasLordship == RequirementState.REQUIRED)) {
-			P.p.getMM().msg(commandContent.getLPlayer(), "notinalordship");
-			return;
-		}
-
-		if (commandContent.getLPlayer().hasLordship() && !commandRequirements.allowedRanks
-				.contains(commandContent.getLPlayer().getLordship().getRank(commandContent.getLPlayer()))) {
-			P.p.getMM().msg(commandContent.getLPlayer(), "notenoughrank");
-			return;
-		}
-		/* 
-		 * TODO
-		 * Check isInOwnLand
+		/*
+		 * TODO Check isInOwnLand
 		 */
 		perform(commandContent);
 	}

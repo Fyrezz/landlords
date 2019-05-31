@@ -1,6 +1,11 @@
 package net.fyrezz.me.landlords.cmds;
 
+import java.util.Arrays;
+
+import org.bukkit.Bukkit;
+
 import net.fyrezz.me.landlords.LPlayer;
+import net.fyrezz.me.landlords.LPlayers;
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
@@ -20,9 +25,7 @@ public class CmdDelete extends LordshipCommand {
 	public void setRequirements() {
 		this.commandRequirements.isPlayer = RequirementState.REQUIRED;
 		this.commandRequirements.hasLordship = RequirementState.REQUIRED;
-		this.commandRequirements.allowedRanks.remove(Byte.valueOf((byte) 3));
-		this.commandRequirements.allowedRanks.remove(Byte.valueOf((byte) 2));
-		this.commandRequirements.allowedRanks.remove(Byte.valueOf((byte) 1));
+		this.commandRequirements.allowedRanks = Arrays.asList((byte) 0);
 	}
 
 	@Override
@@ -38,6 +41,14 @@ public class CmdDelete extends LordshipCommand {
 		
 		this.vars.put("lordship", commandContent.getLordship().getLord().getName());
 		P.p.getMM().broadcast("lordshipdeletedbroadcast", vars);
+		
+		P.p.getDB().saveLoadedLordships();
+		
+		P.p.getLordships().clearMemory();
+		P.p.getLordships().load();
+		
+		P.p.getLPlayers().clearMemory();
+		P.p.getLPlayers().load();
 	}
 
 }

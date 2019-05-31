@@ -1,15 +1,18 @@
 #
-# Use \n for new lines
+# Landlords - by Fyrezz
+#
+# If there's an error with this file, delete
+# it and restart your server.
 #
 
 # # # # # # # # # # #
 #                   #
 # General messages  #
 #                   #
-# # # # # # # #Â #Â # #
+# # # # # # # # # # #
 
 # Prefix for all commands
-prefix: ""
+prefix: "&eLandlords"
 # Unknown command
 unknowncommand: "&cUnknown command. Type &7/l &cfor Landlords help."
 # Console command error
@@ -40,7 +43,7 @@ notenoughrank: "&cYour rank isn't high enough to perform this command."
 # Not enough gold in inventory to deposit
 notenoughgold: "&cThere is not enough Gold in your inventory."
 # Not enough gold in Lordship's Vault to withdraw
-notenoughgold: "&cThere is not enough Gold your Lordship's Vault."
+notenoughgoldvault: "&cThere is not enough Gold your Lordship's Vault."
 # Message sent to new Lord
 lordshipcreated: "&aYou have just created your Lordship!"
 # Broadcast message after new Lordship creation
