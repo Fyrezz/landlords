@@ -29,35 +29,34 @@ public class CmdDeposit extends LordshipCommand {
 	public void perform(CommandContent commandContent) {
 		int argAmount;
 		int invAmount = 0;
-		
+
 		try {
 			argAmount = Integer.parseInt(commandContent.getArg(0));
+		} catch (NumberFormatException exception) {
+			P.p.getMM().undefinedMsg(commandContent.getLPlayer(), "&c/l deposit <amount>");
+			return;
 		}
-		catch (NumberFormatException exception) {
-				P.p.getMM().undefinedMsg(commandContent.getLPlayer(), "&c/l deposit <amount>");
-				return;
-			}
-		
+
 		for (ItemStack item : commandContent.getPlayer().getInventory().getContents()) {
 			if (item.getType().equals(Material.GOLD_INGOT)) {
 				invAmount++;
 			}
 		}
-		
+
 		if (invAmount >= argAmount) {
-			commandContent.getLordship().addGold(argAmount);
-			commandContent.getPlayer().getInventory().remove(Material.GOLD_INGOT);
-			
-			invAmount =- argAmount;
-			commandContent.getPlayer().getInventory().addItem(new ItemStack(Material.GOLD_INGOT, invAmount));
-			
-			this.vars.put("amount", Integer.toString(argAmount));
-			this.vars.put("member", commandContent.getPlayer().getName());
-			P.p.getMM().lordshipMsg(commandContent.getLordship(), "golddeposit", vars);
-		} else {
 			P.p.getMM().msg(commandContent.getLPlayer(), "notenoughgold");
 			return;
 		}
+
+		commandContent.getLordship().addGold(argAmount);
+		commandContent.getPlayer().getInventory().remove(Material.GOLD_INGOT);
+
+		invAmount -= argAmount;
+		commandContent.getPlayer().getInventory().addItem(new ItemStack(Material.GOLD_INGOT, invAmount));
+
+		this.vars.put("amount", Integer.toString(argAmount));
+		this.vars.put("member", commandContent.getPlayer().getName());
+		P.p.getMM().lordshipMsg(commandContent.getLordship(), "golddeposit", vars);
 	}
 
 }

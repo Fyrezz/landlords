@@ -69,7 +69,11 @@ public class Lordship {
 	}
 	
 	public void addGold(int amount) {
-		gold =+ amount;
+		gold += amount;
+	}
+	
+	public void removeGold(int amount) {
+		gold -= amount;
 	}
 	
 	public LPlayer getLPlayerFromUUID(String UUID) {

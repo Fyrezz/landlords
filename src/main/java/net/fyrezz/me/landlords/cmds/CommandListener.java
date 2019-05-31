@@ -18,9 +18,11 @@ public class CommandListener implements CommandExecutor {
 	private LordshipCommand cmdCreate = new CmdCreate();
 	private LordshipCommand cmdDelete = new CmdDelete();
 	private LordshipCommand cmdDeposit = new CmdDeposit();
+	private LordshipCommand cmdHelp = new CmdHelp();
 	private LordshipCommand cmdHome = new CmdHelp();
 	private LordshipCommand cmdSetHome = new CmdSetHome();
-	private LordshipCommand cmdHelp = new CmdHelp();
+	private LordshipCommand cmdVault = new CmdVault();
+	private LordshipCommand cmdWithdrawn = new CmdWithdraw();
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		

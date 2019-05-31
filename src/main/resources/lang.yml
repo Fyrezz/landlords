@@ -37,8 +37,10 @@ notinalordship: "&cYou're not in a Lordship!"
 #           2 -> 3rd highest
 #           3 -> 4th highest
 notenoughrank: "&cYour rank isn't high enough to perform this command."
-# Not enough gold to perform command
+# Not enough gold in inventory to deposit
 notenoughgold: "&cThere is not enough Gold in your inventory."
+# Not enough gold in Lordship's Vault to withdraw
+notenoughgold: "&cThere is not enough Gold your Lordship's Vault."
 # Message sent to new Lord
 lordshipcreated: "&aYou have just created your Lordship!"
 # Broadcast message after new Lordship creation
