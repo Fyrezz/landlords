@@ -47,11 +47,6 @@ public class Lordship {
 	}
 
 	public void setHomeblock(LazyLocation location) {
-		// Security check
-		if (location.getLocation() == null) {
-			P.p.getLogger().log(Level.WARNING, "Error setting Homeblock of Lordship " + id + ": NULL Location");
-			return;
-		}
 		homeblock = location;
 	}
 	
@@ -127,10 +122,6 @@ public class Lordship {
 	public boolean isFull() {
 		return (members.size() >= P.p.getConfig().getInt("maxmembers"));
 	}
-
-	/*
-	 * Adding and removing members
-	 */
 
 	public void addMember(LPlayer lPlayer) {
 		members.put(lPlayer, (byte) 3);

@@ -50,7 +50,8 @@ lordshipcreated: "&aYou have just created your Lordship!"
 # %lordship% returns Lord's name (which is always the Lordship's name)
 lordshipcreatedbroadcast: "&6%lordship% has created his Lordship."
 # Message sent to Lordship members when Lordship is deleted
-lordshipdeleted: "&cYour Lordship has been deleted!"
+# %amount% returns amount of gold in vault given back
+lordshipdeleted: "&cYour Lordship has been deleted!\n&cYou received %amount% from its Vault"
 # Broadcast message after Lordship delete
 # %lordship% returns Lord's name
 lordshipdeletedbroadcast: "&6%lordship%'s Lordship has been deleted."
@@ -68,5 +69,5 @@ golddeposit: "&2%member% has deposited %amount% Gold in Lordship's Vault"
 # %amount% returns withdrawn amount
 goldwithdraw: "&2%member% has withdrawn %amount% Gold from Lordship's Vault"
 # /l vault message
-# %amount% return amount
+# %amount% returns amount
 vault: "&aYour Lordship's Vault contains &7%amount% Gold"
