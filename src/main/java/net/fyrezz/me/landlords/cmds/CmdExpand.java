@@ -45,7 +45,7 @@ public class CmdExpand extends LordshipCommand {
 		}
 		
 		if ((lordship.getSide() + argAmount) > P.p.getConfig().getInt("maxside")) {
-			vars.put("maxexpansion", Integer.toString(P.p.getConfig().getInt("maxside") - lordship.getSide()));
+			vars.put("maxexpand", Integer.toString(P.p.getConfig().getInt("maxside") - lordship.getSide()));
 			P.p.getMM().msg(lPlayer, "cantexpandthat", vars);
 			return;
 		}
@@ -55,11 +55,10 @@ public class CmdExpand extends LordshipCommand {
 			return;
 		}
 		lordship.setSide(lordship.getSide() + argAmount);
-		/*
-		 * TODO UPDATE LANDBOARD
-		 */
+		
 		vars.put("expansionamount", Integer.toString(argAmount));
-		vars.put("newarea", Integer.toString(lordship.getArea()));
+		vars.put("newside", Integer.toString(lordship.getSide()));
+		vars.put("newamount", Integer.toString(lordship.getArea()));
 		P.p.getMM().lordshipMsg(lordship, "lordshipexpanded", vars);
 	}
 }

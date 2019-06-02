@@ -31,15 +31,10 @@ public class CmdSetCenter extends LordshipCommand {
 		 * TODO CHECK FOR NEAR LORDSHIPS
 		 */
 		
-		/*
-		 * TODO UPDATE LANDBOARD
-		 */
-		
 		LazyLocation loc = new LazyLocation(commandContent.getLPlayer().getPlayer().getLocation());
 		commandContent.getLordship().setCenterBlock(loc);
 		
 		vars.put("x", Integer.toString((int)loc.getLocation().getX()));
-		vars.put("y", Integer.toString((int)loc.getLocation().getY()));
 		vars.put("z", Integer.toString((int)loc.getLocation().getX()));
 		P.p.getMM().lordshipMsg(commandContent.getLordship(), "centerset", vars);
 	}

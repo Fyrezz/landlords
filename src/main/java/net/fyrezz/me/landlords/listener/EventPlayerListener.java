@@ -22,7 +22,7 @@ public class EventPlayerListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		LPlayer lPlayer = P.p.getLPlayers().getByUUID(player.getUniqueId().toString());
-		
+
 		// All online players must have a LPlayer loaded
 		if (lPlayer == null) {
 			P.p.getLPlayers().loadLPlayer(new LPlayer(player.getUniqueId().toString(), player.getName()));
@@ -30,37 +30,37 @@ public class EventPlayerListener implements Listener {
 		}
 
 		if (lPlayer == null) {
-		P.p.getLogger().log(Level.WARNING,
-				"Couldn't load LPlayer " + player.getName() + " [" + player.getUniqueId() + "]");
+			P.p.getLogger().log(Level.WARNING,
+					"Couldn't load LPlayer " + player.getName() + " [" + player.getUniqueId() + "]");
 		}
-		
+
 		// Update player's name
 		lPlayer.setName(player.getName());
 	}
-	
+
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onBlockBreak(BlockBreakEvent event) {
 		Location loc = event.getBlock().getLocation();
-		double x = loc.getX();
-		double z = loc.getZ();
+		
 		Player player = event.getPlayer();
 		LPlayer lPlayer = P.p.getLPlayers().getByUUID(player.getUniqueId().toString());
 		
+		Lordship lordship = P.p.getLordships().getByID(lPlayer.getUUID());
+
+		Map<String, String> vars = new HashMap<String, String>();
+
 		for (String ID : P.p.getLordships().getLoadedLordships().keySet()) {
-			Lordship lordship = P.p.getLordships().getByID(ID);
-			double maxX = lordship.getMaxX();
-			double minX = lordship.getMinX();
-			double minZ = lordship.getMaxZ();
-			double maxZ = lordship.getMinZ();
-			if (x <= maxX && x >= minX && z <= maxZ && z >= minZ) {
-				event.setCancelled(true);
-				Map<String, String> vars = new HashMap<String, String>();
-				
-				vars.put("lordship", lordship.getLord().getName());
-				P.p.getMM().msg(lPlayer, "cantbreak", vars);
+			Lordship checkedLordship = P.p.getLordships().getByID(ID);
+			if (lordship.getID() != checkedLordship.getID() && checkedLordship.isInsideLand(loc)) {
+				if (checkedLordship.isProtected()) {
+					event.setCancelled(true);
+					vars.put("lordship", checkedLordship.getLord().getName());
+					P.p.getMM().msg(lPlayer, "cantdothat", vars);
+				} else {
+					vars.put("enemy", event.getPlayer().getName());
+					P.p.getMM().lordshipMsg(checkedLordship, "enemywarning", vars);
+				}
 			}
-			/* if getArea contains loc cancel */
 		}
 	}
-
 }

@@ -50,10 +50,10 @@ public class CmdShrink extends LordshipCommand {
 			return;
 		}
 		lordship.setSide(lordship.getSide() - argAmount);
-		/*
-		 * TODO UPDATE LANDBOARD
-		 */
+		
 		vars.put("shrunkamount", Integer.toString(argAmount));
-		vars.put("newarea", Integer.toString(lordship.getArea()));
+		vars.put("newside", Integer.toString(lordship.getSide()));
+		vars.put("newamount", Integer.toString(lordship.getArea()));
+		P.p.getMM().lordshipMsg(lordship, "landshrunk", vars);
 	}
 }

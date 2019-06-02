@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+
 import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordship {
@@ -195,5 +198,26 @@ public class Lordship {
 	
 	public double getMaxZ() {
 		return centerblock.getLocation().getZ() - (side / 2) + 1;
+	}
+	
+	public boolean isInsideLand(Location loc) {
+		double maxX = getMaxX();
+		double minX = getMinX();
+		double minZ = getMaxZ();
+		double maxZ = getMinZ();
+		
+		return (loc.getX() <= maxX && loc.getX() >= minX && loc.getZ() <= maxZ && loc.getZ() >= minZ);
+	}
+	
+	public boolean isInsideLand(LazyLocation lazyLoc) {
+		return isInsideLand(lazyLoc.getLocation());
+	}
+	
+	public boolean isInsideLand(LPlayer lPlayer) {
+		return isInsideLand(lPlayer.getPlayer().getLocation());
+	}
+	
+	public boolean isInsideLand(Player player) {
+		return isInsideLand(player.getLocation());
 	}
 }
