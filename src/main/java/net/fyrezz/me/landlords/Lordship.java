@@ -180,5 +180,20 @@ public class Lordship {
 		int cost = (side + expansion) * (side + expansion) * P.p.getConfig().getInt("blockcost");
 		return gold >= cost;
 	}
-
+	
+	public double getMinX() {
+		return centerblock.getLocation().getX() - (side / 2);
+	}
+	
+	public double getMaxX() {
+		return centerblock.getLocation().getX() - (side / 2) + 1;
+	}
+	
+	public double getMinZ() {
+		return centerblock.getLocation().getZ() - (side / 2);
+	}
+	
+	public double getMaxZ() {
+		return centerblock.getLocation().getZ() - (side / 2) + 1;
+	}
 }
