@@ -6,24 +6,18 @@ import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.LazyLocation;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
-public class CmdSetHome extends LordshipCommand {
-	
-	public CmdSetHome() {
-		super();
-	}
+public class CmdSetCenter extends LordshipCommand {
 
 	@Override
 	public void addAliases() {
-		aliases.add("sethome");
-		aliases.add("sh");
+		aliases.add("setcenter");
 	}
 
 	@Override
 	public void setRequirements() {
-		requirements.hasLordship = RequirementState.REQUIRED;
 		requirements.isPlayer = RequirementState.REQUIRED;
-		requirements.isInOwnLand = RequirementState.REQUIRED;
-		requirements.allowedRanks = Arrays.asList((byte) 0, (byte) 1);
+		requirements.hasLordship = RequirementState.REQUIRED;
+		requirements.allowedRanks = Arrays.asList((byte) 0);
 	}
 
 	@Override
@@ -33,13 +27,21 @@ public class CmdSetHome extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		LazyLocation loc = new LazyLocation(commandContent.getPlayer().getLocation());
-		commandContent.getLordship().setHomeblock(loc);
+		/*
+		 * TODO CHECK FOR NEAR LORDSHIPS
+		 */
+		
+		/*
+		 * TODO UPDATE LANDBOARD
+		 */
+		
+		LazyLocation loc = new LazyLocation(commandContent.getLPlayer().getPlayer().getLocation());
+		commandContent.getLordship().setCenterBlock(loc);
 		
 		vars.put("x", Integer.toString((int)loc.getLocation().getX()));
 		vars.put("y", Integer.toString((int)loc.getLocation().getY()));
 		vars.put("z", Integer.toString((int)loc.getLocation().getX()));
-		P.p.getMM().lordshipMsg(commandContent.getLordship(), "homeset", vars);
+		P.p.getMM().lordshipMsg(commandContent.getLordship(), "centerset", vars);
 	}
 
 }

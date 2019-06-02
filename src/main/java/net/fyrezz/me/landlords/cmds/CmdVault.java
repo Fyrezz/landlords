@@ -7,26 +7,26 @@ public class CmdVault extends LordshipCommand {
 
 	@Override
 	public void addAliases() {
-		this.aliases.add("vault");
-		this.aliases.add("v");
+		aliases.add("vault");
+		aliases.add("v");
 	}
 
 	@Override
 	public void setRequirements() {
-		this.commandRequirements.isPlayer = RequirementState.REQUIRED;
-		this.commandRequirements.hasLordship = RequirementState.REQUIRED;
+		requirements.isPlayer = RequirementState.REQUIRED;
+		requirements.hasLordship = RequirementState.REQUIRED;
 	}
 
 	@Override
 	public void setPermission() {
-		this.permission = "landlords.player";
+		permission = "landlords.player";
 	}
 
 	@Override
 	public void perform(CommandContent commandContent) {
 		int gold = commandContent.getLordship().getGold();
-		this.vars.put("amount", Integer.toString(gold));
-		P.p.getMM().msg(commandContent.getLPlayer(), "vault", this.vars);
+		vars.put("amount", Integer.toString(gold));
+		P.p.getMM().msg(commandContent.getLPlayer(), "vault", vars);
 	}
 
 }

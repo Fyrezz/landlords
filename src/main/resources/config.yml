@@ -1,1 +1,9 @@
 maxmembers: 30
+blockcost: 1
+# Max area allowed for Lordships. Lordship's area is a square.
+# This value is the SIDE of that square.
+# For example, setting "maxsize" to 256 would allow Lordships
+# to claim up to 65536 blocks.
+# ONLY CHANGE THIS BEFORE MAP LAUNCH. CHANGING THIS ONCE LORDSHIPS HAVE BEEN 
+# CREATED WILL CAUSE MAJOR ISSUES
+maxside: 256

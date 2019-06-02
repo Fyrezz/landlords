@@ -14,24 +14,24 @@ public class CmdHelp extends LordshipCommand {
 	
 	@Override
 	public void addAliases() {
-		this.aliases.add("help");
-		this.aliases.add("h");
+		aliases.add("help");
+		aliases.add("h");
 	}
 
 	@Override
 	public void setRequirements() {
-		this.commandRequirements.isPlayer = RequirementState.REQUIRED;
+		requirements.isPlayer = RequirementState.REQUIRED;
 	}
 
 	@Override
 	public void setPermission() {
-		this.permission = "landlords.player";
+		permission = "landlords.player";
 	}
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		this.vars.put("version", P.p.getDescription().getVersion());
-		this.vars.put("authors", P.p.getDescription().getAuthors().toString());
+		vars.put("version", P.p.getDescription().getVersion());
+		vars.put("authors", P.p.getDescription().getAuthors().toString());
 		P.p.getMM().msg(commandContent.getLPlayer(), "help", vars);
 	}
 

@@ -19,33 +19,33 @@ public class CmdDelete extends LordshipCommand {
 
 	@Override
 	public void addAliases() {
-		this.aliases.add("delete");
-		this.aliases.add("del");
+		aliases.add("delete");
+		aliases.add("del");
 	}
 
 	@Override
 	public void setRequirements() {
-		this.commandRequirements.isPlayer = RequirementState.REQUIRED;
-		this.commandRequirements.hasLordship = RequirementState.REQUIRED;
-		this.commandRequirements.allowedRanks = Arrays.asList((byte) 0);
+		requirements.isPlayer = RequirementState.REQUIRED;
+		requirements.hasLordship = RequirementState.REQUIRED;
+		requirements.allowedRanks = Arrays.asList((byte) 0);
 	}
 
 	@Override
 	public void setPermission() {
-		this.permission = "landlords.player";
+		permission = "landlords.player";
 	}
 
 	@Override
 	public void perform(CommandContent commandContent) {
 		
-		this.vars.put("lordship", commandContent.getLordship().getLord().getName());
+		vars.put("lordship", commandContent.getLordship().getLord().getName());
 		P.p.getMM().broadcast("lordshipdeletedbroadcast", vars);
 		
 		ItemStack goldGiven = new ItemStack(Material.GOLD_INGOT, 
 				commandContent.getLordship().getGold());
 		commandContent.getPlayer().getWorld().dropItem(commandContent.getPlayer().getEyeLocation(), goldGiven);
 
-		this.vars.put("amount", Integer.toString(goldGiven.getAmount()));
+		vars.put("amount", Integer.toString(goldGiven.getAmount()));
 		P.p.getMM().lordshipMsg(commandContent.getLordship(), "lordshipdeleted");
 		
 		P.p.getLordships().unloadLordship(commandContent.getLPlayer().getLordship());

@@ -12,20 +12,20 @@ public class CmdWithdraw extends LordshipCommand {
 
 	@Override
 	public void addAliases() {
-		this.aliases.add("withdraw");
-		this.aliases.add("w");
+		aliases.add("withdraw");
+		aliases.add("w");
 	}
 
 	@Override
 	public void setRequirements() {
-		this.commandRequirements.isPlayer = RequirementState.REQUIRED;
-		this.commandRequirements.hasLordship = RequirementState.REQUIRED;
-		this.commandRequirements.allowedRanks = Arrays.asList((byte) 0, (byte) 1);
+		requirements.isPlayer = RequirementState.REQUIRED;
+		requirements.hasLordship = RequirementState.REQUIRED;
+		requirements.allowedRanks = Arrays.asList((byte) 0, (byte) 1);
 	}
 
 	@Override
 	public void setPermission() {
-		this.permission = "landlords.player";
+		permission = "landlords.player";
 	}
 
 	@Override
@@ -50,9 +50,9 @@ public class CmdWithdraw extends LordshipCommand {
 		ItemStack goldWithdrawn = new ItemStack(Material.GOLD_INGOT, argAmount);
 		commandContent.getPlayer().getWorld().dropItem(commandContent.getPlayer().getEyeLocation(), goldWithdrawn);
 
-		this.vars.put("amount", Integer.toString(argAmount));
-		this.vars.put("member", commandContent.getPlayer().getName());
-		P.p.getMM().lordshipMsg(commandContent.getLordship(), "goldwithdraw", this.vars);
+		vars.put("amount", Integer.toString(argAmount));
+		vars.put("member", commandContent.getPlayer().getName());
+		P.p.getMM().lordshipMsg(commandContent.getLordship(), "goldwithdraw", vars);
 	}
 
 }

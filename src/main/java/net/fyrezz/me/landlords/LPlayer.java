@@ -3,7 +3,9 @@ package net.fyrezz.me.landlords;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class LPlayer {
 
@@ -56,4 +58,37 @@ public class LPlayer {
 	public boolean hasLordship() {
 		return !(lordship.getID() == P.p.getLordships().getDefault().getID());
 	}
+
+	public boolean hasMaterial(Material material, int amount) {
+		ItemStack[] inventory = getPlayer().getInventory().getContents();
+		int invAmount = 0;
+
+		for (ItemStack itemStack : inventory) {
+			if (itemStack != null && itemStack.getType() != Material.AIR) {
+				if (itemStack.getType() == (material)) {
+					invAmount += itemStack.getAmount();
+				}
+			}
+		}
+		return invAmount >= amount;
+	}
+
+	public void removeMaterial(Material material, int amount) {
+		ItemStack[] inventory = getPlayer().getInventory().getContents();
+		int count = amount;
+
+		for (ItemStack itemStack : inventory) {
+			if (itemStack != null && itemStack.getType() != Material.AIR) {
+				if (itemStack.getType() == material) {
+					for (int n = 0; n < itemStack.getAmount(); n++) {
+						if (count > 0) {
+							itemStack.setAmount(itemStack.getAmount() - 1);
+							count--;
+						}
+					}
+				}
+			}
+		}
+	}
+
 }

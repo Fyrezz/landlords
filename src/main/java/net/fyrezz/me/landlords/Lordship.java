@@ -13,13 +13,17 @@ public class Lordship {
 	private int gold;
 	private LazyLocation homeblock;
 	private Map<LPlayer, Byte> members = new HashMap<LPlayer, Byte>();
+	private int side;
+	private LazyLocation centerblock;
 
-	public Lordship(String id, int gold, LazyLocation homeblock, Map<LPlayer, Byte> members) {
+	public Lordship(String id, int gold, LazyLocation homeblock, Map<LPlayer, Byte> members, int side, LazyLocation centerblock) {
 		/* The Lordship's ID is always the Lord's UUID */
 		this.id = id;
 		this.gold = gold;
 		this.homeblock = homeblock;
 		this.members = members;
+		this.side = side;
+		this.centerblock = centerblock;
 	}
 
 	public LazyLocation getHomeblock() {
@@ -45,6 +49,14 @@ public class Lordship {
 	public Byte getRank(LPlayer lPlayer) {
 		return members.get(lPlayer);
 	}
+	
+	public int getSide() {
+		return side;
+	}
+	
+	public LazyLocation getCenterBlock() {
+		return centerblock;
+	}
 
 	public void setHomeblock(LazyLocation location) {
 		homeblock = location;
@@ -52,6 +64,14 @@ public class Lordship {
 	
 	public void setGold(int amount) {
 		gold = amount;
+	}
+	
+	public void setSide(int amount) {
+		side = amount;
+	}
+	
+	public void setCenterBlock(LazyLocation location) {
+		centerblock = location;
 	}
 	
 	public void addGold(int amount) {
@@ -145,6 +165,20 @@ public class Lordship {
 
 	public void setRank(LPlayer lPlayer, Byte rank) {
 		members.put(lPlayer, rank);
+	}
+	
+	public int getArea() {
+		return side * side;
+	}
+	
+	public boolean isProtected() {
+		int cost = getArea() * P.p.getConfig().getInt("blockcost");
+		return gold >= cost;
+	}
+	
+	public boolean canAffordExpansion(int expansion) {
+		int cost = (side + expansion) * (side + expansion) * P.p.getConfig().getInt("blockcost");
+		return gold >= cost;
 	}
 
 }

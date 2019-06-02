@@ -6,8 +6,8 @@ public class CmdReload extends LordshipCommand {
 
 	@Override
 	public void addAliases() {
-		this.aliases.add("reload");
-		this.aliases.add("r");
+		aliases.add("reload");
+		aliases.add("r");
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class CmdReload extends LordshipCommand {
 
 	@Override
 	public void setPermission() {
-		this.permission = "landlords.admin";
+		permission = "landlords.admin";
 	}
 
 	@Override

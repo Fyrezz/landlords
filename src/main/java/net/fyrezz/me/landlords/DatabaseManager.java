@@ -43,13 +43,6 @@ public class DatabaseManager {
 				String line = scan.nextLine();
 				String[] split = line.split(moduleSeparator);
 
-				/*
-				 * Database line modules
-				 * 
-				 * 1 String ID % 2 Integer gold % 3 LazyLocation Homeblock % 4 Map<LPlayer,
-				 * Byte> members
-				 */
-
 				if (split.length != 4) { // Change this number if arguments of Lordship() change
 					P.p.getLogger().log(Level.SEVERE, "FATAL DB ERROR --> Line " + lineNum
 							+ " <-- String isn't correctly split (Perhaps wrong module separators?");
@@ -80,8 +73,17 @@ public class DatabaseManager {
 					LPlayer lPlayer = new LPlayer(UUID, name);
 					members.put(lPlayer, rank);
 				}
+				
+				// 5 Integer side
+				int side = Integer.parseInt(split[4]);
+
+				// 6 LazyLocation centerblock
+				String[] centerSplit = split[5].split(itemSeparator);
+				LazyLocation centerblock = new LazyLocation(centerSplit[0], Double.parseDouble(centerSplit[1]),
+						Double.parseDouble(centerSplit[2]), Double.parseDouble(centerSplit[3]));
+				
 				// Create the lordship
-				Lordship lordship = new Lordship(id, gold, homeblock, members);
+				Lordship lordship = new Lordship(id, gold, homeblock, members, side, centerblock);
 
 				// Add it to the lordships list
 				lordships.put(id, lordship);
@@ -111,13 +113,6 @@ public class DatabaseManager {
 			// If there's work, print each loaded lordship in a new line
 			PrintWriter pw = new PrintWriter(new FileWriter(lordshipsDBFile.getAbsolutePath(), false));
 
-			/*
-			 * Database line modules
-			 * 
-			 * 1 String ID % 2 Integer gold % 3 LazyLocation Homeblock % 4 Map<LPlayer,
-			 * Byte> members
-			 */
-
 			for (String ID : loadedLordships.keySet()) {
 				if (ID != "DEFAULT") {
 					Lordship lordship = loadedLordships.get(ID);
@@ -145,6 +140,17 @@ public class DatabaseManager {
 					}
 					modules.add(new String().join(itemSeparator, memberArray).replace("[", "").replace("]", ""));
 
+					// 5 Integer side
+					modules.add(String.valueOf(lordship.getSide()));
+
+					// 6 LazyLocation centerblock
+					List<String> centerArray = new ArrayList<String>();
+					centerArray.add(lordship.getHomeblock().getLocation().getWorld().getName());
+					centerArray.add(String.valueOf(lordship.getHomeblock().getLocation().getX()));
+					centerArray.add(String.valueOf(lordship.getHomeblock().getLocation().getY()));
+					centerArray.add(String.valueOf(lordship.getHomeblock().getLocation().getZ()));
+					modules.add(new String().join(itemSeparator, centerArray).replace("[", "").replace("]", ""));
+					
 					// Save all the info in a new line
 					String newline = new String().join(moduleSeparator, modules).replace("[", "").replace("]", "");
 					pw.println(newline);

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
@@ -12,7 +11,7 @@ import net.fyrezz.me.landlords.utils.RequirementState;
 public abstract class LordshipCommand {
 
 	protected List<String> aliases = new ArrayList<String>();
-	protected CommandRequirements commandRequirements = new CommandRequirements();
+	protected CommandRequirements requirements = new CommandRequirements();
 	protected String permission;
 	protected Map<String, String> vars = new HashMap<String, String>();
 
@@ -21,10 +20,6 @@ public abstract class LordshipCommand {
 		setRequirements();
 		setPermission();
 		registerCommand();
-
-		if (this.aliases.isEmpty() | this.permission == null) {
-			P.p.getLogger().log(Level.WARNING, "Couldn't register command " + this.getClass().toString());
-		}
 	}
 
 	public List<String> getAliases() {
@@ -41,25 +36,25 @@ public abstract class LordshipCommand {
 
 	public void execute(CommandContent commandContent) {
 		if (commandContent.isPlayer()) {
-			if (commandRequirements.isPlayer == RequirementState.EXCLUDED) {
+			if (requirements.isPlayer == RequirementState.EXCLUDED) {
 				P.p.getMM().msg(commandContent.getLPlayer(), "consolecommandonly");
 				return;
 			}
 			if (commandContent.getLPlayer().hasLordship()) {
-				if (commandRequirements.hasLordship == RequirementState.EXCLUDED) {
+				if (requirements.hasLordship == RequirementState.EXCLUDED) {
 					P.p.getMM().msg(commandContent.getLPlayer(), "alreadyinalordship");
 					return;
 				}
-				if (!commandRequirements.allowedRanks
+				if (!requirements.allowedRanks
 						.contains(commandContent.getLPlayer().getLordship().getRank(commandContent.getLPlayer()))) {
 					P.p.getMM().msg(commandContent.getLPlayer(), "notenoughrank");
 					return;
 				}
-			} else if (commandRequirements.hasLordship == RequirementState.REQUIRED) {
+			} else if (requirements.hasLordship == RequirementState.REQUIRED) {
 				P.p.getMM().msg(commandContent.getLPlayer(), "notinalordship");
 				return;
 			}
-		} else if (commandRequirements.isPlayer == RequirementState.REQUIRED) {
+		} else if (requirements.isPlayer == RequirementState.REQUIRED) {
 			P.p.getMM().msg(commandContent.getSender(), "playercommandonly");
 			return;
 		}

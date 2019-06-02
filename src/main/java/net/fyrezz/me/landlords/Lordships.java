@@ -12,25 +12,17 @@ public class Lordships {
 	public Lordships() {
 	}
 
-	/*
-	 * Get & Set
-	 */
-
 	public Map<String, Lordship> getLoadedLordships() {
 		return loadedLordships;
 	}
-
-	/*
-	 * Lordship memory management
-	 */
-
+	
 	public void load() {
 		loadedLordships = P.p.getDB().getSavedLordships();
 		P.p.getLogger().log(Level.INFO, "Loaded " + loadedLordships.size() + " Lordships to memory.");
 
 		// Add the DEFAULT Lordship, which will be the Lordship of all non-lordship
 		// players
-		Lordship lordship = new Lordship("DEFAULT", 0, new LazyLocation(), new HashMap<LPlayer, Byte>());
+		Lordship lordship = new Lordship("DEFAULT", 0, new LazyLocation(), new HashMap<LPlayer, Byte>(), 0, new LazyLocation());
 		loadLordship(lordship);
 	}
 
@@ -45,10 +37,6 @@ public class Lordships {
 	public void unloadLordship(Lordship lordship) {
 		loadedLordships.remove(lordship.getID());
 	}
-
-	/*
-	 * Utils
-	 */
 
 	public Lordship getDefault() {
 		return loadedLordships.get("DEFAULT");

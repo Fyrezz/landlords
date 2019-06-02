@@ -10,25 +10,24 @@ public class CmdDeposit extends LordshipCommand {
 
 	@Override
 	public void addAliases() {
-		this.aliases.add("deposit");
-		this.aliases.add("d");
+		aliases.add("deposit");
+		aliases.add("d");
 	}
 
 	@Override
 	public void setRequirements() {
-		this.commandRequirements.isPlayer = RequirementState.REQUIRED;
-		this.commandRequirements.hasLordship = RequirementState.REQUIRED;
+		requirements.isPlayer = RequirementState.REQUIRED;
+		requirements.hasLordship = RequirementState.REQUIRED;
 	}
 
 	@Override
 	public void setPermission() {
-		this.permission = "landlords.player";
+		permission = "landlords.player";
 	}
 
 	@Override
 	public void perform(CommandContent commandContent) {
 		int argAmount;
-		int invAmount = 0;
 
 		try {
 			argAmount = Integer.parseInt(commandContent.getArg(0));
@@ -37,31 +36,17 @@ public class CmdDeposit extends LordshipCommand {
 			return;
 		}
 
-		ItemStack[] inventory = commandContent.getPlayer().getInventory().getContents();
-		ItemStack item;
-
-		for (int i = 0; i <= 40; i++) {
-			item = inventory[i];
-			if (item != null && item.getType() != Material.AIR) {
-				if (item.getType() == (Material.GOLD_INGOT)) {
-					invAmount += item.getAmount();
-				}
-			}
-		}
-
-		if (invAmount < argAmount) {
+		if (!commandContent.getLPlayer().hasMaterial(Material.GOLD_INGOT, argAmount)) {
 			P.p.getMM().msg(commandContent.getLPlayer(), "notenoughgold");
 			return;
 		}
-
+		
 		commandContent.getLordship().addGold(argAmount);
-		commandContent.getPlayer().getInventory().remove(Material.GOLD_INGOT);
+		
+		commandContent.getLPlayer().removeMaterial(Material.GOLD_INGOT, argAmount);
 
-		invAmount -= argAmount;
-		commandContent.getPlayer().getInventory().addItem(new ItemStack(Material.GOLD_INGOT, invAmount));
-
-		this.vars.put("amount", Integer.toString(argAmount));
-		this.vars.put("member", commandContent.getPlayer().getName());
+		vars.put("amount", Integer.toString(argAmount));
+		vars.put("member", commandContent.getPlayer().getName());
 		P.p.getMM().lordshipMsg(commandContent.getLordship(), "golddeposit", vars);
 	}
 

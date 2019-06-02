@@ -7,19 +7,19 @@ public class CmdHome extends LordshipCommand {
 
 	@Override
 	public void addAliases() {
-		this.aliases.add("home");
-		this.aliases.add("h");
+		aliases.add("home");
+		aliases.add("h");
 	}
 
 	@Override
 	public void setRequirements() {
-		this.commandRequirements.isPlayer = RequirementState.REQUIRED;
-		this.commandRequirements.hasLordship = RequirementState.REQUIRED;
+		requirements.isPlayer = RequirementState.REQUIRED;
+		requirements.hasLordship = RequirementState.REQUIRED;
 	}
 
 	@Override
 	public void setPermission() {
-		this.permission = "landlords.player";
+		permission = "landlords.player";
 	}
 
 	@Override
