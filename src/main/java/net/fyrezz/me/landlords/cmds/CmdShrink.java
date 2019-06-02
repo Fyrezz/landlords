@@ -34,7 +34,7 @@ public class CmdShrink extends LordshipCommand {
 		int argAmount;
 		
 		try {
-			argAmount = Integer.parseInt(commandContent.getArg(0));
+			argAmount = Integer.parseInt(commandContent.getArg(0)) * 2;
 		} catch (Exception exception) {
 			P.p.getMM().undefinedMsg(commandContent.getLPlayer(), "&c/l shrink <amountBlocks>");
 			return;
@@ -51,13 +51,13 @@ public class CmdShrink extends LordshipCommand {
 		}
 		
 		if ((lordship.getSide() - argAmount) < 8) {
-			vars.put("maxshrink", Integer.toString(lordship.getSide() - 8));
+			vars.put("maxshrink", Integer.toString((lordship.getSide() - 8) / 2));
 			P.p.getMM().msg(lPlayer, "cantshrinkthat", vars);
 			return;
 		}
 		lordship.setSide(lordship.getSide() - argAmount);
 		
-		vars.put("shrunkamount", Integer.toString(argAmount));
+		vars.put("shrunkamount", Integer.toString(argAmount / 2));
 		vars.put("newside", Integer.toString(lordship.getSide()));
 		vars.put("newamount", Integer.toString(lordship.getArea()));
 		P.p.getMM().lordshipMsg(lordship, "landshrunk", vars);

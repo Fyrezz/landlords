@@ -51,7 +51,7 @@ public class EventPlayerListener implements Listener {
 
 		for (String ID : P.p.getLordships().getLoadedLordships().keySet()) {
 			Lordship checkedLordship = P.p.getLordships().getByID(ID);
-			if (lordship.getID() != checkedLordship.getID() && checkedLordship.isInsideLand(loc)) {
+			if (checkedLordship.getID() != "DEFAULT" && lordship.getID() != checkedLordship.getID() && checkedLordship.isInsideLand(loc)) {
 				if (checkedLordship.isProtected()) {
 					event.setCancelled(true);
 					vars.put("lordship", checkedLordship.getLord().getName());

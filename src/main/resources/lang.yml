@@ -87,9 +87,9 @@ enemywarning: "&c%enemy% is griefing your Lordship because you don't have enough
 centerset: "&aYour Lordship's center has been set to X %x% Z %z%.\nAll land protection is now set around this center."
 cantshrinkmore: "&cYour Lordship's protected land is already at the minimum (8x8)"
 cantshrinkthat: "&cYou can only shrink %maxshrink% more blocks until reaching minimum protection area"
-landshrunk: "&aYour Lordship's land has shrunk %amount% blocks on each direction.\n&aYour Lordship has now a %newside%x%newside% area which costs %newamount% Gold to keep secure."
+landshrunk: "&aYour Lordship's land has shrunk %shrunkamount% blocks on each direction.\n&aYour Lordship has now a %newside%x%newside% area which costs %newamount% Gold to keep secure."
 cantexpandmore: "&cYour Lordship's protected land is already at the maximum."
 cantexpandthat: "&cYou can only expand %maxexpand% more blocks until reaching maximum protection area"
-notenoughgoldtoexpand: "&cThere is not enough Gold in your Lordship's Vault to expand your land and keep it secure.\n&cAlthough expanding your land doesn't cost you Gold, you must have the minimum amount to have it secured before expanding."
-landexpanded: "&aYour Lordship's land has expanded %newamount% blocks on each direction.\n&aYour Lordship has now a %newside%x%newside% area which costs %newamount% Gold to keep secure."
+notenoughgoldtoexpand: "&cThere is not enough Gold in your Lordship's Vault to expand your land that amount and keep it secure. Although expanding your land doesn't cost Gold, you must have the minimum amount to have it secured before expanding."
+landexpanded: "&aYour Lordship's land has expanded %expandamount% blocks on each direction.\n&aYour Lordship has now a %newside%x%newside% area which costs %newamount% Gold to keep secure."
 

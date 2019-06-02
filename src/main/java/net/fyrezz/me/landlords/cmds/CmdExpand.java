@@ -34,9 +34,9 @@ public class CmdExpand extends LordshipCommand {
 		int argAmount;
 		
 		try {
-			argAmount = Integer.parseInt(commandContent.getArg(0));
+			argAmount = Integer.parseInt(commandContent.getArg(0)) * 2;
 		} catch (Exception exception) {
-			P.p.getMM().undefinedMsg(commandContent.getLPlayer(), "&c/l expand <amountBlocks>");
+			P.p.getMM().undefinedMsg(lPlayer, "&c/l expand <amountBlocks>");
 			return;
 		}
 
@@ -50,6 +50,7 @@ public class CmdExpand extends LordshipCommand {
 			return;
 		}
 		
+		
 		if ((lordship.getSide() + argAmount) > P.p.getConfig().getInt("maxside")) {
 			vars.put("maxexpand", Integer.toString(P.p.getConfig().getInt("maxside") - lordship.getSide()));
 			P.p.getMM().msg(lPlayer, "cantexpandthat", vars);
@@ -62,7 +63,7 @@ public class CmdExpand extends LordshipCommand {
 		}
 		lordship.setSide(lordship.getSide() + argAmount);
 		
-		vars.put("expansionamount", Integer.toString(argAmount));
+		vars.put("expandamount", Integer.toString(argAmount / 2));
 		vars.put("newside", Integer.toString(lordship.getSide()));
 		vars.put("newamount", Integer.toString(lordship.getArea()));
 		P.p.getMM().lordshipMsg(lordship, "landexpanded", vars);

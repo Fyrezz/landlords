@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -220,5 +219,9 @@ public class Lordship {
 	
 	public boolean isInsideLand(Player player) {
 		return isInsideLand(player.getLocation());
+	}
+	
+	public int distanceFromCenterTo(LazyLocation loc) {
+		return Math.sqrt((loc.getLocation().get))
 	}
 }
