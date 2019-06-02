@@ -2,17 +2,16 @@ package net.fyrezz.me.landlords.cmds;
 
 import java.util.Arrays;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import net.fyrezz.me.landlords.LPlayer;
-import net.fyrezz.me.landlords.LPlayers;
+import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdDelete extends LordshipCommand {
-	
+
 	public CmdDelete() {
 		super();
 	}
@@ -37,24 +36,26 @@ public class CmdDelete extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		
-		vars.put("lordship", commandContent.getLordship().getLord().getName());
-		P.p.getMM().broadcast("lordshipdeletedbroadcast", vars);
-		
-		ItemStack goldGiven = new ItemStack(Material.GOLD_INGOT, 
-				commandContent.getLordship().getGold());
-		commandContent.getPlayer().getWorld().dropItem(commandContent.getPlayer().getEyeLocation(), goldGiven);
+		Lordship lordship = commandContent.getLordship();
+		LPlayer lPlayer = commandContent.getLPlayer();
 
-		vars.put("amount", Integer.toString(goldGiven.getAmount()));
-		P.p.getMM().lordshipMsg(commandContent.getLordship(), "lordshipdeleted");
-		
-		P.p.getLordships().unloadLordship(commandContent.getLPlayer().getLordship());
-		
+		vars.put("lordship", lPlayer.getName());
+		P.p.getMM().broadcast("lordshipdeletedbroadcast", vars);
+
+		if (lordship.getGold() > 0) {
+			ItemStack goldGiven = new ItemStack(Material.GOLD_INGOT, commandContent.getLordship().getGold());
+			commandContent.getPlayer().getWorld().dropItem(commandContent.getPlayer().getEyeLocation(), goldGiven);
+
+			vars.put("amount", Integer.toString(goldGiven.getAmount()));
+			P.p.getMM().lordshipMsg(commandContent.getLordship(), "lordshipdeleted", vars);
+		}
+		P.p.getLordships().unloadLordship(lordship);
+
 		P.p.getDB().saveLoadedLordships();
-		
+
 		P.p.getLordships().clearMemory();
 		P.p.getLordships().load();
-		
+
 		P.p.getLPlayers().clearMemory();
 		P.p.getLPlayers().load();
 	}

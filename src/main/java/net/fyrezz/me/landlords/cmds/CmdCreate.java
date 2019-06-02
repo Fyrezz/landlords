@@ -36,8 +36,11 @@ public class CmdCreate extends LordshipCommand {
 		Map<LPlayer, Byte> newMembers = new HashMap<LPlayer, Byte>();
 		newMembers.put(commandContent.getLPlayer(), (byte) 0);
 		LazyLocation loc = new LazyLocation(commandContent.getPlayer().getLocation());
+		/*
+		 * TODO MAKE IT COST GOLD
+		 */
 
-		Lordship lordship = new Lordship(commandContent.getLPlayer().getUUID(), 0, loc, newMembers, 0, loc);
+		Lordship lordship = new Lordship(commandContent.getLPlayer().getUUID(), 0, loc, newMembers, 8, loc);
 
 		P.p.getLordships().loadLordship(lordship);
 

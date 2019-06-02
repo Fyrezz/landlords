@@ -80,7 +80,8 @@ public class LPlayer {
 		for (ItemStack itemStack : inventory) {
 			if (itemStack != null && itemStack.getType() != Material.AIR) {
 				if (itemStack.getType() == material) {
-					for (int n = 0; n < itemStack.getAmount(); n++) {
+					int times = itemStack.getAmount();
+					for (int n = 0; n < times; n++) {
 						if (count > 0) {
 							itemStack.setAmount(itemStack.getAmount() - 1);
 							count--;

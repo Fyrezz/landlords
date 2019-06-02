@@ -43,7 +43,7 @@ public class DatabaseManager {
 				String line = scan.nextLine();
 				String[] split = line.split(moduleSeparator);
 
-				if (split.length != 4) { // Change this number if arguments of Lordship() change
+				if (split.length != 6) { // Change this number if arguments of Lordship() change
 					P.p.getLogger().log(Level.SEVERE, "FATAL DB ERROR --> Line " + lineNum
 							+ " <-- String isn't correctly split (Perhaps wrong module separators?");
 				}
@@ -57,7 +57,8 @@ public class DatabaseManager {
 				// 3 LazyLocation homeblock
 				String[] locSplit = split[2].split(itemSeparator);
 				LazyLocation homeblock = new LazyLocation(locSplit[0], Double.parseDouble(locSplit[1]),
-						Double.parseDouble(locSplit[2]), Double.parseDouble(locSplit[3]));
+						Double.parseDouble(locSplit[2]), Double.parseDouble(locSplit[3]),
+						Float.parseFloat(locSplit[4]), Float.parseFloat(locSplit[5]));
 
 				// 4 Map<LPlayer, Byte> Members
 				String[] memberSplit = split[3].split(itemSeparator);
@@ -73,15 +74,15 @@ public class DatabaseManager {
 					LPlayer lPlayer = new LPlayer(UUID, name);
 					members.put(lPlayer, rank);
 				}
-				
+
 				// 5 Integer side
 				int side = Integer.parseInt(split[4]);
 
 				// 6 LazyLocation centerblock
 				String[] centerSplit = split[5].split(itemSeparator);
-				LazyLocation centerblock = new LazyLocation(centerSplit[0], Double.parseDouble(centerSplit[1]),
-						Double.parseDouble(centerSplit[2]), Double.parseDouble(centerSplit[3]));
-				
+				LazyLocation centerblock = new LazyLocation(Integer.parseInt(centerSplit[0]),
+						Integer.parseInt(centerSplit[1]));
+
 				// Create the lordship
 				Lordship lordship = new Lordship(id, gold, homeblock, members, side, centerblock);
 
@@ -130,6 +131,8 @@ public class DatabaseManager {
 					locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getX()));
 					locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getY()));
 					locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getZ()));
+					locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getYaw()));
+					locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getPitch()));
 					modules.add(new String().join(itemSeparator, locationArray).replace("[", "").replace("]", ""));
 
 					// 4 Map<LPlayer, Byte> members
@@ -145,12 +148,10 @@ public class DatabaseManager {
 
 					// 6 LazyLocation centerblock
 					List<String> centerArray = new ArrayList<String>();
-					centerArray.add(lordship.getHomeblock().getLocation().getWorld().getName());
-					centerArray.add(String.valueOf(lordship.getHomeblock().getLocation().getX()));
-					centerArray.add(String.valueOf(lordship.getHomeblock().getLocation().getY()));
-					centerArray.add(String.valueOf(lordship.getHomeblock().getLocation().getZ()));
+					centerArray.add(String.valueOf((int) lordship.getCenterBlock().getLocation().getX()));
+					centerArray.add(String.valueOf((int) lordship.getCenterBlock().getLocation().getZ()));
 					modules.add(new String().join(itemSeparator, centerArray).replace("[", "").replace("]", ""));
-					
+
 					// Save all the info in a new line
 					String newline = new String().join(moduleSeparator, modules).replace("[", "").replace("]", "");
 					pw.println(newline);

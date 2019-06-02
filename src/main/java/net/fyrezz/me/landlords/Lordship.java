@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -184,29 +185,29 @@ public class Lordship {
 		return gold >= cost;
 	}
 	
-	public double getMinX() {
-		return centerblock.getLocation().getX() - (side / 2);
-	}
-	
 	public double getMaxX() {
-		return centerblock.getLocation().getX() - (side / 2) + 1;
+		return (int) centerblock.getLocation().getX() + (side / 2) - 1;
 	}
 	
-	public double getMinZ() {
-		return centerblock.getLocation().getZ() - (side / 2);
+	public double getMinX() {
+		return (int) centerblock.getLocation().getX() - (side / 2) + 1;
 	}
 	
 	public double getMaxZ() {
-		return centerblock.getLocation().getZ() - (side / 2) + 1;
+		return (int) centerblock.getLocation().getZ() + (side / 2) - 1;
+	}
+	
+	public double getMinZ() {
+		return (int) centerblock.getLocation().getZ() - (side / 2) + 1;
 	}
 	
 	public boolean isInsideLand(Location loc) {
-		double maxX = getMaxX();
-		double minX = getMinX();
-		double minZ = getMaxZ();
-		double maxZ = getMinZ();
+		int maxX = (int) getMaxX();
+		int minX = (int)  getMinX();
+		int maxZ = (int)  getMaxZ();
+		int minZ = (int)  getMinZ();
 		
-		return (loc.getX() <= maxX && loc.getX() >= minX && loc.getZ() <= maxZ && loc.getZ() >= minZ);
+		return ((int) loc.getX() <= maxX && (int) loc.getX() >= minX && (int) loc.getZ() <= maxZ && (int) loc.getZ() >= minZ);
 	}
 	
 	public boolean isInsideLand(LazyLocation lazyLoc) {

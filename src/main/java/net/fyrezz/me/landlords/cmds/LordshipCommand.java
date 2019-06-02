@@ -50,6 +50,15 @@ public abstract class LordshipCommand {
 					P.p.getMM().msg(commandContent.getLPlayer(), "notenoughrank");
 					return;
 				}
+				if (commandContent.getLordship().isInsideLand(commandContent.getPlayer().getLocation())) {
+					if (requirements.isInOwnLand == RequirementState.EXCLUDED) {
+						P.p.getMM().msg(commandContent.getLPlayer(), "cantbeinownland");
+						return;
+					}
+				} else if (requirements.isInOwnLand == RequirementState.REQUIRED) {
+					P.p.getMM().msg(commandContent.getLPlayer(), "mustbeinownland");
+					return;
+				}
 			} else if (requirements.hasLordship == RequirementState.REQUIRED) {
 				P.p.getMM().msg(commandContent.getLPlayer(), "notinalordship");
 				return;
@@ -58,9 +67,6 @@ public abstract class LordshipCommand {
 			P.p.getMM().msg(commandContent.getSender(), "playercommandonly");
 			return;
 		}
-		/*
-		 * TODO Check isInOwnLand
-		 */
 		perform(commandContent);
 	}
 

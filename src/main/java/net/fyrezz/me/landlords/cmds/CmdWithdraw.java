@@ -3,8 +3,11 @@ package net.fyrezz.me.landlords.cmds;
 import java.util.Arrays;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import net.fyrezz.me.landlords.LPlayer;
+import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
@@ -30,29 +33,38 @@ public class CmdWithdraw extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
+		Lordship lordship = commandContent.getLordship();
+		LPlayer lPlayer = commandContent.getLPlayer();
+		Player player = commandContent.getPlayer();
+		
 		int argAmount;
-		int vaultAmount = commandContent.getLordship().getGold();
+		int vaultAmount = lordship.getGold();
 
 		try {
 			argAmount = Integer.parseInt(commandContent.getArg(0));
 		} catch (Exception exception) {
-			P.p.getMM().undefinedMsg(commandContent.getLPlayer(), "&c/l withdraw <amount>");
+			P.p.getMM().undefinedMsg(lPlayer, "&c/l withdraw <amount>");
+			return;
+		}
+
+		if (argAmount < 1 | argAmount > 2304) {
+			P.p.getMM().msg(lPlayer, "invalidamount");
 			return;
 		}
 
 		if (vaultAmount < argAmount) {
-			P.p.getMM().msg(commandContent.getLPlayer(), "notenoughgoldvault");
+			P.p.getMM().msg(lPlayer, "notenoughgoldvault");
 			return;
 		}
 		
-		commandContent.getLordship().removeGold(argAmount);
+		lordship.removeGold(argAmount);
 		
 		ItemStack goldWithdrawn = new ItemStack(Material.GOLD_INGOT, argAmount);
-		commandContent.getPlayer().getWorld().dropItem(commandContent.getPlayer().getEyeLocation(), goldWithdrawn);
+		player.getWorld().dropItem(player.getEyeLocation(), goldWithdrawn);
 
 		vars.put("amount", Integer.toString(argAmount));
-		vars.put("member", commandContent.getPlayer().getName());
-		P.p.getMM().lordshipMsg(commandContent.getLordship(), "goldwithdraw", vars);
+		vars.put("member", lPlayer.getName());
+		P.p.getMM().lordshipMsg(lordship, "goldwithdraw", vars);
 	}
 
 }

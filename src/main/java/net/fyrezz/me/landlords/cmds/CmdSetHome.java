@@ -38,7 +38,7 @@ public class CmdSetHome extends LordshipCommand {
 		
 		vars.put("x", Integer.toString((int)loc.getLocation().getX()));
 		vars.put("y", Integer.toString((int)loc.getLocation().getY()));
-		vars.put("z", Integer.toString((int)loc.getLocation().getX()));
+		vars.put("z", Integer.toString((int)loc.getLocation().getZ()));
 		P.p.getMM().lordshipMsg(commandContent.getLordship(), "homeset", vars);
 	}
 

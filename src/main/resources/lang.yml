@@ -19,6 +19,12 @@ unknowncommand: "&cUnknown command. Type &7/l &cfor Landlords help."
 consolecommandonly: "&cConsole command only!"
 # Player command error
 playercommandonly: "&cPlayer command only!"
+# Invalid argument when executing command
+invalidamount: "&cInvalid amount! Try with another integer"
+# Player can't be inside his own land
+cantbeinownland: "&cYou can't execute this command inside your Lordship's Land"
+# Player can't be outside his own land
+mustbeinownland: "&cYou must be inside your own Lordship's Land"
 # Help message
 # %version% return server version
 # %authors% return plugin's authors
@@ -84,6 +90,6 @@ cantshrinkthat: "&cYou can only shrink %maxshrink% more blocks until reaching mi
 landshrunk: "&aYour Lordship's land has shrunk %amount% blocks on each direction.\n&aYour Lordship has now a %newside%x%newside% area which costs %newamount% Gold to keep secure."
 cantexpandmore: "&cYour Lordship's protected land is already at the maximum."
 cantexpandthat: "&cYou can only expand %maxexpand% more blocks until reaching maximum protection area"
-notenoughgoldtoexpand: "&cThere is not enough Gold in your Lordship's Vault to expand your land and keep it secure.\n&cAlthough expanding your land doesn't cost you Gold, you must have the required amount to have it secured before expanding."
-landexpanded: "&aYour Lordship's land has expanded %amount% blocks on each direction.\n&aYour Lordship has now a %newside%x%newside% area which costs %newamount% Gold to keep secure."
+notenoughgoldtoexpand: "&cThere is not enough Gold in your Lordship's Vault to expand your land and keep it secure.\n&cAlthough expanding your land doesn't cost you Gold, you must have the minimum amount to have it secured before expanding."
+landexpanded: "&aYour Lordship's land has expanded %newamount% blocks on each direction.\n&aYour Lordship has now a %newside%x%newside% area which costs %newamount% Gold to keep secure."
 

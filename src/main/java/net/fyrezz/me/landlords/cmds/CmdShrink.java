@@ -30,12 +30,18 @@ public class CmdShrink extends LordshipCommand {
 	public void perform(CommandContent commandContent) {
 		Lordship lordship = commandContent.getLordship();
 		LPlayer lPlayer = commandContent.getLPlayer();
+		
 		int argAmount;
 		
 		try {
 			argAmount = Integer.parseInt(commandContent.getArg(0));
 		} catch (Exception exception) {
 			P.p.getMM().undefinedMsg(commandContent.getLPlayer(), "&c/l shrink <amountBlocks>");
+			return;
+		}
+
+		if (argAmount < 1 | argAmount > 512) {
+			P.p.getMM().msg(lPlayer, "invalidamount");
 			return;
 		}
 		

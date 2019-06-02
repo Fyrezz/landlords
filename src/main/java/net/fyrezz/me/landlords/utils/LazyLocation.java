@@ -40,6 +40,10 @@ public class LazyLocation {
 		this("world", 0, 0, 0);
 	}
 
+	public LazyLocation(int x, int z) {
+		this("world", x, 0, z);
+	}
+
 	/*
 	 * Get & Set
 	 */
