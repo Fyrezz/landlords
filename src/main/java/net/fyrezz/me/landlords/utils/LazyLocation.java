@@ -47,6 +47,10 @@ public class LazyLocation {
 	public LazyLocation(String world, int x, int z) {
 		this(world, x, 0, z);
 	}
+
+	public LazyLocation(String world, double x, double z) {
+		this(world, x, 0, z);
+	}
 	
 	public String getWorldName() {
 		return worldName;
@@ -70,6 +74,10 @@ public class LazyLocation {
 	
 	public float getPitch() {
 		return pitch;
+	}
+	
+	public void setY(double newY) {
+		y = newY;
 	}
 
 	public Location getLocation() {

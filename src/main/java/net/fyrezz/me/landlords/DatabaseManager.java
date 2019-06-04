@@ -17,7 +17,7 @@ public class DatabaseManager {
 
 	private File lordshipsDBFile = new File(P.p.getDataFolder() + File.separator + "database.json");;
 	private String moduleSeparator = "%";
-	private String itemSeparator = ",";
+	private final String itemSeparator = ",";
 
 	public DatabaseManager() {
 		init();
@@ -37,6 +37,7 @@ public class DatabaseManager {
 	public Map<String, Lordship> getSavedLordships() {
 		Map<String, Lordship> lordships = new HashMap<String, Lordship>();
 		int lineNum = 0;
+
 		try {
 			Scanner scan = new Scanner(lordshipsDBFile);
 			while (scan.hasNextLine()) {
@@ -57,8 +58,8 @@ public class DatabaseManager {
 				// 3 LazyLocation homeblock
 				String[] locSplit = split[2].split(itemSeparator);
 				LazyLocation homeblock = new LazyLocation(locSplit[0], Double.parseDouble(locSplit[1]),
-						Double.parseDouble(locSplit[2]), Double.parseDouble(locSplit[3]),
-						Float.parseFloat(locSplit[4]), Float.parseFloat(locSplit[5]));
+						Double.parseDouble(locSplit[2]), Double.parseDouble(locSplit[3]), Float.parseFloat(locSplit[4]),
+						Float.parseFloat(locSplit[5]));
 
 				// 4 Map<LPlayer, Byte> Members
 				String[] memberSplit = split[3].split(itemSeparator);
@@ -98,66 +99,63 @@ public class DatabaseManager {
 
 	public void saveLoadedLordships() {
 		try {
-			// First clear file
+			init();
 			lordshipsDBFile.delete();
 
 			int count = 0;
 			Map<String, Lordship> loadedLordships = P.p.getLordships().getLoadedLordships();
 
-			// Don't do anything if there is anything to do
-			if (loadedLordships.isEmpty() | loadedLordships.size() < 2 | loadedLordships == null) {
-				P.p.getLogger().log(Level.INFO, "No lordships loaded! Saving no thing...");
+			if (loadedLordships.isEmpty() | loadedLordships.size() < 1 | loadedLordships == null) {
+				P.p.getLogger().log(Level.INFO, "No lordships loaded Saving no thing...");
 				init();
 				return;
 			}
 
-			// If there's work, print each loaded lordship in a new line
 			PrintWriter pw = new PrintWriter(new FileWriter(lordshipsDBFile.getAbsolutePath(), false));
 
 			for (String ID : loadedLordships.keySet()) {
-				if (ID != "DEFAULT") {
-					Lordship lordship = loadedLordships.get(ID);
-					List<String> modules = new ArrayList<String>();
+				Lordship lordship = loadedLordships.get(ID);
+				List<String> modules = new ArrayList<String>();
 
-					// 1 String ID
-					modules.add(lordship.getID());
+				// 1 String ID
+				modules.add(lordship.getID());
 
-					// 2 Integer Gold
-					modules.add(String.valueOf(lordship.getGold()));
+				// 2 Integer Gold
+				modules.add(String.valueOf(lordship.getGold()));
 
-					// 3 LazyLocation Homeblock
-					List<String> locationArray = new ArrayList<String>();
-					locationArray.add(lordship.getHomeblock().getLocation().getWorld().getName());
-					locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getX()));
-					locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getY()));
-					locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getZ()));
-					locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getYaw()));
-					locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getPitch()));
-					modules.add(new String().join(itemSeparator, locationArray).replace("[", "").replace("]", ""));
+				// 3 LazyLocation Homeblock
+				List<String> locationArray = new ArrayList<String>();
+				locationArray.add(lordship.getHomeblock().getLocation().getWorld().getName());
+				locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getX()));
+				locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getY()));
+				locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getZ()));
+				locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getYaw()));
+				locationArray.add(String.valueOf(lordship.getHomeblock().getLocation().getPitch()));
+				modules.add(new String().join(itemSeparator, locationArray).replace("[", "").replace("]", ""));
 
-					// 4 Map<LPlayer, Byte> members
-					List<String> memberArray = new ArrayList<String>();
-					for (LPlayer lPlayer : lordship.getMembers().keySet()) {
-						memberArray.add(
-								lordship.getMembers().get(lPlayer) + "=" + lPlayer.getUUID() + "=" + lPlayer.getName());
-					}
-					modules.add(new String().join(itemSeparator, memberArray).replace("[", "").replace("]", ""));
-
-					// 5 Integer side
-					modules.add(String.valueOf(lordship.getSide()));
-
-					// 6 LazyLocation centerblock
-					List<String> centerArray = new ArrayList<String>();
-					centerArray.add(String.valueOf((int) lordship.getCenterBlock().getLocation().getX()));
-					centerArray.add(String.valueOf((int) lordship.getCenterBlock().getLocation().getZ()));
-					modules.add(new String().join(itemSeparator, centerArray).replace("[", "").replace("]", ""));
-
-					// Save all the info in a new line
-					String newline = new String().join(moduleSeparator, modules).replace("[", "").replace("]", "");
-					pw.println(newline);
-					count++;
+				// 4 Map<LPlayer, Byte> members
+				List<String> memberArray = new ArrayList<String>();
+				for (LPlayer lPlayer : lordship.getMembers().keySet()) {
+					memberArray.add(
+							lordship.getMembers().get(lPlayer) + "=" + lPlayer.getUUID() + "=" + lPlayer.getName());
 				}
+				modules.add(new String().join(itemSeparator, memberArray).replace("[", "").replace("]", ""));
+
+				// 5 Integer side
+				modules.add(String.valueOf(lordship.getSide()));
+
+				// 6 LazyLocation centerblock
+				List<String> centerArray = new ArrayList<String>();
+				centerArray.add(String.valueOf((int) lordship.getCenterBlock().getLocation().getX()));
+				centerArray.add(String.valueOf((int) lordship.getCenterBlock().getLocation().getZ()));
+				modules.add(new String().join(itemSeparator, centerArray).replace("[", "").replace("]", ""));
+
+				// Save all the info in a new line
+				String newline = new String().join(moduleSeparator, modules).replace("[", "").replace("]", "");
+				pw.println(newline);
+				count++;
 			}
+
 			P.p.getLogger().log(Level.INFO, "Saved " + count + " Lordships to Database");
 			pw.close();
 			init();

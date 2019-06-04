@@ -19,12 +19,6 @@ public class Lordships {
 	public void load() {
 		loadedLordships = P.p.getDB().getSavedLordships();
 		P.p.getLogger().log(Level.INFO, "Loaded " + loadedLordships.size() + " Lordships to memory.");
-
-		// Add the DEFAULT Lordship, which will be the Lordship of all non-lordship
-		// players
-		Lordship lordship = new Lordship("DEFAULT", 0, new LazyLocation(), new HashMap<LPlayer, Byte>(), 0,
-				new LazyLocation());
-		loadLordship(lordship);
 	}
 
 	public void clearMemory() {
@@ -39,18 +33,17 @@ public class Lordships {
 		loadedLordships.remove(lordship.getID());
 	}
 
-	public Lordship getDefault() {
-		return loadedLordships.get("DEFAULT");
-	}
-
 	public Lordship getByID(String ID) {
 		return loadedLordships.get(ID);
 	}
-	
-	public boolean areLordshipsInDistance(LazyLocation lazyLoc, double distance) {
+
+	public boolean areLordshipsInDistance(LPlayer lPlayer, double distance) {
+		LazyLocation lazyLoc = new LazyLocation(lPlayer.getPlayer().getLocation());
+
 		for (String ID : loadedLordships.keySet()) {
 			Lordship checkedLordship = loadedLordships.get(ID);
-			if (checkedLordship.distanceFromCenterTo(lazyLoc) <= distance) {
+			if (checkedLordship.getID() != lPlayer.getLordship().getID()
+					&& checkedLordship.distanceFromCenterTo(lazyLoc) <= distance) {
 				return true;
 			}
 		}

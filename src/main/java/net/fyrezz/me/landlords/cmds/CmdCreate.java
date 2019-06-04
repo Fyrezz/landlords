@@ -42,11 +42,12 @@ public class CmdCreate extends LordshipCommand {
 		if (!lPlayer.hasMaterial(Material.GOLD_INGOT, 64)) {
 			vars.put("amount", Integer.toString(64));
 			P.p.getMM().msg(lPlayer, "notenoughgoldtocreate", vars);
+			return;
 		}
 		
 		LazyLocation lazyLoc = new LazyLocation(commandContent.getPlayer().getLocation());
 		
-		if (P.p.getLordships().areLordshipsInDistance(lazyLoc, minDistanceBetweenLordships)) {
+		if (P.p.getLordships().areLordshipsInDistance(lPlayer, minDistanceBetweenLordships)) {
 			P.p.getMM().msg(lPlayer, "lordshipnear");
 			return;
 		}
@@ -59,6 +60,7 @@ public class CmdCreate extends LordshipCommand {
 
 		P.p.getLordships().loadLordship(lordship);
 		lPlayer.setLordship(lordship);
+		lordship.showBoundaries(lPlayer);
 		
 		lordship.addGold(64);
 

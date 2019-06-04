@@ -4,17 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
+import net.fyrezz.me.landlords.utils.LazyLocation;
+import net.fyrezz.me.landlords.utils.PlayerAction;
 
 public class EventPlayerListener implements Listener {
 
@@ -40,27 +42,43 @@ public class EventPlayerListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onBlockBreak(BlockBreakEvent event) {
-		Location loc = event.getBlock().getLocation();
+		LPlayer lPlayer = P.p.getLPlayers().getByUUID(event.getPlayer().getUniqueId().toString());
+		LazyLocation lazyLoc = new LazyLocation(event.getBlock().getLocation());
 		
-		Player player = event.getPlayer();
-		LPlayer lPlayer = P.p.getLPlayers().getByUUID(player.getUniqueId().toString());
+		if (!checkPlayerAction(lPlayer, lazyLoc, PlayerAction.PLACE_BLOCK)) {
+			event.setCancelled(true);
+		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onBlockPlace(BlockPlaceEvent event) {
+		LPlayer lPlayer = P.p.getLPlayers().getByUUID(event.getPlayer().getUniqueId().toString());
+		LazyLocation lazyLoc = new LazyLocation(event.getBlock().getLocation());
 		
-		Lordship lordship = P.p.getLordships().getByID(lPlayer.getUUID());
-
-		Map<String, String> vars = new HashMap<String, String>();
-
+		if (!checkPlayerAction(lPlayer, lazyLoc, PlayerAction.PLACE_BLOCK)) {
+			event.setCancelled(true);
+		}
+	}
+	
+	private boolean checkPlayerAction(LPlayer lPlayer, LazyLocation lazyLoc, PlayerAction action) {
 		for (String ID : P.p.getLordships().getLoadedLordships().keySet()) {
 			Lordship checkedLordship = P.p.getLordships().getByID(ID);
-			if (checkedLordship.getID() != "DEFAULT" && lordship.getID() != checkedLordship.getID() && checkedLordship.isInsideLand(loc)) {
+			
+			if (checkedLordship.isInsideLand(lazyLoc)) {
+				Map<String, String> vars = new HashMap<String, String>();
+				
 				if (checkedLordship.isProtected()) {
-					event.setCancelled(true);
 					vars.put("lordship", checkedLordship.getLord().getName());
 					P.p.getMM().msg(lPlayer, "cantdothat", vars);
+					return false;
 				} else {
-					vars.put("enemy", event.getPlayer().getName());
+					vars.put("enemy", lPlayer.getName());
 					P.p.getMM().lordshipMsg(checkedLordship, "enemywarning", vars);
+					return true;
 				}
 			}
 		}
+		return true;
 	}
+
 }

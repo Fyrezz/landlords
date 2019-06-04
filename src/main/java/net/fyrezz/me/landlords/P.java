@@ -28,6 +28,9 @@ import net.fyrezz.me.landlords.utils.MessageManager;
  */
 public class P extends JavaPlugin {
 	public static P p;
+	
+	public static final String DEFAULT_ID = "DEFAULT";
+	
 	private DatabaseManager databaseManager;
 	private MessageManager messageManager;
 	private Lordships lordships;

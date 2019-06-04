@@ -1,11 +1,14 @@
 package net.fyrezz.me.landlords;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class LPlayer {
 
@@ -16,12 +19,9 @@ public class LPlayer {
 	public LPlayer(String UUID, String name) {
 		this.StoredUUID = UUID;
 		this.name = name;
-		this.lordship = P.p.getLordships().getByID("DEFAULT");
+		this.lordship = new Lordship("DEFAULT", 0, new LazyLocation(), new HashMap<LPlayer, Byte>(), 0,
+				new LazyLocation());
 	}
-
-	/*
-	 * Get & Set
-	 */
 
 	public Lordship getLordship() {
 		return lordship;
@@ -47,16 +47,12 @@ public class LPlayer {
 		this.lordship = newLordship;
 	}
 
-	/*
-	 * Utils
-	 */
-
 	public boolean isOnline() {
 		return P.p.getServer().getPlayer(UUID.fromString(StoredUUID)).isOnline();
 	}
 
 	public boolean hasLordship() {
-		return !(lordship.getID() == P.p.getLordships().getDefault().getID());
+		return !(lordship.getID() == P.DEFAULT_ID);
 	}
 
 	public boolean hasMaterial(Material material, int amount) {
