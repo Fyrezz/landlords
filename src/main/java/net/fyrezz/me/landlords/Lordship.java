@@ -245,20 +245,17 @@ public class Lordship {
 			boundaryLocs.add(new LazyLocation(worldString, i, getMaxZ() + 1.5));
 			boundaryLocs.add(new LazyLocation(worldString, i, getMinZ() - 1.5));
 		}
-
 		return boundaryLocs;
 	}
 
 	private Particle getParticle() {
 		if (isProtected()) {
 			return Particle.COMPOSTER;
-		} else {
-			return Particle.BARRIER;
 		}
+		return Particle.BARRIER;
 	}
 
 	public void showBoundaries(LPlayer lPlayer) {
-
 		final World world = Bukkit.getWorld(this.getCenterBlock().getWorldName());
 		final List<LazyLocation> limits = getBoundaries();
 
@@ -279,7 +276,7 @@ public class Lordship {
 			}
 		}.runTaskTimer(P.p, 0, 5L);
 	}
-	
+
 	public boolean canBreak(LPlayer lPlayer) {
 		if (members.containsKey(lPlayer)) {
 			if (members.get(lPlayer) == (byte) 3) {
@@ -289,7 +286,7 @@ public class Lordship {
 		}
 		return false;
 	}
-	
+
 	public boolean canPlace(LPlayer lPlayer) {
 		return canBreak(lPlayer);
 	}
