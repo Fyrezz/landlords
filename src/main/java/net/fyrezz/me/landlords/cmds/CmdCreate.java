@@ -47,7 +47,7 @@ public class CmdCreate extends LordshipCommand {
 		
 		LazyLocation lazyLoc = new LazyLocation(commandContent.getPlayer().getLocation());
 		
-		if (P.p.getLordships().areLordshipsInDistance(lPlayer, minDistanceBetweenLordships)) {
+		if (P.p.getLordships().lordshipsNear(lPlayer, minDistanceBetweenLordships)) {
 			P.p.getMM().msg(lPlayer, "lordshipnear");
 			return;
 		}

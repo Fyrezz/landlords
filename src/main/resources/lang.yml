@@ -79,7 +79,8 @@ goldwithdraw: "&2%member% has withdrawn %amount% Gold from Lordship's Vault"
 vault: "&aYour Lordship's Vault contains &7%amount% Gold"
 # Error message when trying to do something in a Lordship
 # %lordship% returns Lordship
-cantdothat: "&cYou can't do that inside %lordship%'s Land"
+cantdothat: "&cYou can't do that inside %lordship%'s land"
+notallowed: "&cYour Lordship doesn't allow you to do that."
 # Warning sent to Lordship members when their Land is not
 # secured and an enemy is doing something inside
 # %enemy% returns the player doing it

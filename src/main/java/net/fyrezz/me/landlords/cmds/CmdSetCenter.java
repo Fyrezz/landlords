@@ -34,7 +34,7 @@ public class CmdSetCenter extends LordshipCommand {
 		LPlayer lPlayer = commandContent.getLPlayer();
 		LazyLocation lazyLoc = new LazyLocation(commandContent.getLPlayer().getPlayer().getLocation());
 		
-		if (P.p.getLordships().areLordshipsInDistance(lPlayer, minDistanceBetweenLordships)) {
+		if (P.p.getLordships().lordshipsNear(lPlayer, minDistanceBetweenLordships)) {
 			P.p.getMM().msg(lPlayer, "lordshipnear");
 			return;
 		}

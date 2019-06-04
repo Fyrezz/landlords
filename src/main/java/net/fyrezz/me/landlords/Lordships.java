@@ -37,7 +37,7 @@ public class Lordships {
 		return loadedLordships.get(ID);
 	}
 
-	public boolean areLordshipsInDistance(LPlayer lPlayer, double distance) {
+	public boolean lordshipsNear(LPlayer lPlayer, double distance) {
 		LazyLocation lazyLoc = new LazyLocation(lPlayer.getPlayer().getLocation());
 
 		for (String ID : loadedLordships.keySet()) {

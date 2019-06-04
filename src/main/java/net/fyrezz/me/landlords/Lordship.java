@@ -198,21 +198,21 @@ public class Lordship {
 		return (int) centerblock.getZ() - (side / 2) + 1;
 	}
 
-	public boolean isInsideLand(LazyLocation lazyLoc) {
+	public boolean containsLazyLoc(LazyLocation lazyLoc) {
 		return ((int) lazyLoc.getX() <= getMaxX() && (int) lazyLoc.getX() >= getMinX()
 				&& (int) lazyLoc.getZ() <= getMaxZ() && (int) lazyLoc.getZ() >= getMinZ());
 	}
 
-	public boolean isInsideLand(Location loc) {
-		return isInsideLand(new LazyLocation(loc));
+	public boolean containsLazyLoc(Location loc) {
+		return containsLazyLoc(new LazyLocation(loc));
 	}
 
-	public boolean isInsideLand(LPlayer lPlayer) {
-		return isInsideLand(new LazyLocation(lPlayer.getPlayer().getLocation()));
+	public boolean containsLazyLoc(LPlayer lPlayer) {
+		return containsLazyLoc(new LazyLocation(lPlayer.getPlayer().getLocation()));
 	}
 
-	public boolean isInsideLand(Player player) {
-		return isInsideLand(new LazyLocation(player.getLocation()));
+	public boolean containsLazyLoc(Player player) {
+		return containsLazyLoc(new LazyLocation(player.getLocation()));
 	}
 
 	public double distanceFromCenterTo(LazyLocation loc) {
@@ -269,7 +269,7 @@ public class Lordship {
 				i--;
 				for (int i = 1; i <= 255; i++) {
 					for (LazyLocation lazyLoc : limits) {
-						lazyLoc.setY((i + 0.5));
+						lazyLoc.setY((i + 0.5)); // +0.5 for visual purposes
 						world.spawnParticle(getParticle(), lazyLoc.getX(), lazyLoc.getY(), lazyLoc.getZ(), 1);
 					}
 				}

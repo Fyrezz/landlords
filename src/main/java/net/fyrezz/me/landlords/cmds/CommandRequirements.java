@@ -30,7 +30,7 @@ public class CommandRequirements {
 					P.p.getMM().msg(commandContent.getLPlayer(), "notenoughrank");
 					return false;
 				}
-				if (commandContent.getLordship().isInsideLand(commandContent.getPlayer().getLocation())) {
+				if (commandContent.getLordship().containsLazyLoc(commandContent.getPlayer().getLocation())) {
 					if (isInOwnLand == RequirementState.EXCLUDED) {
 						P.p.getMM().msg(commandContent.getLPlayer(), "cantbeinownland");
 						return false;
