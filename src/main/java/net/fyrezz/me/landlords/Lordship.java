@@ -250,7 +250,7 @@ public class Lordship {
 
 	private Particle getParticle() {
 		if (isProtected()) {
-			return Particle.COMPOSTER;
+			return Particle.VILLAGER_HAPPY;
 		}
 		return Particle.BARRIER;
 	}
