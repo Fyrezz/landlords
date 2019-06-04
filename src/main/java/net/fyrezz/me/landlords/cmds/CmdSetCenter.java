@@ -2,11 +2,15 @@ package net.fyrezz.me.landlords.cmds;
 
 import java.util.Arrays;
 
+import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
+import net.fyrezz.me.landlords.utils.LazyLocation;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdSetCenter extends LordshipCommand {
+	
+	private final double minDistanceBetweenLordships = P.p.getConfig().getDouble("mindistance");
 
 	@Override
 	public void addAliases() {
@@ -27,16 +31,18 @@ public class CmdSetCenter extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		for (String ID : P.p.getLordships().getLoadedLordships().keySet()) {
-			Lordship lordship = P.p.getLordships().getByID(ID);
-			
+		LPlayer lPlayer = commandContent.getLPlayer();
+		LazyLocation lazyLoc = new LazyLocation(commandContent.getLPlayer().getPlayer().getLocation());
+		
+		if (P.p.getLordships().areLordshipsInDistance(lazyLoc, minDistanceBetweenLordships)) {
+			P.p.getMM().msg(lPlayer, "lordshipsnear");
+			return;
 		}
 		
-		LazyLocation loc = new LazyLocation(commandContent.getLPlayer().getPlayer().getLocation());
-		commandContent.getLordship().setCenterBlock(loc);
+		commandContent.getLordship().setCenterBlock(lazyLoc);
 		
-		vars.put("x", Integer.toString((int)loc.getLocation().getX()));
-		vars.put("z", Integer.toString((int)loc.getLocation().getZ()));
+		vars.put("x", Integer.toString((int)lazyLoc.getLocation().getX()));
+		vars.put("z", Integer.toString((int)lazyLoc.getLocation().getZ()));
 		P.p.getMM().lordshipMsg(commandContent.getLordship(), "centerset", vars);
 	}
 

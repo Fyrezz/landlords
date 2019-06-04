@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 import net.fyrezz.me.landlords.utils.LazyLocation;
@@ -221,7 +224,39 @@ public class Lordship {
 		return isInsideLand(player.getLocation());
 	}
 	
-	public int distanceFromCenterTo(LazyLocation loc) {
-		return Math.sqrt((loc.getLocation().get))
+	public double distanceFromCenterTo(LazyLocation loc) {
+		double dx = loc.getX() - this.getCenterBlock().getX();
+		double dz = loc.getZ() - this.getCenterBlock().getZ();
+		return Math.sqrt(dx * dx + dz * dz);
+	}
+	
+	public List<LazyLocation> getBoundaries(){
+		final int maxX = (int) getMaxX();
+		final int minX = (int)  getMinX();
+		final int maxZ = (int)  getMaxZ();
+		final int minZ = (int)  getMinZ();
+		final String worldString = this.getCenterBlock().getWorldName();
+		
+		List<LazyLocation> boundaryLocs = new ArrayList<LazyLocation>();
+		
+		for (int i = minZ; i == maxZ; i++) {
+			boundaryLocs.add(new LazyLocation(worldString, maxX, i));
+			boundaryLocs.add(new LazyLocation(worldString, minX, i));
+		}
+		
+		for (int i = minX; i == maxX; i++) {
+			boundaryLocs.add(new LazyLocation(worldString, i, maxZ));
+			boundaryLocs.add(new LazyLocation(worldString, i, minZ));
+		}
+		
+		return boundaryLocs;
+	}
+	
+	public void showBoundaries(LPlayer lPlayer) {
+		final World world = Bukkit.getWorld(this.getCenterBlock().getWorldName());
+		
+		for (LazyLocation lazyLoc : getBoundaries()) {
+			world.spawnEntity(lazyLoc.getLocation(), EntityType.FIREWORK);
+		}
 	}
 }

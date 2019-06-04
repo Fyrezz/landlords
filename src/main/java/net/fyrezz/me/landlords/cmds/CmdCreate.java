@@ -3,6 +3,8 @@ package net.fyrezz.me.landlords.cmds;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.Material;
+
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
@@ -10,6 +12,8 @@ import net.fyrezz.me.landlords.utils.LazyLocation;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdCreate extends LordshipCommand {
+	
+	private final double minDistanceBetweenLordships = P.p.getConfig().getDouble("mindistance");
 
 	public CmdCreate() {
 		super();
@@ -33,23 +37,34 @@ public class CmdCreate extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		Map<LPlayer, Byte> newMembers = new HashMap<LPlayer, Byte>();
-		newMembers.put(commandContent.getLPlayer(), (byte) 0);
-		LazyLocation loc = new LazyLocation(commandContent.getPlayer().getLocation());
-		/*
-		 * TODO MAKE IT COST GOLD
-		 */
+		LPlayer lPlayer = commandContent.getLPlayer();
+		
+		if (!lPlayer.hasMaterial(Material.GOLD_INGOT, 64)) {
+			vars.put("amount", Integer.toString(64));
+			P.p.getMM().msg(lPlayer, "notenoughgoldtocreate", vars);
+		}
+		
+		LazyLocation lazyLoc = new LazyLocation(commandContent.getPlayer().getLocation());
+		
+		if (P.p.getLordships().areLordshipsInDistance(lazyLoc, minDistanceBetweenLordships)) {
+			P.p.getMM().msg(lPlayer, "lordshipnear");
+			return;
+		}
+		
+		lPlayer.removeMaterial(Material.GOLD_INGOT, 64);
 
-		Lordship lordship = new Lordship(commandContent.getLPlayer().getUUID(), 0, loc, newMembers, 8, loc);
+		Map<LPlayer, Byte> newMembers = new HashMap<LPlayer, Byte>();
+		newMembers.put(lPlayer, (byte) 0);
+		Lordship lordship = new Lordship(commandContent.getLPlayer().getUUID(), 0, lazyLoc, newMembers, 8, lazyLoc);
 
 		P.p.getLordships().loadLordship(lordship);
+		lPlayer.setLordship(lordship);
+		
+		lordship.addGold(64);
 
-		commandContent.getLPlayer().setLordship(lordship);
-
-		P.p.getMM().msg(commandContent.getLPlayer(), "lordshipcreated");
-
-		vars.put("lordship", commandContent.getPlayer().getName().toString());
-		P.p.getMM().msg(commandContent.getLPlayer(), "lordshipcreatedbroadcast", vars);
+		P.p.getMM().msg(lPlayer, "lordshipcreated");
+		vars.put("lordship", lPlayer.getName().toString());
+		P.p.getMM().msg(lPlayer, "lordshipcreatedbroadcast", vars);
 	}
 
 }

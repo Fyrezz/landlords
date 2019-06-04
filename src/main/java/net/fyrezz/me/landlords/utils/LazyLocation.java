@@ -44,9 +44,33 @@ public class LazyLocation {
 		this("world", x, 0, z);
 	}
 
-	/*
-	 * Get & Set
-	 */
+	public LazyLocation(String world, int x, int z) {
+		this(world, x, 0, z);
+	}
+	
+	public String getWorldName() {
+		return worldName;
+	}
+	
+	public double getX() {
+		return x;
+	}
+	
+	public double getY() {
+		return y;
+	}
+	
+	public double getZ() {
+		return z;
+	}
+	
+	public float getYaw() {
+		return yaw;
+	}
+	
+	public float getPitch() {
+		return pitch;
+	}
 
 	public Location getLocation() {
 		initLocation();

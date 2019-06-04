@@ -51,7 +51,7 @@ notenoughgold: "&cThere is not enough Gold in your inventory."
 # Not enough gold in Lordship's Vault to withdraw
 notenoughgoldvault: "&cThere is not enough Gold your Lordship's Vault."
 # Message sent to new Lord
-lordshipcreated: "&aYou have just created your Lordship!"
+lordshipcreated: "&aYou have just created your Lordship!\n&a64 Gold has been saved to your Lordship's Vault. This will keep\n&ayour initial 8x8 land secure."
 # Broadcast message after new Lordship creation
 # %lordship% returns Lord's name (which is always the Lordship's name)
 lordshipcreatedbroadcast: "&6%lordship% has created his Lordship."
@@ -92,4 +92,6 @@ cantexpandmore: "&cYour Lordship's protected land is already at the maximum."
 cantexpandthat: "&cYou can only expand %maxexpand% more blocks until reaching maximum protection area"
 notenoughgoldtoexpand: "&cThere is not enough Gold in your Lordship's Vault to expand your land that amount and keep it secure. Although expanding your land doesn't cost Gold, you must have the minimum amount to have it secured before expanding."
 landexpanded: "&aYour Lordship's land has expanded %expandamount% blocks on each direction.\n&aYour Lordship has now a %newside%x%newside% area which costs %newamount% Gold to keep secure."
+notenoughgoldtocreate: "&cYou need %amount% gold to create your Lordship."
+lordshipsnear: "&cThere are Lordships near your location. Lordships must be separated by at least 512 blocks to allow full expansion."
 

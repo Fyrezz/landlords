@@ -15,14 +15,15 @@ public class Lordships {
 	public Map<String, Lordship> getLoadedLordships() {
 		return loadedLordships;
 	}
-	
+
 	public void load() {
 		loadedLordships = P.p.getDB().getSavedLordships();
 		P.p.getLogger().log(Level.INFO, "Loaded " + loadedLordships.size() + " Lordships to memory.");
 
 		// Add the DEFAULT Lordship, which will be the Lordship of all non-lordship
 		// players
-		Lordship lordship = new Lordship("DEFAULT", 0, new LazyLocation(), new HashMap<LPlayer, Byte>(), 0, new LazyLocation());
+		Lordship lordship = new Lordship("DEFAULT", 0, new LazyLocation(), new HashMap<LPlayer, Byte>(), 0,
+				new LazyLocation());
 		loadLordship(lordship);
 	}
 
@@ -45,5 +46,14 @@ public class Lordships {
 	public Lordship getByID(String ID) {
 		return loadedLordships.get(ID);
 	}
-
+	
+	public boolean areLordshipsInDistance(LazyLocation lazyLoc, double distance) {
+		for (String ID : loadedLordships.keySet()) {
+			Lordship checkedLordship = loadedLordships.get(ID);
+			if (checkedLordship.distanceFromCenterTo(lazyLoc) <= distance) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
