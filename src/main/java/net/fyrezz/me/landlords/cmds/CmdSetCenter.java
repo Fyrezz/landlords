@@ -31,6 +31,7 @@ public class CmdSetCenter extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
+		Lordship lordship = commandContent.getLordship();
 		LPlayer lPlayer = commandContent.getLPlayer();
 		LazyLocation lazyLoc = new LazyLocation(commandContent.getLPlayer().getPlayer().getLocation());
 		
@@ -39,7 +40,9 @@ public class CmdSetCenter extends LordshipCommand {
 			return;
 		}
 		
-		commandContent.getLordship().setCenterBlock(lazyLoc);
+		lordship.setCenterBlock(lazyLoc);
+		
+		lordship.showBoundaries(lPlayer);
 		
 		vars.put("x", Integer.toString((int)lazyLoc.getLocation().getX()));
 		vars.put("z", Integer.toString((int)lazyLoc.getLocation().getZ()));

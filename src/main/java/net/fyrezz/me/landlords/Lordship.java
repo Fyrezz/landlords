@@ -99,7 +99,7 @@ public class Lordship {
 	}
 
 	public void check() {
-		if (members.isEmpty() | members.size() < 1 | members == null) {
+		if (members == null || members.isEmpty() | members.size() < 1) {
 			P.p.getLogger().log(Level.WARNING, "Error with Lordship " + id + " members: It's empty!");
 			return;
 		}

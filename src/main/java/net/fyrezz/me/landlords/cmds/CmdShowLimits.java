@@ -7,8 +7,8 @@ import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdShowLimits extends LordshipCommand {
 	
-	private final String whiteSeparator = "            ";
-	private final String horizontalLine = "xxxxxxxxxxxxxx";
+	private final String whiteSeparator = "                                     ";
+	private final String horizontalLine = "       &cx&fxxxxxxxxxxxxxxxxxxxxxxxxx&cx";
 
 	@Override
 	public void addAliases() {
@@ -40,16 +40,24 @@ public class CmdShowLimits extends LordshipCommand {
 		final String downright = "&7(X " + lordship.getMinX() + ", Z " + lordship.getMaxZ() + ")";
 		
 		P.p.getMM().undefinedMsg(lPlayer, "");
-		P.p.getMM().undefinedMsg(lPlayer, "Lordship limits");
-		P.p.getMM().undefinedMsg(lPlayer, upleft + "  " + whiteSeparator + "  " + upright);
+		P.p.getMM().undefinedMsg(lPlayer, upleft + "                         " + upright);
 		P.p.getMM().undefinedMsg(lPlayer, horizontalLine);
-		P.p.getMM().undefinedMsg(lPlayer, "  x" + whiteSeparator + "x");
-		P.p.getMM().undefinedMsg(lPlayer, "  x" + whiteSeparator + "x");
-		P.p.getMM().undefinedMsg(lPlayer, "  x" + whiteSeparator + "x");
-		P.p.getMM().undefinedMsg(lPlayer, "  x" + whiteSeparator + "x");
-		P.p.getMM().undefinedMsg(lPlayer, "  x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
+		P.p.getMM().undefinedMsg(lPlayer, "       x" + whiteSeparator + "x");
 		P.p.getMM().undefinedMsg(lPlayer, horizontalLine);
-		P.p.getMM().undefinedMsg(lPlayer, downleft + "  " + whiteSeparator + "  " + downright);
+		P.p.getMM().undefinedMsg(lPlayer, downleft + "                         " + downright);
 	}
 
 }

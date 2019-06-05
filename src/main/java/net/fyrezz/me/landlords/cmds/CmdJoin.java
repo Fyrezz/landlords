@@ -19,6 +19,7 @@ public class CmdJoin extends LordshipCommand {
 	public void setRequirements() {
 		requirements.isPlayer = RequirementState.REQUIRED;
 		requirements.hasLordship = RequirementState.EXCLUDED;
+		requirements.minArgs = 1;
 	}
 
 	@Override
@@ -31,14 +32,15 @@ public class CmdJoin extends LordshipCommand {
 		LPlayer lPlayer = commandContent.getLPlayer();
 		String lordName = commandContent.getArg(0);
 
-		if (!P.p.getLordships().lordshipExists(lordName)) {
+		Lordship lordship = P.p.getLordships().getByLordName(lordName);
+
+		if (lordship == null) {
 			P.p.getMM().msg(lPlayer, "invalidlordship");
 			return;
 		}
-		
-		Lordship lordship = P.p.getLordships().getByLordName(lordName);
-		
-		if (!Lordships.invites.get(lordship).contains(lPlayer.getName())) {
+
+		if (!Lordships.invites.containsKey(lordship) || Lordships.invites.containsKey(lordship)
+				&& !Lordships.invites.get(lordship).contains(lPlayer.getName())) {
 			P.p.getMM().msg(lPlayer, "notinvited");
 			return;
 		}
@@ -47,9 +49,14 @@ public class CmdJoin extends LordshipCommand {
 			P.p.getMM().msg(lPlayer, "lordshipfull");
 			return;
 		}
-		
-		vars.put("player", deinvitedPlayer);
-		P.p.getMM().msg(lPlayer, "playerdeinvited", vars);
+		vars.put("player", lPlayer.getName());
+		P.p.getMM().lordshipMsg(lordship, "playerjoined", vars);
+
+		lPlayer.setLordship(lordship);
+		lordship.addMember(lPlayer);
+
+		vars.put("lordship", lordship.getLord().getName());
+		P.p.getMM().msg(lPlayer, "joinsuccessful", vars);
 	}
 
 }

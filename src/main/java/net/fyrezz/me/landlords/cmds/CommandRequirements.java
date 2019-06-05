@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Bukkit;
+
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
@@ -13,9 +15,14 @@ public class CommandRequirements {
 	public RequirementState isPlayer = RequirementState.ALLOWED;
 	public RequirementState hasLordship = RequirementState.ALLOWED;
 	public RequirementState isInOwnLand = RequirementState.ALLOWED;
+	public int minArgs = 0;
 	public List<Byte> allowedRanks = new ArrayList<Byte>(Arrays.asList((byte) 0,(byte) 1,(byte) 2,(byte) 3));
 	
 	public boolean check(CommandContent commandContent) {
+		if (commandContent.getArgs().size() - 1 < minArgs) {
+			P.p.getMM().msg(commandContent.getSender(), "invalidargs");
+			return false;
+		}
 		if (commandContent.isPlayer()) {
 			LPlayer lPlayer = commandContent.getLPlayer();
 			

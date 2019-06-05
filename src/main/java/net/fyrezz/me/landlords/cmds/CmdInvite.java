@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
@@ -23,6 +24,7 @@ public class CmdInvite extends LordshipCommand {
 		requirements.isPlayer = RequirementState.REQUIRED;
 		requirements.hasLordship = RequirementState.REQUIRED;
 		requirements.allowedRanks = new ArrayList<Byte>(Arrays.asList((byte) 0, (byte) 1));
+		requirements.minArgs = 1;
 	}
 
 	@Override
@@ -34,26 +36,33 @@ public class CmdInvite extends LordshipCommand {
 	public void perform(CommandContent commandContent) {
 		Lordship lordship = commandContent.getLordship();
 		LPlayer lPlayer = commandContent.getLPlayer();
-		String invitedPlayer = commandContent.getArg(0);
+		String playerString = commandContent.getArg(0);
+		Player invitedPlayer;
 
-		if (!Bukkit.getPlayer(invitedPlayer).isOnline()) {
+		try {
+			invitedPlayer = Bukkit.getPlayer(playerString);
+			if (!invitedPlayer.isOnline()) {
+				P.p.getMM().msg(lPlayer, "invalidplayer");
+				return;
+			}
+		} catch (Exception exception) {
 			P.p.getMM().msg(lPlayer, "invalidplayer");
 			return;
 		}
 
 		if (!Lordships.invites.containsKey(lordship)) {
-			Lordships.invites.put(lordship, new ArrayList<String>(Arrays.asList(invitedPlayer)));
+			Lordships.invites.put(lordship, new ArrayList<String>(Arrays.asList(playerString)));
 		} else {
 
 			/* Remove it in case there was a previous invite for this player */
-			Lordships.invites.get(lordship).remove(invitedPlayer);
-			Lordships.invites.get(lordship).add(invitedPlayer);
+			Lordships.invites.get(lordship).remove(playerString);
+			Lordships.invites.get(lordship).add(playerString);
 		}
-		vars.put("player", invitedPlayer);
+		vars.put("player", playerString);
 		P.p.getMM().msg(lPlayer, "playerinvited", vars);
 
 		vars.put("lordship", lordship.getLord().getName());
-		P.p.getMM().msg(Bukkit.getPlayer(invitedPlayer), "invitedto");
+		P.p.getMM().msg(invitedPlayer, "invitedto", vars);
 	}
 
 }

@@ -12,7 +12,7 @@
 # # # # # # # #�#�# #
 
 # Prefix for all commands
-prefix: "&eLandlords"
+prefix: ""
 # Unknown command
 unknowncommand: "&cUnknown command. Type &7/l &cfor Landlords help."
 # Console command error
@@ -27,6 +27,7 @@ cantbeinownland: "&cYou can't execute this command inside your Lordship's Land"
 mustbeinownland: "&cYou must be inside your own Lordship's Land"
 invalidplayer: "&cThat player is not online or is invalid."
 invalidlordship: "&cThat Lordship doesnt exist."
+invalidargs: "&cIncorrect command usage! Type /l help for help."
 # Help message
 # %version% return server version
 # %authors% return plugin's authors
@@ -101,4 +102,6 @@ playerinvited: "&aYou have invited %player% to your Lordship."
 invitedto: "&aYou have been invited to %lordship%'s Lordship."
 playerdeinvited: "&aRemoved invitation for %player%."
 notinvited: "&cYou havent been invited to that Lordship."
+joinsuccessful: "&aYou have joined %lordship%'s Lordship."
+playerjoined: "&a%player% has joined your Lordship."
 

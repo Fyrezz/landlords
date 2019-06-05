@@ -19,6 +19,7 @@ public class CmdDeposit extends LordshipCommand {
 	public void setRequirements() {
 		requirements.isPlayer = RequirementState.REQUIRED;
 		requirements.hasLordship = RequirementState.REQUIRED;
+		requirements.minArgs = 1;
 	}
 
 	@Override

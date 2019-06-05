@@ -16,14 +16,17 @@ public class CommandListener implements CommandExecutor {
 	public static Map<String, LordshipCommand> lordshipCommands = new HashMap<String, LordshipCommand>();
 	
 	private LordshipCommand cmdCreate = new CmdCreate();
+	private LordshipCommand cmdDeinvite = new CmdDeinvite();
 	private LordshipCommand cmdDelete = new CmdDelete();
 	private LordshipCommand cmdDeposit = new CmdDeposit();
 	private LordshipCommand cmdExpand = new CmdExpand();
 	private LordshipCommand cmdHelp = new CmdHelp();
 	private LordshipCommand cmdHome = new CmdHome();
+	private LordshipCommand cmdInvite = new CmdInvite();
+	private LordshipCommand cmdJoin = new CmdJoin();
 	private LordshipCommand CmdSetCenter = new CmdSetCenter();
-	private LordshipCommand CmdShowLimits = new CmdShowLimits();
 	private LordshipCommand cmdSetHome = new CmdSetHome();
+	private LordshipCommand CmdShowLimits = new CmdShowLimits();
 	private LordshipCommand cmdShrink = new CmdShrink();
 	private LordshipCommand cmdVault = new CmdVault();
 	private LordshipCommand cmdWithdraw = new CmdWithdraw();

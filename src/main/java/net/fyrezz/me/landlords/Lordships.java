@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
+
 import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordships {
@@ -45,7 +47,8 @@ public class Lordships {
 	public Lordship getByLordName(String lordName) {
 		for (String ID : loadedLordships.keySet()) {
 			Lordship lordship = loadedLordships.get(ID);
-			if (lordship.getLord().getName() == "lordName") {
+			String lordshipLord = lordship.getLord().getName();
+			if (lordshipLord.equals(lordName)) {
 				return lordship;
 			}
 		}

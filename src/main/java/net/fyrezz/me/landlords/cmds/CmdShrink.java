@@ -19,6 +19,7 @@ public class CmdShrink extends LordshipCommand {
 		requirements.isPlayer = RequirementState.REQUIRED;
 		requirements.hasLordship = RequirementState.REQUIRED;
 		requirements.allowedRanks = Arrays.asList((byte) 0);
+		requirements.minArgs = 1;
 	}
 
 	@Override
@@ -56,6 +57,8 @@ public class CmdShrink extends LordshipCommand {
 			return;
 		}
 		lordship.setSide(lordship.getSide() - argAmount);
+		
+		lordship.showBoundaries(lPlayer);
 		
 		vars.put("shrunkamount", Integer.toString(argAmount / 2));
 		vars.put("newside", Integer.toString(lordship.getSide()));

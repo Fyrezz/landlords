@@ -3,8 +3,6 @@ package net.fyrezz.me.landlords.cmds;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.bukkit.Bukkit;
-
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.Lordships;
@@ -23,6 +21,7 @@ public class CmdDeinvite extends LordshipCommand {
 		requirements.isPlayer = RequirementState.REQUIRED;
 		requirements.hasLordship = RequirementState.REQUIRED;
 		requirements.allowedRanks = new ArrayList<Byte>(Arrays.asList((byte) 0, (byte) 1));
+		requirements.minArgs = 1;
 	}
 
 	@Override

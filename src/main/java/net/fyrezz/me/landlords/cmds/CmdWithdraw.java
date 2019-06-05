@@ -24,6 +24,7 @@ public class CmdWithdraw extends LordshipCommand {
 		requirements.isPlayer = RequirementState.REQUIRED;
 		requirements.hasLordship = RequirementState.REQUIRED;
 		requirements.allowedRanks = Arrays.asList((byte) 0, (byte) 1);
+		requirements.minArgs = 1;
 	}
 
 	@Override

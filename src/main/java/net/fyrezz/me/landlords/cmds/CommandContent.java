@@ -27,7 +27,7 @@ public class CommandContent {
 			this.lordship = lPlayer.getLordship();
 		}
 	}
-	
+
 	public CommandSender getSender() {
 		return sender;
 	}
@@ -40,14 +40,18 @@ public class CommandContent {
 		return lPlayer;
 	}
 
+	public List<String> getArgs() {
+		return args;
+	}
+
 	public boolean isPlayer() {
 		return (!(player == null));
 	}
-	
+
 	public Lordship getLordship() {
 		return lordship;
 	}
-	
+
 	/* Returns the subcommand, treated as commands "/l <command>" */
 	public String getCommand() {
 		return args.get(0);
