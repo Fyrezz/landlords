@@ -3,11 +3,15 @@ package net.fyrezz.me.landlords.cmds;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.bukkit.Bukkit;
+
+import net.fyrezz.me.landlords.LPlayer;
+import net.fyrezz.me.landlords.Lordship;
+import net.fyrezz.me.landlords.Lordships;
+import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdInvite extends LordshipCommand {
-	
-	public static Map<>
 
 	@Override
 	public void addAliases() {
@@ -28,8 +32,28 @@ public class CmdInvite extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		// TODO Auto-generated method stub
-		
+		Lordship lordship = commandContent.getLordship();
+		LPlayer lPlayer = commandContent.getLPlayer();
+		String invitedPlayer = commandContent.getArg(0);
+
+		if (!Bukkit.getPlayer(invitedPlayer).isOnline()) {
+			P.p.getMM().msg(lPlayer, "invalidplayer");
+			return;
+		}
+
+		if (!Lordships.invites.containsKey(lordship)) {
+			Lordships.invites.put(lordship, new ArrayList<String>(Arrays.asList(invitedPlayer)));
+		} else {
+
+			/* Remove it in case there was a previous invite for this player */
+			Lordships.invites.get(lordship).remove(invitedPlayer);
+			Lordships.invites.get(lordship).add(invitedPlayer);
+		}
+		vars.put("player", invitedPlayer);
+		P.p.getMM().msg(lPlayer, "playerinvited", vars);
+
+		vars.put("lordship", lordship.getLord().getName());
+		P.p.getMM().msg(Bukkit.getPlayer(invitedPlayer), "invitedto");
 	}
 
 }

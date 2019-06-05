@@ -1,12 +1,17 @@
 package net.fyrezz.me.landlords;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
 import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordships {
+	
+	public static final String DEFAULT_ID = "DEFAULT";
+	public static Map<Lordship, List<String>> invites = new HashMap<Lordship, List<String>>();
+	
 	private Map<String, Lordship> loadedLordships = new HashMap<String, Lordship>();
 
 	public Lordships() {
@@ -35,6 +40,20 @@ public class Lordships {
 
 	public Lordship getByID(String ID) {
 		return loadedLordships.get(ID);
+	}
+
+	public Lordship getByLordName(String lordName) {
+		for (String ID : loadedLordships.keySet()) {
+			Lordship lordship = loadedLordships.get(ID);
+			if (lordship.getLord().getName() == "lordName") {
+				return lordship;
+			}
+		}
+		return null;
+	}
+	
+	public boolean lordshipExists(String lordName) {
+		return getByLordName(lordName) != null;
 	}
 
 	public boolean lordshipsNear(LPlayer lPlayer, double distance) {

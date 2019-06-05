@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.RequirementState;
 
@@ -16,33 +17,41 @@ public class CommandRequirements {
 	
 	public boolean check(CommandContent commandContent) {
 		if (commandContent.isPlayer()) {
+			LPlayer lPlayer = commandContent.getLPlayer();
+			
 			if (this.isPlayer == RequirementState.EXCLUDED) {
-				P.p.getMM().msg(commandContent.getLPlayer(), "consolecommandonly");
+				P.p.getMM().msg(lPlayer, "consolecommandonly");
 				return false;
 			}
-			if (commandContent.getLPlayer().hasLordship()) {
+			
+			if (lPlayer.hasLordship()) {
 				if (hasLordship == RequirementState.EXCLUDED) {
-					P.p.getMM().msg(commandContent.getLPlayer(), "alreadyinalordship");
+					P.p.getMM().msg(lPlayer, "alreadyinalordship");
 					return false;
 				}
+				
 				if (!allowedRanks
-						.contains(commandContent.getLPlayer().getLordship().getRank(commandContent.getLPlayer()))) {
-					P.p.getMM().msg(commandContent.getLPlayer(), "notenoughrank");
+						.contains(lPlayer.getLordship().getRank(lPlayer))) {
+					P.p.getMM().msg(lPlayer, "notenoughrank");
 					return false;
 				}
-				if (commandContent.getLordship().containsLazyLoc(commandContent.getPlayer().getLocation())) {
+				
+				if (commandContent.getLordship().containsLazyLoc(lPlayer.getLazyLocation())) {
 					if (isInOwnLand == RequirementState.EXCLUDED) {
-						P.p.getMM().msg(commandContent.getLPlayer(), "cantbeinownland");
+						P.p.getMM().msg(lPlayer, "cantbeinownland");
 						return false;
 					}
+	
 				} else if (isInOwnLand == RequirementState.REQUIRED) {
-					P.p.getMM().msg(commandContent.getLPlayer(), "mustbeinownland");
+					P.p.getMM().msg(lPlayer, "mustbeinownland");
 					return false;
 				}
+				
 			} else if (hasLordship == RequirementState.REQUIRED) {
-				P.p.getMM().msg(commandContent.getLPlayer(), "notinalordship");
+				P.p.getMM().msg(lPlayer, "notinalordship");
 				return false;
 			}
+			
 		} else if (isPlayer == RequirementState.REQUIRED) {
 			P.p.getMM().msg(commandContent.getSender(), "playercommandonly");
 			return false;

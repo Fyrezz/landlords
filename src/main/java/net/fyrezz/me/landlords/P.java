@@ -29,8 +29,6 @@ import net.fyrezz.me.landlords.utils.MessageManager;
 public class P extends JavaPlugin {
 	public static P p;
 	
-	public static final String DEFAULT_ID = "DEFAULT";
-	
 	private DatabaseManager databaseManager;
 	private MessageManager messageManager;
 	private Lordships lordships;
@@ -43,30 +41,6 @@ public class P extends JavaPlugin {
 	 */
 	public P() {
 		p = this;
-	}
-
-	public Lordships getLordships() {
-		return lordships;
-	}
-
-	public LPlayers getLPlayers() {
-		return lPlayers;
-	}
-
-	public MessageManager getMM() {
-		return messageManager;
-	}
-
-	public DatabaseManager getDB() {
-		return databaseManager;
-	}
-
-	public FileConfiguration getConfig() {
-		return config;
-	}
-
-	public FileConfiguration getLang() {
-		return lang;
 	}
 	
 	@Override
@@ -112,5 +86,29 @@ public class P extends JavaPlugin {
 	public void onDisable() {
 		// Save loaded Lordships
 		databaseManager.saveLoadedLordships();
+	}
+
+	public Lordships getLordships() {
+		return lordships;
+	}
+
+	public LPlayers getLPlayers() {
+		return lPlayers;
+	}
+
+	public MessageManager getMM() {
+		return messageManager;
+	}
+
+	public DatabaseManager getDB() {
+		return databaseManager;
+	}
+
+	public FileConfiguration getConfig() {
+		return config;
+	}
+
+	public FileConfiguration getLang() {
+		return lang;
 	}
 }

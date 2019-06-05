@@ -45,7 +45,7 @@ public class EventPlayerListener implements Listener {
 		LPlayer lPlayer = P.p.getLPlayers().getByUUID(event.getPlayer().getUniqueId().toString());
 		LazyLocation lazyLoc = new LazyLocation(event.getBlock().getLocation());
 
-		if (!checkPlayerAction(lPlayer, lazyLoc, PlayerAction.PLACE_BLOCK)) {
+		if (!checkPlayerAction(lPlayer, lazyLoc, PlayerAction.BREAK_BLOCK)) {
 			event.setCancelled(true);
 		}
 	}
@@ -72,9 +72,8 @@ public class EventPlayerListener implements Listener {
 						if (!checkedLordship.canBreak(lPlayer)) {
 							P.p.getMM().msg(lPlayer, "notallowed");
 							return false;
-						} else {
-							return true;
 						}
+						return true;
 					} else {
 						vars.put("lordship", checkedLordship.getLord().getName());
 						P.p.getMM().msg(lPlayer, "cantdothat", vars);

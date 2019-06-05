@@ -7,15 +7,14 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordship {
+	
 	private String id;
 	private int gold;
 	private LazyLocation homeblock;
@@ -89,15 +88,6 @@ public class Lordship {
 		gold -= amount;
 	}
 
-	public LPlayer getLPlayerFromUUID(String UUID) {
-		for (LPlayer lPlayer : members.keySet()) {
-			if (lPlayer.getUUID() == UUID) {
-				return lPlayer;
-			}
-		}
-		return null;
-	}
-
 	public LPlayer getLord() {
 		for (LPlayer lPlayer : members.keySet()) {
 			if (members.get(lPlayer) == 0) {
@@ -105,15 +95,6 @@ public class Lordship {
 			}
 		}
 		check();
-		return null;
-	}
-
-	public LPlayer getLPlayerFromName(String Name) {
-		for (LPlayer lPlayer : members.keySet()) {
-			if (lPlayer.getName() == Name) {
-				return lPlayer;
-			}
-		}
 		return null;
 	}
 
@@ -158,9 +139,9 @@ public class Lordship {
 		}
 	}
 
-	public void message(String path, List<String> args) {
+	public void message(String path, Map<String, String> vars) {
 		for (LPlayer lPlayer : members.keySet()) {
-			P.p.getMM().msg(lPlayer, path);
+			P.p.getMM().msg(lPlayer, path, vars);
 		}
 	}
 
@@ -201,18 +182,6 @@ public class Lordship {
 	public boolean containsLazyLoc(LazyLocation lazyLoc) {
 		return ((int) lazyLoc.getX() <= getMaxX() && (int) lazyLoc.getX() >= getMinX()
 				&& (int) lazyLoc.getZ() <= getMaxZ() && (int) lazyLoc.getZ() >= getMinZ());
-	}
-
-	public boolean containsLazyLoc(Location loc) {
-		return containsLazyLoc(new LazyLocation(loc));
-	}
-
-	public boolean containsLazyLoc(LPlayer lPlayer) {
-		return containsLazyLoc(new LazyLocation(lPlayer.getPlayer().getLocation()));
-	}
-
-	public boolean containsLazyLoc(Player player) {
-		return containsLazyLoc(new LazyLocation(player.getLocation()));
 	}
 
 	public double distanceFromCenterTo(LazyLocation loc) {

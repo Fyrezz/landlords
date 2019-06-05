@@ -52,7 +52,11 @@ public class LPlayer {
 	}
 
 	public boolean hasLordship() {
-		return !(lordship.getID() == P.DEFAULT_ID);
+		return lordship.getID() != Lordships.DEFAULT_ID;
+	}
+	
+	public LazyLocation getLazyLocation() {
+		return new LazyLocation(getPlayer().getLocation());
 	}
 
 	public boolean hasMaterial(Material material, int amount) {
