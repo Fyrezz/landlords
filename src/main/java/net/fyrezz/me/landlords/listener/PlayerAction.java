@@ -1,4 +1,4 @@
-package net.fyrezz.me.landlords.utils;
+package net.fyrezz.me.landlords.listener;
 
 public enum PlayerAction {
 	BREAK_BLOCK,

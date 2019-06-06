@@ -113,8 +113,7 @@ public class DatabaseManager {
 
 			PrintWriter pw = new PrintWriter(new FileWriter(lordshipsDBFile.getAbsolutePath(), false));
 
-			for (String ID : loadedLordships.keySet()) {
-				Lordship lordship = loadedLordships.get(ID);
+			for (Lordship lordship : P.p.getLordships().getLordshipsList()) {
 				List<String> modules = new ArrayList<String>();
 
 				// 1 String ID

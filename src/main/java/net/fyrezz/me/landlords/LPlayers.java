@@ -24,12 +24,9 @@ public class LPlayers {
 	 * have a LPlayer.
 	 */
 	public void load() {
-		for (String ID : P.p.getLordships().getLoadedLordships().keySet()) {
-			Lordship lordship = P.p.getLordships().getByID(ID);
-			
+		for (Lordship lordship : P.p.getLordships().getLordshipsList()) {
 			for (LPlayer lPlayer : lordship.getMemberList()) {
 				loadedLPlayers.put(lPlayer.getUUID(), lPlayer);
-				
 				lPlayer.setLordship(lordship);
 			}
 		}

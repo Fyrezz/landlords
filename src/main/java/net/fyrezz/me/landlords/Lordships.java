@@ -1,11 +1,10 @@
 package net.fyrezz.me.landlords;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-
-import org.bukkit.Bukkit;
 
 import net.fyrezz.me.landlords.utils.LazyLocation;
 
@@ -43,10 +42,17 @@ public class Lordships {
 	public Lordship getByID(String ID) {
 		return loadedLordships.get(ID);
 	}
+	
+	public List<Lordship> getLordshipsList() {
+		List<Lordship> lordshipsList = new ArrayList<Lordship>();
+		for (String ID : loadedLordships.keySet()) {
+			lordshipsList.add(loadedLordships.get(ID));
+		}
+		return lordshipsList;
+	}
 
 	public Lordship getByLordName(String lordName) {
-		for (String ID : loadedLordships.keySet()) {
-			Lordship lordship = loadedLordships.get(ID);
+		for (Lordship lordship : getLordshipsList()) {
 			String lordshipLord = lordship.getLord().getName();
 			if (lordshipLord.equals(lordName)) {
 				return lordship;
@@ -61,14 +67,25 @@ public class Lordships {
 
 	public boolean lordshipsNear(LPlayer lPlayer, double distance) {
 		LazyLocation lazyLoc = new LazyLocation(lPlayer.getPlayer().getLocation());
-
-		for (String ID : loadedLordships.keySet()) {
-			Lordship checkedLordship = loadedLordships.get(ID);
-			if (checkedLordship.getID() != lPlayer.getLordship().getID()
-					&& checkedLordship.distanceFromCenterTo(lazyLoc) <= distance) {
+		for (Lordship lordship : getLordshipsList()) {
+			if (lordship.getID() != lPlayer.getLordship().getID()
+					&& lordship.distanceFromCenterTo(lazyLoc) <= distance) {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	public String getLordshipIDAt(LazyLocation lazyLoc) {
+		for (Lordship lordship : getLordshipsList()) {
+			if (lordship.containsLazyLoc(lazyLoc)) {
+				return lordship.getID();
+			}
+		}
+		return DEFAULT_ID;
+	}
+	
+	public Lordship getLordshipAt(LazyLocation lazyLoc) {
+		return loadedLordships.get(getLordshipIDAt(lazyLoc));
 	}
 }

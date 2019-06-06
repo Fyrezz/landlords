@@ -18,8 +18,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.fyrezz.me.landlords.cmds.CommandListener;
 import net.fyrezz.me.landlords.listener.EventPlayerListener;
+import net.fyrezz.me.landlords.listener.PermissionChecker;
+import net.fyrezz.me.landlords.tasks.Countdowner;
 import net.fyrezz.me.landlords.utils.MessageManager;
-import net.fyrezz.me.landlords.utils.PermissionChecker;
 
 /**
  * Plugin's main class.
@@ -34,6 +35,7 @@ public class P extends JavaPlugin {
 	private MessageManager messageManager;
 	private Lordships lordships;
 	private LPlayers lPlayers;
+	private Countdowner countdowner;
 	private FileConfiguration config;
 	private FileConfiguration lang;
 
@@ -78,6 +80,9 @@ public class P extends JavaPlugin {
 		for (String ID : lordships.getLoadedLordships().keySet()) {
 			lordships.getByID(ID).check();
 		}
+		
+		// Start Countdowner
+		countdowner = new Countdowner();
 
 		// Register commands
 		getCommand("l").setExecutor(new CommandListener());

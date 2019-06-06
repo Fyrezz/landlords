@@ -1,7 +1,6 @@
 package net.fyrezz.me.landlords.cmds;
 
 import net.fyrezz.me.landlords.P;
-import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdHome extends LordshipCommand {
 
@@ -24,9 +23,8 @@ public class CmdHome extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		commandContent.getLPlayer().getPlayer().teleport(commandContent.getLordship().getHomeblock().getLocation());
-
-		P.p.getMM().msg(commandContent.getLPlayer(), "teleportedhome");
+		vars.put("time", "30 seconds");
+		P.p.getMM().msg(commandContent.getLPlayer(), "teleportwait");
 	}
 
 }

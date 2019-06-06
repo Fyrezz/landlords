@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.LazyLocation;
-import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdSetHome extends LordshipCommand {
 	

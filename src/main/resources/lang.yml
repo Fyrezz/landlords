@@ -28,6 +28,8 @@ mustbeinownland: "&cYou must be inside your own Lordship's Land"
 invalidplayer: "&cThat player is not online or is invalid."
 invalidlordship: "&cThat Lordship doesnt exist."
 invalidargs: "&cIncorrect command usage! Type /l help for help."
+teleportwait: "&fTeleport commencing in %time%. Dont move."
+teleported: "&fYou have been successfully teleported."
 # Help message
 # %version% return server version
 # %authors% return plugin's authors
@@ -67,8 +69,6 @@ lordshipdeletedbroadcast: "&6%lordship%'s Lordship has been deleted."
 # Message sent to Lordship members when home is set
 # %x% %y% %z% return coords
 homeset: "&2Your Lordship's home has been set to &7%x%, %y%, %z%"
-# Successfully teleported to Lordship home
-teleportedhome: "&aYou have been teleported to your Lordship's home."
 # Successfully deposited gold
 # %member% returns member
 # %amount% returns deposited amount

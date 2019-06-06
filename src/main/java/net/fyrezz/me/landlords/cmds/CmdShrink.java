@@ -5,7 +5,6 @@ import java.util.Arrays;
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
-import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdShrink extends LordshipCommand {
 
@@ -56,6 +55,7 @@ public class CmdShrink extends LordshipCommand {
 			P.p.getMM().msg(lPlayer, "cantshrinkthat", vars);
 			return;
 		}
+		
 		lordship.setSide(lordship.getSide() - argAmount);
 		
 		lordship.showBoundaries(lPlayer);

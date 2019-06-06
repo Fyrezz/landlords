@@ -245,4 +245,12 @@ public class Lordship {
 			}
 		}.runTaskTimer(P.p, 0, 5L);
 	}
+	
+	/**
+	 * Depending on their Gold, teleport time is different.
+	 * @return seconds for Lordship teleport time
+	 */
+	public int getTeleportSeconds() {
+		return 
+	}
 }

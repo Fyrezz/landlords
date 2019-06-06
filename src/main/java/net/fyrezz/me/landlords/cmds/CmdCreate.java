@@ -9,7 +9,6 @@ import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.LazyLocation;
-import net.fyrezz.me.landlords.utils.RequirementState;
 
 public class CmdCreate extends LordshipCommand {
 	

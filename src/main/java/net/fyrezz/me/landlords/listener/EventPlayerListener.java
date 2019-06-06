@@ -14,10 +14,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
+import net.fyrezz.me.landlords.Lordships;
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.LazyLocation;
-import net.fyrezz.me.landlords.utils.PermissionChecker;
-import net.fyrezz.me.landlords.utils.PlayerAction;
 
 public class EventPlayerListener implements Listener {
 
@@ -36,6 +35,7 @@ public class EventPlayerListener implements Listener {
 			P.p.getLogger().log(Level.WARNING,
 					"Couldn't load LPlayer " + player.getName() + " [" + player.getUniqueId() + "]");
 		}
+
 		lPlayer.setName(player.getName());
 	}
 
@@ -44,9 +44,11 @@ public class EventPlayerListener implements Listener {
 		LPlayer lPlayer = P.p.getLPlayers().getByUUID(event.getPlayer().getUniqueId().toString());
 		LazyLocation lazyLoc = new LazyLocation(event.getBlock().getLocation());
 
-		boolean shouldCancel = checkPlayerAction(lPlayer, lazyLoc, PlayerAction.PLACE_BLOCK);
+		boolean shouldCancel = checkPlayerAction(lPlayer, lazyLoc, PlayerAction.BREAK_BLOCK);
 
-		event.setCancelled(shouldCancel);
+		if (shouldCancel) {
+			event.setCancelled(true);
+		}
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -56,7 +58,9 @@ public class EventPlayerListener implements Listener {
 
 		boolean shouldCancel = checkPlayerAction(lPlayer, lazyLoc, PlayerAction.PLACE_BLOCK);
 
-		event.setCancelled(shouldCancel);
+		if (shouldCancel) {
+			event.setCancelled(true);
+		}
 	}
 
 	/**
@@ -70,33 +74,32 @@ public class EventPlayerListener implements Listener {
 	 * @return true if action should be cancelled
 	 */
 	private boolean checkPlayerAction(LPlayer lPlayer, LazyLocation lazyLoc, PlayerAction action) {
-		for (String ID : P.p.getLordships().getLoadedLordships().keySet()) {
-			Lordship checkedLordship = P.p.getLordships().getByID(ID);
-			if (checkedLordship.containsLazyLoc(lazyLoc)) {
-				Map<String, String> vars = new HashMap<String, String>();
+		String lordshipID = P.p.getLordships().getLordshipIDAt(lazyLoc);
+		if (lordshipID != Lordships.DEFAULT_ID) {
+			Lordship lordship = P.p.getLordships().getByID(lordshipID);
+			Map<String, String> vars = new HashMap<String, String>();
 
-				/* Depending on the action, the event might be cancelled if */
-				/* the player is not allowed to perform it inside his Lordship. */
-				if (checkedLordship.getID() == lPlayer.getLordship().getID()) {
-					if (!PermissionChecker.isAllowed(lPlayer, action)) {
-						P.p.getMM().msg(lPlayer, "notallowed");
-						return true;
-					}
-
-					/* For all other actions, allow it */
-					return false;
-				}
-
-				/* All actions should be cancelled if the Lordship is protected. */
-				if (checkedLordship.isProtected()) {
-					vars.put("lordship", checkedLordship.getLord().getName());
-					P.p.getMM().msg(lPlayer, "cantdothat", vars);
+			/* Depending on the action, the event might be cancelled if */
+			/* the player is not allowed to perform it inside his Lordship. */
+			if (lordship.getID() == lPlayer.getLordship().getID()) {
+				if (!PermissionChecker.isAllowed(lPlayer, action)) {
+					P.p.getMM().msg(lPlayer, "notallowed");
 					return true;
-				} else {
-					vars.put("enemy", lPlayer.getName());
-					P.p.getMM().lordshipMsg(checkedLordship, "enemywarning", vars);
-					return false;
 				}
+
+				/* For all other actions, allow it */
+				return false;
+			}
+
+			/* All actions should be cancelled if the Lordship is protected. */
+			if (lordship.isProtected()) {
+				vars.put("lordship", lordship.getLord().getName());
+				P.p.getMM().msg(lPlayer, "cantdothat", vars);
+				return true;
+			} else {
+				vars.put("enemy", lPlayer.getName());
+				P.p.getMM().lordshipMsg(lordship, "enemywarning", vars);
+				return false;
 			}
 		}
 		return false;
