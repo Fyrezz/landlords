@@ -245,18 +245,4 @@ public class Lordship {
 			}
 		}.runTaskTimer(P.p, 0, 5L);
 	}
-
-	public boolean canBreak(LPlayer lPlayer) {
-		if (members.containsKey(lPlayer)) {
-			if (members.get(lPlayer) == (byte) 3) {
-				return false;
-			}
-			return true;
-		}
-		return false;
-	}
-
-	public boolean canPlace(LPlayer lPlayer) {
-		return canBreak(lPlayer);
-	}
 }

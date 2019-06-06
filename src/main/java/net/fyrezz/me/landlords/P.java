@@ -19,6 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import net.fyrezz.me.landlords.cmds.CommandListener;
 import net.fyrezz.me.landlords.listener.EventPlayerListener;
 import net.fyrezz.me.landlords.utils.MessageManager;
+import net.fyrezz.me.landlords.utils.PermissionChecker;
 
 /**
  * Plugin's main class.
@@ -55,6 +56,9 @@ public class P extends JavaPlugin {
 		getLogger().setLevel(Level.ALL);
 		
 		messageManager = new MessageManager();
+		
+		// Set permissions inside Lordships
+		PermissionChecker.loadPermissions();
 
 		// Load Database Manager
 		databaseManager = new DatabaseManager();

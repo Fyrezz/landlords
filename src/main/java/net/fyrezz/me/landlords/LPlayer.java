@@ -19,7 +19,7 @@ public class LPlayer {
 	public LPlayer(String UUID, String name) {
 		this.StoredUUID = UUID;
 		this.name = name;
-		this.lordship = new Lordship("DEFAULT", 0, new LazyLocation(), new HashMap<LPlayer, Byte>(), 0,
+		this.lordship = new Lordship(Lordships.DEFAULT_ID, 0, new LazyLocation(), new HashMap<LPlayer, Byte>(), 0,
 				new LazyLocation());
 	}
 
@@ -90,6 +90,10 @@ public class LPlayer {
 				}
 			}
 		}
+	}
+	
+	public Byte getRank() {
+		return lordship.getRank(this);
 	}
 
 }
