@@ -33,9 +33,9 @@ public class CmdWithdraw extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		Lordship lordship = commandContent.getLordship();
 		LPlayer lPlayer = commandContent.getLPlayer();
-		Player player = commandContent.getPlayer();
+		Lordship lordship = lPlayer.getLordship();
+		Player player = lPlayer.getPlayer();
 		
 		int argAmount;
 		int vaultAmount = lordship.getGold();

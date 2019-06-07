@@ -1,5 +1,9 @@
 package net.fyrezz.me.landlords.cmds;
 
+import org.bukkit.entity.Player;
+
+import net.fyrezz.me.landlords.LPlayer;
+import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
 
 public class CmdVault extends LordshipCommand {
@@ -23,9 +27,11 @@ public class CmdVault extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		int gold = commandContent.getLordship().getGold();
+		LPlayer lPlayer = commandContent.getLPlayer();
+		
+		int gold = lPlayer.getLordship().getGold();
 		vars.put("amount", Integer.toString(gold));
-		P.p.getMM().msg(commandContent.getLPlayer(), "vault", vars);
+		P.p.getMM().msg(lPlayer, "vault", vars);
 	}
 
 }

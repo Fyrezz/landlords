@@ -162,13 +162,13 @@ public class Lordship {
 		int cost = (side + expansion) * (side + expansion) * P.p.getConfig().getInt("blockcost");
 		return gold >= cost;
 	}
-
+	
 	public int getMaxX() {
-		return (int) centerblock.getX() + (side / 2) - 1;
+		return (int) centerblock.getX() + (side / 2) -1;
 	}
 
 	public int getMinX() {
-		return (int) centerblock.getX() - (side / 2) + 1;
+		return (int) centerblock.getX() - (side / 2);
 	}
 
 	public int getMaxZ() {
@@ -176,7 +176,7 @@ public class Lordship {
 	}
 
 	public int getMinZ() {
-		return (int) centerblock.getZ() - (side / 2) + 1;
+		return (int) centerblock.getZ() - (side / 2);
 	}
 
 	public boolean containsLazyLoc(LazyLocation lazyLoc) {
@@ -201,17 +201,17 @@ public class Lordship {
 		List<LazyLocation> boundaryLocs = new ArrayList<LazyLocation>();
 
 		boundaryLocs.add(new LazyLocation(worldString, getMinX() - 1.5, getMinZ() - 1.5));
-		boundaryLocs.add(new LazyLocation(worldString, getMinX() - 1.5, getMaxZ() + 1.5));
-		boundaryLocs.add(new LazyLocation(worldString, getMaxX() + 1.5, getMinZ() - 1.5));
-		boundaryLocs.add(new LazyLocation(worldString, getMaxX() + 1.5, getMaxZ() + 1.5));
+		boundaryLocs.add(new LazyLocation(worldString, getMinX() - 1.5, getMaxZ() + 0.5));
+		boundaryLocs.add(new LazyLocation(worldString, getMaxX() + 0.5, getMinZ() - 1.5));
+		boundaryLocs.add(new LazyLocation(worldString, getMaxX() + 0.5, getMaxZ() + 0.5));
 
 		for (int i = getMinZ(); i <= getMaxZ(); i++) {
-			boundaryLocs.add(new LazyLocation(worldString, getMaxX() + 1.5, i));
+			boundaryLocs.add(new LazyLocation(worldString, getMaxX() + 0.5, i));
 			boundaryLocs.add(new LazyLocation(worldString, getMinX() - 1.5, i));
 		}
 
 		for (int i = getMinX(); i <= getMaxX(); i++) {
-			boundaryLocs.add(new LazyLocation(worldString, i, getMaxZ() + 1.5));
+			boundaryLocs.add(new LazyLocation(worldString, i, getMaxZ() + 0.5));
 			boundaryLocs.add(new LazyLocation(worldString, i, getMinZ() - 1.5));
 		}
 		return boundaryLocs;
@@ -251,6 +251,7 @@ public class Lordship {
 	 * @return seconds for Lordship teleport time
 	 */
 	public int getTeleportSeconds() {
-		return 
+		int reduction = (int) Math.sqrt(gold);
+		return (60-reduction > 5) ? 60 - reduction : 10;
 	}
 }

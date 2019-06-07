@@ -30,9 +30,9 @@ public class CmdSetCenter extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		Lordship lordship = commandContent.getLordship();
 		LPlayer lPlayer = commandContent.getLPlayer();
-		LazyLocation lazyLoc = new LazyLocation(commandContent.getLPlayer().getPlayer().getLocation());
+		Lordship lordship = lPlayer.getLordship();
+		LazyLocation lazyLoc = lPlayer.getLazyLocation();
 		
 		if (P.p.getLordships().lordshipsNear(lPlayer, minDistanceBetweenLordships)) {
 			P.p.getMM().msg(lPlayer, "lordshipnear");
@@ -41,11 +41,13 @@ public class CmdSetCenter extends LordshipCommand {
 		
 		lordship.setCenterBlock(lazyLoc);
 		
+		lordship.setHomeblock(lazyLoc);
+		
 		lordship.showBoundaries(lPlayer);
 		
-		vars.put("x", Integer.toString((int)lazyLoc.getLocation().getX()));
-		vars.put("z", Integer.toString((int)lazyLoc.getLocation().getZ()));
-		P.p.getMM().lordshipMsg(commandContent.getLordship(), "centerset", vars);
+		vars.put("x", Integer.toString((int)lazyLoc.getX()));
+		vars.put("z", Integer.toString((int)lazyLoc.getZ()));
+		P.p.getMM().lordshipMsg(lordship, "centerset", vars);
 	}
 
 }

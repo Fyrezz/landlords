@@ -17,7 +17,7 @@ public class LPlayers {
 		return loadedLPlayers;
 	}
 
-	/*
+	/**
 	 * All Lordship members have a LPlayer, doesn't matter if they're not online.
 	 * 
 	 * All online players have a LPlayer. Offline players without Lordship might
@@ -51,6 +51,10 @@ public class LPlayers {
 	public void loadLPlayer(LPlayer lPlayer) {
 		loadedLPlayers.put(lPlayer.getUUID(), lPlayer);
 		P.p.getLogger().log(Level.FINE, "Loaded LPlayer " + lPlayer.getName() + " [" + lPlayer.getUUID() + "]");
+	}
+	
+	public void unloadLPlayer(LPlayer lPlayer) {
+		loadedLPlayers.remove(lPlayer.getUUID());
 	}
 
 	public boolean isLoaded(LPlayer lPlayer) {

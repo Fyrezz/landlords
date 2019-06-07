@@ -16,6 +16,11 @@ public class TaskTeleport extends MyTask {
 	}
 
 	@Override
+	public void init() {
+		
+	}
+
+	@Override
 	public void execute() {
 		lPlayer.getPlayer().teleport(lazyLoc.getLocation(), TeleportCause.PLUGIN);
 		P.p.getMM().msg(lPlayer, "teleported");

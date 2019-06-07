@@ -3,6 +3,8 @@ package net.fyrezz.me.landlords.cmds;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.bukkit.entity.Player;
+
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.Lordships;
@@ -30,8 +32,9 @@ public class CmdDeinvite extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		Lordship lordship = commandContent.getLordship();
 		LPlayer lPlayer = commandContent.getLPlayer();
+		Lordship lordship = lPlayer.getLordship();
+		
 		String deinvitedPlayer = commandContent.getArg(0);
 
 		if (Lordships.invites.containsKey(lordship)) {

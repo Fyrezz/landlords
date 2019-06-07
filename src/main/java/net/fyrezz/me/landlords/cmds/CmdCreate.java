@@ -27,6 +27,7 @@ public class CmdCreate extends LordshipCommand {
 	public void setRequirements() {
 		requirements.isPlayer = RequirementState.REQUIRED;
 		requirements.hasLordship = RequirementState.EXCLUDED;
+		requirements.playerCost = 64;
 	}
 
 	@Override
@@ -38,13 +39,7 @@ public class CmdCreate extends LordshipCommand {
 	public void perform(CommandContent commandContent) {
 		LPlayer lPlayer = commandContent.getLPlayer();
 		
-		if (!lPlayer.hasMaterial(Material.GOLD_INGOT, 64)) {
-			vars.put("amount", Integer.toString(64));
-			P.p.getMM().msg(lPlayer, "notenoughgoldtocreate", vars);
-			return;
-		}
-		
-		LazyLocation lazyLoc = new LazyLocation(commandContent.getPlayer().getLocation());
+		LazyLocation lazyLoc = lPlayer.getLazyLocation();
 		
 		if (P.p.getLordships().lordshipsNear(lPlayer, minDistanceBetweenLordships)) {
 			P.p.getMM().msg(lPlayer, "lordshipnear");

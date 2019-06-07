@@ -33,8 +33,8 @@ public class CmdInvite extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		Lordship lordship = commandContent.getLordship();
 		LPlayer lPlayer = commandContent.getLPlayer();
+		Lordship lordship = lPlayer.getLordship();
 		String playerString = commandContent.getArg(0);
 		Player invitedPlayer;
 

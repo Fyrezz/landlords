@@ -2,6 +2,8 @@ package net.fyrezz.me.landlords.cmds;
 
 import java.util.Arrays;
 
+import org.bukkit.entity.Player;
+
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
@@ -28,8 +30,8 @@ public class CmdShrink extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		Lordship lordship = commandContent.getLordship();
 		LPlayer lPlayer = commandContent.getLPlayer();
+		Lordship lordship = lPlayer.getLordship();
 		
 		int argAmount;
 		

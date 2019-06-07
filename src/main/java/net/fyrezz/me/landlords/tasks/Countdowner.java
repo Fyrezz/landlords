@@ -29,6 +29,7 @@ public class Countdowner {
 						removeTask(task);
 						task.execute();
 					}
+					programmedTasks.put(task, programmedTasks.get(task) - 1L);
 				}
 			}
 		}.runTaskTimer(P.p, 0, 1L);

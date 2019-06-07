@@ -120,4 +120,8 @@ public class P extends JavaPlugin {
 	public FileConfiguration getLang() {
 		return lang;
 	}
+	
+	public Countdowner getCountdowner() {
+		return countdowner;
+	}
 }

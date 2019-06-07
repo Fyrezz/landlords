@@ -18,7 +18,7 @@ public class MessageManager {
 			base = base.replace("%"+var+"%", vars.get(var));
 		}
 		lPlayer.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
-				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', base));
+				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', base));
 	}
 
 	public void msg(CommandSender sender, String path, Map<String, String> vars) {
@@ -27,13 +27,13 @@ public class MessageManager {
 			base.replace("%"+var+"%", vars.get(var));
 		}
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
-				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', base));
+				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', base));
 	}
 
 	public void msg(LPlayer lPlayer, String path) {
 		String base = P.p.getLang().getString(path);
 		lPlayer.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
-				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', base));
+				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', base));
 	}
 	
 	public void msg(Player player, String path, Map<String, String> vars) {
@@ -42,13 +42,13 @@ public class MessageManager {
 			base = base.replace("%"+var+"%", vars.get(var));
 		}
 		player.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
-				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', base));
+				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', base));
 	}
 
 	public void msg(CommandSender sender, String path) {
 		String base = P.p.getLang().getString(path);
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
-				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', base));
+				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', base));
 	}
 	
 	public void lordshipMsg(Lordship lordship, String path, Map<String, String> vars) {
@@ -65,12 +65,12 @@ public class MessageManager {
 	
 	public void undefinedMsg(LPlayer lPlayer, String message) {
 		lPlayer.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
-				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', message));
+				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', message));
 	}
 
 	public void undefinedMsg(CommandSender sender, String message) {
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
-				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', message));
+				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', message));
 	}
 
 	public void broadcast(String path, Map<String, String> vars) {
@@ -82,21 +82,21 @@ public class MessageManager {
 		
 		for (Player player : P.p.getServer().getOnlinePlayers()) {
 			player.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
-				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', base));
+				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', base));
 		}
 	}
 	
 	public void broadcast(String path) {
 		for (Player player : P.p.getServer().getOnlinePlayers()) {
 			player.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
-				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString(path)));
+				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString(path)));
 		}
 	}
 
 	public void broadcastUndefined(String message) {
 		for (Player player : P.p.getServer().getOnlinePlayers()) {
 			player.sendMessage(ChatColor.translateAlternateColorCodes('&', P.p.getLang().getString("prefix"))
-				+ ChatColor.RESET + " " + ChatColor.translateAlternateColorCodes('&', message));
+				+ ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', message));
 		}
 	}
 

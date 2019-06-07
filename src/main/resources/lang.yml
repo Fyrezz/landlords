@@ -28,8 +28,9 @@ mustbeinownland: "&cYou must be inside your own Lordship's Land"
 invalidplayer: "&cThat player is not online or is invalid."
 invalidlordship: "&cThat Lordship doesnt exist."
 invalidargs: "&cIncorrect command usage! Type /l help for help."
-teleportwait: "&fTeleport commencing in %time%. Dont move."
+teleportwait: "&fTeleport commencing in %time% seconds. Dont move."
 teleported: "&fYou have been successfully teleported."
+notenoughgold: "&cYou need %amount% Gold to perform this command."
 # Help message
 # %version% return server version
 # %authors% return plugin's authors
@@ -51,10 +52,9 @@ notinalordship: "&cYou're not in a Lordship!"
 #           2 -> 3rd highest
 #           3 -> 4th highest
 notenoughrank: "&cYour rank isn't high enough to perform this command."
-# Not enough gold in inventory to deposit
-notenoughgold: "&cThere is not enough Gold in your inventory."
 # Not enough gold in Lordship's Vault to withdraw
 notenoughgoldvault: "&cThere is not enough Gold your Lordship's Vault."
+notenoughgolddeposit: "&cYou dont have that amount of Gold in your inventory!"
 # Message sent to new Lord
 lordshipcreated: "&aYou have just created your Lordship!\n&a64 Gold has been saved to your Lordship's Vault. This will keep\n&ayour initial 8x8 land secure."
 # Broadcast message after new Lordship creation
@@ -96,7 +96,6 @@ cantexpandmore: "&cYour Lordship's protected land is already at the maximum."
 cantexpandthat: "&cYou can only expand %maxexpand% more blocks until reaching maximum protection area"
 notenoughgoldtoexpand: "&cThere is not enough Gold in your Lordship's Vault to expand your land that amount and keep it secure. Although expanding your land doesn't cost Gold, you must have the minimum amount to have it secured before expanding."
 landexpanded: "&aYour Lordship's land has expanded %expandamount% block(s) on each direction.\n&aYour Lordship has now a %newside%x%newside% area which costs %newamount% Gold to keep secure."
-notenoughgoldtocreate: "&cYou need %amount% gold to create your Lordship."
 lordshipnear: "&cThere are Lordships near your location. Lordships must be separated by at least 512 blocks to allow full expansion."
 playerinvited: "&aYou have invited %player% to your Lordship."
 invitedto: "&aYou have been invited to %lordship%'s Lordship."

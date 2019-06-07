@@ -2,6 +2,10 @@ package net.fyrezz.me.landlords.cmds;
 
 import java.util.Arrays;
 
+import org.bukkit.entity.Player;
+
+import net.fyrezz.me.landlords.LPlayer;
+import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
 import net.fyrezz.me.landlords.utils.LazyLocation;
 
@@ -32,13 +36,16 @@ public class CmdSetHome extends LordshipCommand {
 
 	@Override
 	public void perform(CommandContent commandContent) {
-		LazyLocation loc = new LazyLocation(commandContent.getPlayer().getLocation());
-		commandContent.getLordship().setHomeblock(loc);
+		LPlayer lPlayer = commandContent.getLPlayer();
+		Lordship lordship = lPlayer.getLordship();
+		LazyLocation lazyLoc = lPlayer.getLazyLocation();
 		
-		vars.put("x", Integer.toString((int)loc.getLocation().getX()));
-		vars.put("y", Integer.toString((int)loc.getLocation().getY()));
-		vars.put("z", Integer.toString((int)loc.getLocation().getZ()));
-		P.p.getMM().lordshipMsg(commandContent.getLordship(), "homeset", vars);
+		lordship.setHomeblock(lazyLoc);
+		
+		vars.put("x", Integer.toString((int)lazyLoc.getX()));
+		vars.put("y", Integer.toString((int)lazyLoc.getY()));
+		vars.put("z", Integer.toString((int)lazyLoc.getZ()));
+		P.p.getMM().lordshipMsg(lordship, "homeset", vars);
 	}
 
 }
