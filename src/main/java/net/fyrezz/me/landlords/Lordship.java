@@ -14,7 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import net.fyrezz.me.landlords.utils.LazyLocation;
 
 public class Lordship {
-	
+
 	private String id;
 	private int gold;
 	private LazyLocation homeblock;
@@ -162,31 +162,31 @@ public class Lordship {
 		int cost = (side + expansion) * (side + expansion) * P.p.getConfig().getInt("blockcost");
 		return gold >= cost;
 	}
-	
+
 	public int getMaxX() {
-		return (int) centerblock.getX() + (side / 2) -1;
+		return centerblock.getBlockX() + ((side - 1) / 2);
 	}
 
 	public int getMinX() {
-		return (int) centerblock.getX() - (side / 2);
+		return centerblock.getBlockX() - ((side - 1) / 2);
 	}
 
 	public int getMaxZ() {
-		return (int) centerblock.getZ() + (side / 2) - 1;
+		return centerblock.getBlockZ() + ((side - 1) / 2);
 	}
 
 	public int getMinZ() {
-		return (int) centerblock.getZ() - (side / 2);
+		return centerblock.getBlockZ() - ((side - 1) / 2);
 	}
 
 	public boolean containsLazyLoc(LazyLocation lazyLoc) {
-		return ((int) lazyLoc.getX() <= getMaxX() && (int) lazyLoc.getX() >= getMinX()
-				&& (int) lazyLoc.getZ() <= getMaxZ() && (int) lazyLoc.getZ() >= getMinZ());
+		return (lazyLoc.getBlockX() <= getMaxX() && lazyLoc.getBlockX() >= getMinX()
+				&& lazyLoc.getBlockZ() <= getMaxZ() && lazyLoc.getBlockZ() >= getMinZ());
 	}
 
-	public double distanceFromCenterTo(LazyLocation loc) {
-		double dx = loc.getX() - this.getCenterBlock().getX();
-		double dz = loc.getZ() - this.getCenterBlock().getZ();
+	public double distanceFromCenterTo(LazyLocation lazyLoc) {
+		double dx = lazyLoc.getX() - this.getCenterBlock().getX();
+		double dz = lazyLoc.getZ() - this.getCenterBlock().getZ();
 		return Math.sqrt(dx * dx + dz * dz);
 	}
 
@@ -198,21 +198,22 @@ public class Lordship {
 	 */
 	public List<LazyLocation> getBoundaries() {
 		final String worldString = this.getCenterBlock().getWorldName();
+
 		List<LazyLocation> boundaryLocs = new ArrayList<LazyLocation>();
 
-		boundaryLocs.add(new LazyLocation(worldString, getMinX() - 1.5, getMinZ() - 1.5));
-		boundaryLocs.add(new LazyLocation(worldString, getMinX() - 1.5, getMaxZ() + 0.5));
-		boundaryLocs.add(new LazyLocation(worldString, getMaxX() + 0.5, getMinZ() - 1.5));
-		boundaryLocs.add(new LazyLocation(worldString, getMaxX() + 0.5, getMaxZ() + 0.5));
+		boundaryLocs.add(new LazyLocation(worldString, getMinX(), getMinZ()));
+		boundaryLocs.add(new LazyLocation(worldString, getMinX(), getMaxZ() + 1));
+		boundaryLocs.add(new LazyLocation(worldString, getMaxX() + 1, getMinZ()));
+		boundaryLocs.add(new LazyLocation(worldString, getMaxX() + 1, getMaxZ() + 1));
 
 		for (int i = getMinZ(); i <= getMaxZ(); i++) {
-			boundaryLocs.add(new LazyLocation(worldString, getMaxX() + 0.5, i));
-			boundaryLocs.add(new LazyLocation(worldString, getMinX() - 1.5, i));
+			boundaryLocs.add(new LazyLocation(worldString, getMaxX() + 1, i));
+			boundaryLocs.add(new LazyLocation(worldString, getMinX(), i));
 		}
 
 		for (int i = getMinX(); i <= getMaxX(); i++) {
-			boundaryLocs.add(new LazyLocation(worldString, i, getMaxZ() + 0.5));
-			boundaryLocs.add(new LazyLocation(worldString, i, getMinZ() - 1.5));
+			boundaryLocs.add(new LazyLocation(worldString, i, getMaxZ() + 1));
+			boundaryLocs.add(new LazyLocation(worldString, i, getMinZ()));
 		}
 		return boundaryLocs;
 	}
@@ -229,7 +230,7 @@ public class Lordship {
 		final List<LazyLocation> limits = getBoundaries();
 
 		new BukkitRunnable() {
-			int i = 11;
+			int i = 15;
 
 			public void run() {
 				if (i <= 1) {
@@ -245,13 +246,14 @@ public class Lordship {
 			}
 		}.runTaskTimer(P.p, 0, 5L);
 	}
-	
+
 	/**
 	 * Depending on their Gold, teleport time is different.
+	 * 
 	 * @return seconds for Lordship teleport time
 	 */
 	public int getTeleportSeconds() {
 		int reduction = (int) Math.sqrt(gold);
-		return (60-reduction > 5) ? 60 - reduction : 10;
+		return (60 - reduction > 5) ? 60 - reduction : 10;
 	}
 }

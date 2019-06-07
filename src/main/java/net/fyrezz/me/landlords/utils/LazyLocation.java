@@ -60,6 +60,18 @@ public class LazyLocation {
 		return x;
 	}
 	
+	public int getBlockX() {
+		return floor(x);
+	}
+	
+	public int getBlockY() {
+		return floor(x);
+	}
+
+	public int getBlockZ() {
+		return floor(x);
+	}
+	
 	public double getY() {
 		return y;
 	}
@@ -85,9 +97,10 @@ public class LazyLocation {
 		return location;
 	}
 	
-	/*
-	 * Setting the location. Location is accessed way after LazyLoc is created.
-	 */
+    private int floor(double num) {
+        final int floor = (int) num;
+        return floor == num ? floor : floor - (int) (Double.doubleToRawLongBits(num) >>> 63);
+    }
 	
 	private void initLocation() {
 		if (location != null) {

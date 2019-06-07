@@ -27,7 +27,7 @@ public class CmdCreate extends LordshipCommand {
 	public void setRequirements() {
 		requirements.isPlayer = RequirementState.REQUIRED;
 		requirements.hasLordship = RequirementState.EXCLUDED;
-		requirements.playerCost = 64;
+		requirements.playerCost = 11;
 	}
 
 	@Override
@@ -46,17 +46,17 @@ public class CmdCreate extends LordshipCommand {
 			return;
 		}
 		
-		lPlayer.removeMaterial(Material.GOLD_INGOT, 64);
+		lPlayer.removeMaterial(Material.GOLD_INGOT, 121);
 
 		Map<LPlayer, Byte> newMembers = new HashMap<LPlayer, Byte>();
 		newMembers.put(lPlayer, (byte) 0);
-		Lordship lordship = new Lordship(commandContent.getLPlayer().getUUID(), 0, lazyLoc, newMembers, 8, lazyLoc);
+		Lordship lordship = new Lordship(commandContent.getLPlayer().getUUID(), 0, lazyLoc, newMembers, 11, lazyLoc);
 
 		P.p.getLordships().loadLordship(lordship);
 		lPlayer.setLordship(lordship);
 		lordship.showBoundaries(lPlayer);
 		
-		lordship.addGold(64);
+		lordship.addGold(121);
 
 		P.p.getMM().msg(lPlayer, "lordshipcreated");
 		vars.put("lordship", lPlayer.getName().toString());

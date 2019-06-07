@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
@@ -43,6 +45,8 @@ public class EventPlayerListener implements Listener {
 	public void onBlockBreak(BlockBreakEvent event) {
 		LPlayer lPlayer = P.p.getLPlayers().getByUUID(event.getPlayer().getUniqueId().toString());
 		LazyLocation lazyLoc = new LazyLocation(event.getBlock().getLocation());
+		
+		Bukkit.broadcastMessage("" + event.getBlock().getX());
 
 		boolean shouldCancel = checkPlayerAction(lPlayer, lazyLoc, PlayerAction.BREAK_BLOCK);
 
@@ -61,6 +65,14 @@ public class EventPlayerListener implements Listener {
 		if (shouldCancel) {
 			event.setCancelled(true);
 		}
+	}
+	
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onPlayerMove(PlayerMoveEvent event) {
+		if (event.getFrom() == event.getTo()) {
+			return;
+		}
+		
 	}
 
 	/**

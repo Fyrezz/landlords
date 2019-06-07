@@ -47,13 +47,13 @@ public class CmdShrink extends LordshipCommand {
 			return;
 		}
 		
-		if (lordship.getSide() <= 8) {
+		if (lordship.getSide() <= 11) {
 			P.p.getMM().msg(lPlayer, "cantshrinkmore");
 			return;
 		}
 		
-		if ((lordship.getSide() - argAmount) < 8) {
-			vars.put("maxshrink", Integer.toString((lordship.getSide() - 8) / 2));
+		if ((lordship.getSide() - argAmount) < 11) {
+			vars.put("maxshrink", Integer.toString((lordship.getSide() - 11) / 2));
 			P.p.getMM().msg(lPlayer, "cantshrinkthat", vars);
 			return;
 		}

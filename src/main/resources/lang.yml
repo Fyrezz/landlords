@@ -56,7 +56,7 @@ notenoughrank: "&cYour rank isn't high enough to perform this command."
 notenoughgoldvault: "&cThere is not enough Gold your Lordship's Vault."
 notenoughgolddeposit: "&cYou dont have that amount of Gold in your inventory!"
 # Message sent to new Lord
-lordshipcreated: "&aYou have just created your Lordship!\n&a64 Gold has been saved to your Lordship's Vault. This will keep\n&ayour initial 8x8 land secure."
+lordshipcreated: "&aYou have just created your Lordship!\n&a121 Gold has been saved to your Lordship's Vault. This will keep\n&ayour initial 11x11 land secure."
 # Broadcast message after new Lordship creation
 # %lordship% returns Lord's name (which is always the Lordship's name)
 lordshipcreatedbroadcast: "&6%lordship% has created his Lordship."
