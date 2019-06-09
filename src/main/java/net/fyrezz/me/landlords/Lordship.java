@@ -256,4 +256,28 @@ public class Lordship {
 		int reduction = (int) Math.sqrt(gold);
 		return (60 - reduction > 5) ? 60 - reduction : 10;
 	}
+	
+	/**
+	 * Negative block coords are different from player coords. These
+	 * methods return player-friendly coords. Only for visual use.
+	 */
+	public int getFixedMaxX() {
+		int x = getMaxX();
+		return x < 0 ? x + 1 : x;
+	}
+	
+	public int getFixedMinX() {
+		int x = getMinX();
+		return x < 0 ? x + 1 : x;
+	}
+	
+	public int getFixedMaxZ() {
+		int z = getMaxZ();
+		return z < 0 ? z + 1 : z;
+	}
+	
+	public int getFixedMinZ() {
+		int z = getMinZ();
+		return z < 0 ? z + 1 : z;
+	}
 }

@@ -145,8 +145,8 @@ public class DatabaseManager {
 
 				// 6 LazyLocation centerblock
 				List<String> centerArray = new ArrayList<String>();
-				centerArray.add(String.valueOf((int) lordship.getCenterBlock().getLocation().getX()));
-				centerArray.add(String.valueOf((int) lordship.getCenterBlock().getLocation().getZ()));
+				centerArray.add(String.valueOf((int) lordship.getCenterBlock().getBlockX()));
+				centerArray.add(String.valueOf((int) lordship.getCenterBlock().getBlockZ()));
 				modules.add(new String().join(itemSeparator, centerArray).replace("[", "").replace("]", ""));
 
 				// Save all the info in a new line

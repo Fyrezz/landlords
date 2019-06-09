@@ -35,10 +35,10 @@ public class CmdShowLimits extends LordshipCommand {
 
 		lordship.showBoundaries(lPlayer);
 
-		final String upleft = "&7(X " + lordship.getMaxX() + ", Z " + lordship.getMinZ() + ")";
-		final String upright = "&7(X " + lordship.getMaxX() + ", Z " + lordship.getMaxZ() + ")";
-		final String downleft = "&7(X " + lordship.getMinX() + ", Z " + lordship.getMinZ() + ")";
-		final String downright = "&7(X " + lordship.getMinX() + ", Z " + lordship.getMaxZ() + ")";
+		final String upleft = "&7(X " + lordship.getFixedMaxX() + ", Z " + lordship.getFixedMinZ() + ")";
+		final String upright = "&7(X " + lordship.getFixedMaxX() + ", Z " + lordship.getFixedMaxZ() + ")";
+		final String downleft = "&7(X " + lordship.getFixedMinX() + ", Z " + lordship.getFixedMinZ() + ")";
+		final String downright = "&7(X " + lordship.getFixedMinX() + ", Z " + lordship.getFixedMaxZ() + ")";
 
 		P.p.getMM().undefinedMsg(lPlayer, "");
 		P.p.getMM().undefinedMsg(lPlayer, upleft + "                         " + upright);

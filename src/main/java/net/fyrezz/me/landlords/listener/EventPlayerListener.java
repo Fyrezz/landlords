@@ -45,8 +45,6 @@ public class EventPlayerListener implements Listener {
 	public void onBlockBreak(BlockBreakEvent event) {
 		LPlayer lPlayer = P.p.getLPlayers().getByUUID(event.getPlayer().getUniqueId().toString());
 		LazyLocation lazyLoc = new LazyLocation(event.getBlock().getLocation());
-		
-		Bukkit.broadcastMessage("" + event.getBlock().getX());
 
 		boolean shouldCancel = checkPlayerAction(lPlayer, lazyLoc, PlayerAction.BREAK_BLOCK);
 

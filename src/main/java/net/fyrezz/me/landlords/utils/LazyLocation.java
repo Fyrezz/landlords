@@ -65,11 +65,11 @@ public class LazyLocation {
 	}
 	
 	public int getBlockY() {
-		return floor(x);
+		return floor(y);
 	}
 
 	public int getBlockZ() {
-		return floor(x);
+		return floor(z);
 	}
 	
 	public double getY() {
