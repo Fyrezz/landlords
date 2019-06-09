@@ -57,6 +57,7 @@ public class CmdInvite extends LordshipCommand {
 			Lordships.invites.get(lordship).remove(playerString);
 			Lordships.invites.get(lordship).add(playerString);
 		}
+		
 		vars.put("player", playerString);
 		P.p.getMM().msg(lPlayer, "playerinvited", vars);
 
