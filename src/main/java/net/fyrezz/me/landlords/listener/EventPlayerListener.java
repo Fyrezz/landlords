@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -64,13 +63,13 @@ public class EventPlayerListener implements Listener {
 			event.setCancelled(true);
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerMove(PlayerMoveEvent event) {
 		if (event.getFrom() == event.getTo()) {
 			return;
 		}
-		
+
 	}
 
 	/**
