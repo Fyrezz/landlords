@@ -23,11 +23,11 @@ public class CommandRequirements {
 	public List<Byte> allowedRanks = new ArrayList<Byte>(Arrays.asList((byte) 0, (byte) 1, (byte) 2, (byte) 3));
 
 	public boolean check(CommandContent commandContent) {
-		if (commandContent.getArgs().size() - 1 < minArgs) {
+		if (commandContent.getArgs().size() < minArgs) {
 			P.p.getMM().msg(commandContent.getSender(), "invalidargs");
 			return false;
 		}
-		
+
 		if (commandContent.isPlayer()) {
 			LPlayer lPlayer = commandContent.getLPlayer();
 
@@ -35,17 +35,10 @@ public class CommandRequirements {
 				P.p.getMM().msg(lPlayer, "consolecommandonly");
 				return false;
 			}
-			
-			if (playerCost > 0 && !lPlayer.hasMaterial(Material.GOLD_INGOT, playerCost)) {
-				Map<String, String> vars = new HashMap<String, String>();
-				vars.put("amount", Integer.toString(playerCost));
-				P.p.getMM().msg(lPlayer, "notenoughgold", vars);
-				return false;
-			}
 
 			if (lPlayer.hasLordship()) {
 				Lordship lordship = lPlayer.getLordship();
-				
+
 				if (hasLordship == RequirementState.EXCLUDED) {
 					P.p.getMM().msg(lPlayer, "alreadyinalordship");
 					return false;
@@ -56,18 +49,17 @@ public class CommandRequirements {
 					return false;
 				}
 
-				if (isInOwnLand == RequirementState.EXCLUDED
-						&& lordship.containsLazyLoc(lPlayer.getLazyLocation())) {
+				if (isInOwnLand == RequirementState.EXCLUDED && lordship.containsLazyLoc(lPlayer.getLazyLocation())) {
 					P.p.getMM().msg(lPlayer, "cantbeinownland");
 					return false;
 
 				}
-				
+
 				if (isInOwnLand == RequirementState.REQUIRED && !lordship.containsLazyLoc(lPlayer.getLazyLocation())) {
 					P.p.getMM().msg(lPlayer, "mustbeinownland");
 					return false;
 				}
-				
+
 				if (lordshipCost > 0 && lordshipCost < lordship.getGold()) {
 					P.p.getMM().msg(lPlayer, "notenoughgoldvault");
 					return false;
@@ -75,6 +67,13 @@ public class CommandRequirements {
 
 			} else if (hasLordship == RequirementState.REQUIRED) {
 				P.p.getMM().msg(lPlayer, "notinalordship");
+				return false;
+			}
+
+			if (playerCost > 0 && !lPlayer.hasMaterial(Material.GOLD_INGOT, playerCost)) {
+				Map<String, String> vars = new HashMap<String, String>();
+				vars.put("amount", Integer.toString(playerCost));
+				P.p.getMM().msg(lPlayer, "notenoughgold", vars);
 				return false;
 			}
 

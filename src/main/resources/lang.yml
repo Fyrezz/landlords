@@ -89,7 +89,7 @@ notallowed: "&cYour Lordship doesn't allow you to do that."
 # %enemy% returns the player doing it
 enemywarning: "&c%enemy% is griefing your Lordship because you don't have enough Gold to secure it"
 centerset: "&aYour Lordship's center has been set to X %x% Z %z%.\nAll land protection is now set around this center."
-cantshrinkmore: "&cYour Lordship's protected land is already at the minimum (8x8)"
+cantshrinkmore: "&cYour Lordship's protected land is already at the minimum (11x11)"
 cantshrinkthat: "&cYou can only shrink %maxshrink% more blocks until reaching minimum protection area"
 landshrunk: "&aYour Lordship's land has shrunk %shrunkamount% block(s) on each direction.\n&aYour Lordship has now a %newside%x%newside% area which costs %newamount% Gold to keep secure."
 cantexpandmore: "&cYour Lordship's protected land is already at the maximum."

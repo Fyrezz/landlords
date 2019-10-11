@@ -2,8 +2,6 @@ package net.fyrezz.me.landlords.cmds;
 
 import java.util.Arrays;
 
-import org.bukkit.entity.Player;
-
 import net.fyrezz.me.landlords.LPlayer;
 import net.fyrezz.me.landlords.Lordship;
 import net.fyrezz.me.landlords.P;
@@ -32,9 +30,9 @@ public class CmdShrink extends LordshipCommand {
 	public void perform(CommandContent commandContent) {
 		LPlayer lPlayer = commandContent.getLPlayer();
 		Lordship lordship = lPlayer.getLordship();
-		
+
 		int argAmount;
-		
+
 		try {
 			argAmount = Integer.parseInt(commandContent.getArg(0)) * 2;
 		} catch (Exception exception) {
@@ -46,22 +44,22 @@ public class CmdShrink extends LordshipCommand {
 			P.p.getMM().msg(lPlayer, "invalidamount");
 			return;
 		}
-		
+
 		if (lordship.getSide() <= 11) {
 			P.p.getMM().msg(lPlayer, "cantshrinkmore");
 			return;
 		}
-		
+
 		if ((lordship.getSide() - argAmount) < 11) {
 			vars.put("maxshrink", Integer.toString((lordship.getSide() - 11) / 2));
 			P.p.getMM().msg(lPlayer, "cantshrinkthat", vars);
 			return;
 		}
-		
+
 		lordship.setSide(lordship.getSide() - argAmount);
-		
+
 		lordship.showBoundaries(lPlayer);
-		
+
 		vars.put("shrunkamount", Integer.toString(argAmount / 2));
 		vars.put("newside", Integer.toString(lordship.getSide()));
 		vars.put("newamount", Integer.toString(lordship.getArea()));

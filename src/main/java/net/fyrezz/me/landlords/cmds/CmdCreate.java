@@ -27,7 +27,7 @@ public class CmdCreate extends LordshipCommand {
 	public void setRequirements() {
 		requirements.isPlayer = RequirementState.REQUIRED;
 		requirements.hasLordship = RequirementState.EXCLUDED;
-		requirements.playerCost = 11;
+		requirements.playerCost = 121;
 	}
 
 	@Override
